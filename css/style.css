@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO.PREMIUM — MODERN TECH-LUXURY DESIGN SYSTEM & 3D 360° INTERACTIVE ENGINE
+   DESCO.PREMIUM — MODERN TECH-LUXURY DESIGN SYSTEM & ROG-STYLE COLOR SHOWCASE
    Typography: 'Outfit' (Headlines) & 'Plus Jakarta Sans' (Body)
    Palette: Creamy Soft White (#FBFBFA), Obsidian (#1A1A1A), Champagne Gold (#C59B27)
    ═══════════════════════════════════════════════════════════════════════════════ */
@@ -432,7 +432,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   2. HERO SECTION (PROMINENT DESCO.PREMIUM BRAND)
+   2. HERO SECTION (CLEAN LUXURY APPLE/ROG STYLE STUDIO CARD)
    ═══════════════════════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
@@ -445,31 +445,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
               radial-gradient(circle at 10% 90%, rgba(197, 155, 39, 0.08) 0%, rgba(251, 251, 250, 0) 50%),
               var(--cream-bg);
   overflow: hidden;
-}
-
-.hero-ambient-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
-  max-width: 100vw;
-}
-
-.glow-1 {
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(circle, rgba(197, 155, 39, 0.14), transparent 70%);
-  top: 10%;
-  right: 5%;
-}
-
-.glow-2 {
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
-  bottom: 10%;
-  left: 5%;
 }
 
 .hero-container {
@@ -604,56 +579,47 @@ h1, h2, h3, h4, .brand-name, .section-title {
   font-weight: 600;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   3D 360° INTERACTIVE STAGE
-   ═══════════════════════════════════════════════════════════════════════════════ */
+/* Studio Hero Card (Clean & Clutter-Free) */
 .hero-visual-wrapper {
   position: relative;
   width: 100%;
   max-width: 100%;
-  perspective: 1200px;
 }
 
-.hero-3d-stage-card {
+.hero-studio-card {
   position: relative;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.98) 0%, rgba(245,244,238,0.85) 100%);
+  background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
   border-radius: var(--radius-xl);
-  padding: 22px 18px 24px;
+  padding: 24px 20px 28px;
   border: 1.5px solid rgba(197, 155, 39, 0.28);
-  box-shadow: 0 25px 60px rgba(26, 26, 26, 0.1), 0 0 40px rgba(197, 155, 39, 0.1);
-  backdrop-filter: blur(14px);
-  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(26, 26, 26, 0.08), 0 0 35px rgba(197, 155, 39, 0.08);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-  cursor: grab;
+  overflow: hidden;
 }
 
-.hero-3d-stage-card:active { cursor: grabbing; }
-
-.stage-glow-aura {
+.hero-ambient-pedestal-glow {
   position: absolute;
-  top: 50%;
+  bottom: 18%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 280px;
-  height: 280px;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(197, 155, 39, 0.2) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(197, 155, 39, 0.25) 0%, transparent 70%);
   filter: blur(35px);
   pointer-events: none;
+  transition: background 0.4s ease;
 }
 
 .hero-model-switcher-wrap {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   z-index: 10;
 }
 
@@ -661,8 +627,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: #FFFFFF;
   padding: 4px;
   border-radius: 100px;
   border: 1px solid var(--border-subtle);
@@ -697,106 +662,48 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 .h-switch-btn.active i { color: var(--gold-light); }
 
-.hero-3d-podium {
+.hero-studio-podium {
   position: relative;
   width: 100%;
-  height: 280px;
+  height: 270px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 5;
-  transform-style: preserve-3d;
 }
 
-.holo-ring {
-  position: absolute;
-  bottom: 8px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(197, 155, 39, 0.4);
-  transform: rotateX(70deg);
-  pointer-events: none;
-}
-
-.holo-ring-1 {
-  width: 220px;
-  height: 220px;
-  animation: rotateRing 14s linear infinite;
-  box-shadow: 0 0 20px rgba(197, 155, 39, 0.25);
-}
-
-.holo-ring-2 {
-  width: 170px;
-  height: 170px;
-  border-color: rgba(56, 189, 248, 0.35);
-  animation: rotateRingRev 10s linear infinite;
-}
-
-@keyframes rotateRing {
-  0% { transform: rotateX(70deg) rotate(0deg); }
-  100% { transform: rotateX(70deg) rotate(360deg); }
-}
-
-@keyframes rotateRingRev {
-  0% { transform: rotateX(70deg) rotate(360deg); }
-  100% { transform: rotateX(70deg) rotate(0deg); }
-}
-
-.podium-3d-shadow {
-  position: absolute;
-  bottom: 2px;
-  width: 60%;
-  height: 24px;
-  background: radial-gradient(ellipse at center, rgba(197, 155, 39, 0.4) 0%, rgba(26, 26, 26, 0.12) 50%, transparent 80%);
-  border-radius: 50%;
-  filter: blur(8px);
-  transform: rotateX(60deg);
-}
-
-.product-3d-wrapper {
+.studio-product-levitate {
   position: relative;
   width: 250px;
   height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out;
+  animation: studioLevitate 4.5s ease-in-out infinite;
 }
 
-.hero-3d-product-pic {
+@keyframes studioLevitate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-studio-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.14));
   mix-blend-mode: multiply;
-  transition: opacity 0.3s ease;
-  transform-style: preserve-3d;
+  transition: opacity 0.28s ease, transform 0.28s ease;
 }
 
-.product-3d-glare {
+.studio-ambient-shadow {
   position: absolute;
-  inset: 0;
+  bottom: 8px;
+  width: 65%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(26, 26, 26, 0.25) 0%, transparent 75%);
   border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.touch-3d-hint {
-  position: absolute;
-  bottom: -4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--gold-dark);
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--border-gold);
-  padding: 3px 10px;
-  border-radius: 100px;
-  box-shadow: var(--shadow-sm);
-  user-select: none;
-  pointer-events: none;
+  filter: blur(6px);
 }
 
 .hero-live-badge {
@@ -805,7 +712,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.94);
+  background: #FFFFFF;
   border: 1.5px solid var(--border-gold);
   padding: 6px 16px;
   border-radius: 100px;
@@ -817,14 +724,14 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   3. INTERACTIVE SHOWCASE, COLOR SWATCHES & SIMULATOR
+   3. ROG-STYLE INTERACTIVE COLOR CAROUSEL & SIMULATOR
    ═══════════════════════════════════════════════════════════════════════════════ */
 .interactive-demo-section {
   padding: 85px 0;
   background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
 }
 
-.demo-simulator-wrapper {
+.rog-showcase-wrapper {
   background: #FFFFFF;
   border-radius: var(--radius-xl);
   border: 1.5px solid rgba(197, 155, 39, 0.35);
@@ -833,7 +740,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
   width: 100%;
 }
 
-/* Large Model Selector Tabs */
 .showcase-model-tabs-bar {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -856,7 +762,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 .showcase-tab-btn:last-child { border-right: none; }
-
 .showcase-tab-btn:hover { background: rgba(255,255,255,0.7); }
 
 .showcase-tab-btn.active {
@@ -915,7 +820,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   border: 1px solid rgba(197, 155, 39, 0.4);
 }
 
-/* Color Swatches & Subbar */
+/* Color Swatches Bar */
 .showcase-options-subbar {
   display: flex;
   align-items: center;
@@ -1001,7 +906,79 @@ h1, h2, h3, h4, .brand-name, .section-title {
 .sn-color { color: var(--obsidian); }
 .sn-divider { color: var(--text-light); }
 
-/* Arena & Simulator Viewport */
+/* ROG Carousel Viewport with Left/Right Arrows & Touch Swipe */
+.rog-carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.carousel-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-subtle);
+  color: var(--obsidian);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.carousel-nav-btn:hover {
+  background: var(--obsidian);
+  color: #FFFFFF;
+  border-color: var(--obsidian);
+}
+
+.simulator-device-viewport {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.device-base-frame {
+  position: relative;
+  max-width: 380px;
+  width: 100%;
+}
+
+.sim-real-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.12));
+  mix-blend-mode: multiply;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.swipe-hint-bar {
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Arena & Simulator HUD */
 .demo-stage-arena {
   padding: 22px 28px 32px;
   background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
@@ -1047,31 +1024,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
 .hud-item.pressure span { color: #38bdf8; font-weight: 800; font-family: monospace; font-size: 0.88rem; }
 .hud-item.mode-live span { color: var(--gold-light); font-weight: 800; }
 .hud-item.timer span { color: #A7F3D0; font-family: monospace; font-size: 0.92rem; }
-
-.simulator-device-viewport {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 360px;
-  margin-bottom: 16px;
-}
-
-.device-base-frame {
-  position: relative;
-  max-width: 380px;
-  width: 100%;
-}
-
-.sim-real-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.12));
-  mix-blend-mode: multiply;
-  transition: opacity 0.3s ease;
-}
 
 .massage-chamber-overlay {
   position: absolute;
@@ -1583,7 +1535,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
   min-height: 36px;
 }
 
-/* Restored Matrix Pricing Box */
 .pricing-matrix-box {
   background: var(--cream-bg);
   border: 1.5px solid var(--border-gold);
@@ -2466,22 +2417,20 @@ h1, h2, h3, h4, .brand-name, .section-title {
   .trust-meta strong { font-size: 0.68rem; line-height: 1.15; }
   .trust-meta span { font-size: 0.58rem; }
 
-  .hero-3d-stage-card {
-    padding: 14px 10px 20px;
+  .hero-studio-card {
+    padding: 16px 12px 20px;
     border-radius: var(--radius-lg);
   }
 
   .hero-model-switcher { width: 100%; max-width: 100%; padding: 3px; }
   .h-switch-btn { padding: 6px 4px; font-size: 0.72rem; }
 
-  .hero-3d-podium { height: 230px; }
-  .product-3d-wrapper { width: 200px; height: 200px; }
-  .holo-ring-1 { width: 180px; height: 180px; }
-  .holo-ring-2 { width: 140px; height: 140px; }
+  .hero-studio-podium { height: 220px; }
+  .studio-product-levitate { width: 190px; height: 190px; }
 
   .hero-live-badge { font-size: 0.68rem; padding: 4px 10px; text-align: center; }
 
-  /* Showcase Section Mobile */
+  /* Showcase & Carousel Mobile */
   .showcase-model-tabs-bar { grid-template-columns: 1fr; }
   .showcase-tab-btn { padding: 12px 16px; border-right: none; border-bottom: 1px solid var(--border-subtle); }
   .showcase-tab-btn:last-child { border-bottom: none; }
@@ -2502,6 +2451,8 @@ h1, h2, h3, h4, .brand-name, .section-title {
   .swatch-btn { padding: 4px 10px 4px 5px; font-size: 0.72rem; }
 
   .showcase-nasiya-pill { width: 100%; justify-content: center; font-size: 0.74rem; }
+
+  .carousel-nav-btn { width: 36px; height: 36px; font-size: 0.9rem; }
 
   .why-section, .interactive-demo-section, .catalog-section, .features-section, .faq-section, .contact-section {
     padding: 46px 0;

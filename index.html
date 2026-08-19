@@ -84,15 +84,12 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION (CLEAN LUXURY APPLE/ROG STYLE) ═══════════════════ -->
   <section class="hero" id="hero">
-    <div class="hero-ambient-glow glow-1"></div>
-    <div class="hero-ambient-glow glow-2"></div>
-    
     <div class="container hero-container">
       <div class="hero-grid">
         
-        <!-- Left: Prominent DESCO.PREMIUM Brand & Universal Family Appeal -->
+        <!-- Left: Prominent DESCO.PREMIUM Brand & Universal Appeal -->
         <div class="hero-content">
           <div class="hero-brand-badge">
             <span class="badge-dot"></span>
@@ -148,19 +145,19 @@
           </div>
         </div>
 
-        <!-- Right: 360° Interactive Floating Stage -->
+        <!-- Right: Creative Studio Luxury Hero Stage -->
         <div class="hero-visual-wrapper">
-          <div class="hero-3d-stage-card" id="hero3dCard">
+          <div class="hero-studio-card" id="heroStudioCard">
             
-            <div class="stage-glow-aura"></div>
+            <div class="hero-ambient-pedestal-glow" id="heroPedestalGlow"></div>
 
             <!-- Model Switcher Tabs -->
             <div class="hero-model-switcher-wrap">
               <div class="hero-model-switcher">
-                <button class="h-switch-btn active" data-img="img/gold-product-trans.png" data-title="3-Funksiyalik" data-price="Oyiga 163,000 so'mdan (12 oy nasiya)">
+                <button class="h-switch-btn active" data-img="img/color-3-gold.png" data-title="3-Funksiyalik" data-price="Oyiga 163,000 so'mdan (12 oy nasiya)">
                   <i class="fas fa-crown"></i> <span>3-Funksiya</span>
                 </button>
-                <button class="h-switch-btn" data-img="img/silver-product-trans.png" data-title="6-Funksiyalik" data-price="Oyiga 225,000 so'mdan (12 oy nasiya)">
+                <button class="h-switch-btn" data-img="img/color-6-silver.png" data-title="6-Funksiyalik" data-price="Oyiga 225,000 so'mdan (12 oy nasiya)">
                   <i class="fas fa-gem"></i> <span>6-Funksiya</span>
                 </button>
                 <button class="h-switch-btn" data-img="img/gift-product-trans.png" data-title="Hadiya To'plami" data-price="Oyiga 437,000 so'mdan (12 oy nasiya)">
@@ -169,20 +166,12 @@
               </div>
             </div>
 
-            <!-- 3D Viewport with 360° continuous rotation -->
-            <div class="hero-3d-podium" id="hero3dPodium">
-              <div class="holo-ring holo-ring-1"></div>
-              <div class="holo-ring holo-ring-2"></div>
-              <div class="podium-3d-shadow"></div>
-
-              <div class="product-3d-wrapper" id="product3dWrapper">
-                <img src="img/gold-product-trans.png" alt="Desco 3D Massajer" class="hero-3d-product-pic" id="heroProductPic" loading="eager">
-                <div class="product-3d-glare" id="product3dGlare"></div>
+            <!-- Studio Product Viewport -->
+            <div class="hero-studio-podium">
+              <div class="studio-product-levitate" id="heroProductLevitate">
+                <img src="img/color-3-gold.png" alt="Desco Premium Massajer" class="hero-studio-img" id="heroProductPic" loading="eager">
               </div>
-
-              <div class="touch-3d-hint">
-                <i class="fas fa-arrows-rotate"></i> <span>360° Aylantirish (Barmoq bilan burang)</span>
-              </div>
+              <div class="studio-ambient-shadow"></div>
             </div>
 
             <div class="hero-live-badge" id="heroLiveBadge">
@@ -197,7 +186,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 3. INTERACTIVE SHOWCASE, COLOR VARIATIONS & SIMULATOR ═══════════════════ -->
+  <!-- ═══════════════════ 3. INTERACTIVE ROG-STYLE COLOR CAROUSEL & SIMULATOR ═══════════════════ -->
   <section class="interactive-demo-section" id="interactive-demo">
     <div class="container">
       
@@ -208,14 +197,14 @@
           <span class="gold-gradient">Ranglar Kolleksiyasi</span>
         </h2>
         <p class="section-subtitle">
-          Qurilma turini va yoqtirgan rangingizni tanlang — 3D pnevmatik siqish va rolikli massajni jonli tomosha qiling.
+          Chapga / o'ngga suring yoki rang tugmalarini bosing — mahsulotning barcha ranglari va 3D ishlash animatsiyasi.
         </p>
       </div>
 
-      <!-- Simulator & Showcase Stage -->
-      <div class="demo-simulator-wrapper">
+      <!-- ROG-Style Showcase Box -->
+      <div class="rog-showcase-wrapper" id="rogShowcaseWrapper">
         
-        <!-- Top Section: Large Model Selector Tabs -->
+        <!-- Model Selection Header -->
         <div class="showcase-model-tabs-bar">
           <button class="showcase-tab-btn active" id="demoTabGold" onclick="selectDemoModel('gold')">
             <div class="s-tab-icon"><i class="fas fa-crown"></i></div>
@@ -236,60 +225,58 @@
           </button>
         </div>
 
-        <!-- Color Swatches & Nasiya Info Bar -->
+        <!-- Color Swatches & Subbar -->
         <div class="showcase-options-subbar">
           
-          <!-- Color Picker Container -->
           <div class="color-picker-box">
-            <span class="color-picker-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
+            <span class="color-picker-label"><i class="fas fa-palette gold-icon"></i> Ranglar:</span>
             
-            <!-- 3-Funksiya 4 Colors -->
+            <!-- 3-Funksiya 4 Colors Swatches -->
             <div class="color-swatches-group" id="swatches3Func">
-              <button class="swatch-btn active" data-color="gold" data-img="img/gold-product-trans.png" data-name="Tillo rang (Gold Edition)" onclick="changeModelColor(this, '3')">
+              <button class="swatch-btn active" data-index="0" data-color="gold" data-img="img/color-3-gold.png" data-name="Tillo rang (Champagne Gold)" onclick="setCarouselColor(0)">
                 <span class="swatch-circle swatch-gold"></span>
                 <span>Tillo</span>
               </button>
-              <button class="swatch-btn" data-color="silver" data-img="img/gold-silver-trans.png" data-name="Seriy (Silver Edition)" onclick="changeModelColor(this, '3')">
+              <button class="swatch-btn" data-index="1" data-color="silver" data-img="img/color-3-silver.png" data-name="Seriy (Metallic Silver)" onclick="setCarouselColor(1)">
                 <span class="swatch-circle swatch-silver"></span>
                 <span>Seriy</span>
               </button>
-              <button class="swatch-btn" data-color="black" data-img="img/gold-black-trans.png" data-name="Qora (Black Edition)" onclick="changeModelColor(this, '3')">
+              <button class="swatch-btn" data-index="2" data-color="black" data-img="img/color-3-black.png" data-name="Qora (Obsidian Black)" onclick="setCarouselColor(2)">
                 <span class="swatch-circle swatch-black"></span>
                 <span>Qora</span>
               </button>
-              <button class="swatch-btn" data-color="red" data-img="img/gold-red-trans.png" data-name="Qizil (Ruby Red Edition)" onclick="changeModelColor(this, '3')">
+              <button class="swatch-btn" data-index="3" data-color="red" data-img="img/color-3-red.png" data-name="Qizil (Ruby Red Edition)" onclick="setCarouselColor(3)">
                 <span class="swatch-circle swatch-red"></span>
                 <span>Qizil</span>
               </button>
             </div>
 
-            <!-- 6-Funksiya 3 Colors -->
+            <!-- 6-Funksiya 3 Colors Swatches -->
             <div class="color-swatches-group" id="swatches6Func" style="display: none;">
-              <button class="swatch-btn active" data-color="silver" data-img="img/silver-product-trans.png" data-name="Seriy (Silver Edition)" onclick="changeModelColor(this, '6')">
+              <button class="swatch-btn active" data-index="0" data-color="silver" data-img="img/color-6-silver.png" data-name="Seriy (Silver Edition)" onclick="setCarouselColor(0)">
                 <span class="swatch-circle swatch-silver"></span>
                 <span>Seriy</span>
               </button>
-              <button class="swatch-btn" data-color="black" data-img="img/silver-black-trans.png" data-name="Qora (Black Edition)" onclick="changeModelColor(this, '6')">
+              <button class="swatch-btn" data-index="1" data-color="black" data-img="img/color-6-black.png" data-name="Qora (Obsidian Black)" onclick="setCarouselColor(1)">
                 <span class="swatch-circle swatch-black"></span>
                 <span>Qora</span>
               </button>
-              <button class="swatch-btn" data-color="gold" data-img="img/silver-gold-trans.png" data-name="Tillo (Gold Edition)" onclick="changeModelColor(this, '6')">
+              <button class="swatch-btn" data-index="2" data-color="gold" data-img="img/color-6-gold.png" data-name="Tillo (Champagne Gold)" onclick="setCarouselColor(2)">
                 <span class="swatch-circle swatch-gold"></span>
                 <span>Tillo</span>
               </button>
             </div>
           </div>
 
-          <!-- Active Color & Nasiya Badge -->
           <div class="showcase-nasiya-pill">
-            <span class="sn-color" id="activeColorName">Tillo rang (Gold Edition)</span>
+            <span class="sn-color" id="activeColorName">Tillo rang (Champagne Gold)</span>
             <span class="sn-divider">•</span>
             <span class="sn-nasiya">12 Oyga 0% Nasiya</span>
           </div>
 
         </div>
 
-        <!-- Working Simulator Arena -->
+        <!-- ROG-Style Swipe Carousel & Interactive Simulator Stage -->
         <div class="demo-stage-arena" id="demoStageArena">
           
           <div class="simulator-hud-bar">
@@ -308,70 +295,87 @@
             </div>
           </div>
 
-          <div class="simulator-device-viewport">
-            <div class="device-base-frame" id="deviceBaseFrame">
-              
-              <img src="img/gold-product-trans.png" alt="Desco.premium Simulator" class="sim-real-img" id="simRealImg" loading="lazy">
-              
-              <!-- Left Leg Chamber -->
-              <div class="massage-chamber-overlay left-chamber" id="leftChamber">
-                <div class="inserted-leg-silhouette">
-                  <div class="leg-gradient-skin"></div>
-                </div>
+          <!-- Carousel Stage (Swipeable Left/Right) -->
+          <div class="rog-carousel-container" id="rogCarouselContainer">
+            
+            <button class="carousel-nav-btn prev-btn" id="carouselPrevBtn" onclick="carouselSlide(-1)" aria-label="Oldingi rang">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="simulator-device-viewport" id="carouselViewport">
+              <div class="device-base-frame" id="deviceBaseFrame">
                 
-                <div class="airbag-squeeze-pad pad-outer-left">
-                  <div class="airbag-inner-ribs"></div>
-                </div>
-                <div class="airbag-squeeze-pad pad-inner-left">
-                  <div class="airbag-inner-ribs"></div>
-                </div>
+                <img src="img/color-3-gold.png" alt="Desco.premium Simulator" class="sim-real-img" id="simRealImg" loading="lazy">
                 
-                <div class="airbag-pulse-aura"></div>
-                
-                <div class="roller-acupressure-track">
-                  <div class="roller-track-rail"></div>
-                  <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
-                  <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
-                  <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
+                <!-- Left Leg Chamber -->
+                <div class="massage-chamber-overlay left-chamber" id="leftChamber">
+                  <div class="inserted-leg-silhouette">
+                    <div class="leg-gradient-skin"></div>
+                  </div>
+                  
+                  <div class="airbag-squeeze-pad pad-outer-left">
+                    <div class="airbag-inner-ribs"></div>
+                  </div>
+                  <div class="airbag-squeeze-pad pad-inner-left">
+                    <div class="airbag-inner-ribs"></div>
+                  </div>
+                  
+                  <div class="airbag-pulse-aura"></div>
+                  
+                  <div class="roller-acupressure-track">
+                    <div class="roller-track-rail"></div>
+                    <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                    <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                    <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
+                  </div>
+
+                  <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
                 </div>
 
-                <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
+                <!-- Right Leg Chamber -->
+                <div class="massage-chamber-overlay right-chamber" id="rightChamber">
+                  <div class="inserted-leg-silhouette">
+                    <div class="leg-gradient-skin"></div>
+                  </div>
+
+                  <div class="airbag-squeeze-pad pad-inner-right">
+                    <div class="airbag-inner-ribs"></div>
+                  </div>
+                  <div class="airbag-squeeze-pad pad-outer-right">
+                    <div class="airbag-inner-ribs"></div>
+                  </div>
+
+                  <div class="airbag-pulse-aura"></div>
+
+                  <div class="roller-acupressure-track">
+                    <div class="roller-track-rail"></div>
+                    <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                    <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                    <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
+                  </div>
+
+                  <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
+                </div>
+
+                <div class="panel-glow-indicator" id="panelIndicator">
+                  <div class="panel-digital-glow"></div>
+                  <div class="panel-label">Sensor Panel Faol</div>
+                </div>
+
               </div>
-
-              <!-- Right Leg Chamber -->
-              <div class="massage-chamber-overlay right-chamber" id="rightChamber">
-                <div class="inserted-leg-silhouette">
-                  <div class="leg-gradient-skin"></div>
-                </div>
-
-                <div class="airbag-squeeze-pad pad-inner-right">
-                  <div class="airbag-inner-ribs"></div>
-                </div>
-                <div class="airbag-squeeze-pad pad-outer-right">
-                  <div class="airbag-inner-ribs"></div>
-                </div>
-
-                <div class="airbag-pulse-aura"></div>
-
-                <div class="roller-acupressure-track">
-                  <div class="roller-track-rail"></div>
-                  <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
-                  <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
-                  <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
-                </div>
-
-                <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
-              </div>
-
-              <div class="panel-glow-indicator" id="panelIndicator">
-                <div class="panel-digital-glow"></div>
-                <div class="panel-label">Sensor Panel Faol</div>
-              </div>
-
             </div>
+
+            <button class="carousel-nav-btn next-btn" id="carouselNextBtn" onclick="carouselSlide(1)" aria-label="Keyingi rang">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+
           </div>
 
-          <!-- Toggle Simulation Button & 3 Steps -->
+          <div class="swipe-hint-bar">
+            <i class="fas fa-hand-pointer"></i> <span>Ranglarni ko'rish uchun chapga/o'ngga suring</span>
+          </div>
+
+          <!-- Simulator Action & 3 Steps -->
           <div class="simulator-bottom-actions">
             <button class="btn-live-toggle" id="btnLiveToggle" onclick="toggleLiveMassage()">
               <div class="play-btn-ripple"></div>
@@ -413,7 +417,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 4. CATALOG & DIRECT LEAD FORM SCROLL ═══════════════════ -->
+  <!-- ═══════════════════ 4. CATALOG & DIRECT LEAD SCROLL ═══════════════════ -->
   <section class="catalog-section" id="catalog">
     <div class="container">
       
@@ -444,7 +448,7 @@
           <div class="card-num-badge gold-badge">01</div>
           
           <div class="card-image-box">
-            <img src="img/gold-product-trans.png" alt="3-Funksiyalik Gold Massajer" class="card-img" id="catImgGold" loading="lazy">
+            <img src="img/color-3-gold.png" alt="3-Funksiyalik Gold Massajer" class="card-img" id="catImgGold" loading="lazy">
             <span class="edition-chip gold-chip">3-Funksiyalik</span>
           </div>
 
@@ -494,7 +498,7 @@
           <div class="card-num-badge">02</div>
           
           <div class="card-image-box">
-            <img src="img/silver-product-trans.png" alt="6-Funksiyalik Silver Massajer" class="card-img" id="catImgSilver" loading="lazy">
+            <img src="img/color-6-silver.png" alt="6-Funksiyalik Silver Massajer" class="card-img" id="catImgSilver" loading="lazy">
             <span class="edition-chip silver-chip">6-Funksiyalik</span>
           </div>
 
@@ -587,7 +591,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. NIMA UCHUN DESCO.PREMIUM (MOVED BELOW) ═══════════════════ -->
+  <!-- ═══════════════════ 5. NIMA UCHUN DESCO.PREMIUM (BENEFITS) ═══════════════════ -->
   <section class="why-section" id="why-desco">
     <div class="container">
       <div class="section-heading text-center">
@@ -686,7 +690,6 @@
             </div>
           </div>
 
-          <!-- 5th Item: Bel va Tana Massajeri -->
           <div class="device-card full-span-device">
             <div class="device-thumb"><img src="img/waist-body-massager.jpg" alt="Bel va Tana Massajeri" loading="lazy"></div>
             <div class="device-meta">

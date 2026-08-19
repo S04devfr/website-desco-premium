@@ -1,20 +1,36 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT & 3D 360° INTERACTIVE ENGINE
- * Color swatches switcher, continuous 360° rotation & direct Telegram lead dispatch
+ * DESCO.PREMIUM — MAIN JAVASCRIPT & ROG-STYLE INTERACTIVE COLOR CAROUSEL
+ * Swipeable color carousel (ROG/Apple style), clean hero switcher & direct Telegram lead dispatch
  */
 
-// OFFICIAL DESCO TELEGRAM BOT CONFIGURATION
 const TG_BOT_CONFIG = {
   botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
-  botUsername: 'webdesco_bot',
-  fallbackUsername: 'desco_premium'
+  botUsername: 'webdesco_bot'
+};
+
+// Global Carousel State
+let activeModelKey = 'gold'; // 'gold' (3-func) or 'silver' (6-func)
+let currentColorIndex = 0;
+
+const MODEL_COLOR_DATA = {
+  gold: [
+    { name: "Tillo rang (Champagne Gold)", img: "img/color-3-gold.png", glow: "rgba(197, 155, 39, 0.3)" },
+    { name: "Seriy (Metallic Silver)", img: "img/color-3-silver.png", glow: "rgba(156, 163, 175, 0.3)" },
+    { name: "Qora (Obsidian Black)", img: "img/color-3-black.png", glow: "rgba(30, 30, 30, 0.4)" },
+    { name: "Qizil (Ruby Red Edition)", img: "img/color-3-red.png", glow: "rgba(239, 68, 68, 0.35)" }
+  ],
+  silver: [
+    { name: "Seriy (Silver Edition)", img: "img/color-6-silver.png", glow: "rgba(156, 163, 175, 0.3)" },
+    { name: "Qora (Obsidian Black)", img: "img/color-6-black.png", glow: "rgba(30, 30, 30, 0.4)" },
+    { name: "Tillo (Champagne Gold)", img: "img/color-6-gold.png", glow: "rgba(197, 155, 39, 0.3)" }
+  ]
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
-  initHero360Rotation();
   initHeroSwitcher();
+  initRogCarousel();
   initFaqAccordion();
   initInstallmentFilter();
   initForms();
@@ -78,103 +94,10 @@ function initMobileNav() {
   });
 }
 
-/* ── 3. INTERACTIVE 360° ORBITAL ROTATION & INERTIA ENGINE ── */
-function initHero360Rotation() {
-  const card = document.getElementById('hero3dCard');
-  const productWrapper = document.getElementById('product3dWrapper');
-  const glare = document.getElementById('product3dGlare');
-
-  if (!card || !productWrapper) return;
-
-  let isDragging = false;
-  let startX = 0, startY = 0;
-  let currentRotY = 0;
-  let currentRotX = 0;
-  let targetRotY = 0;
-  let targetRotX = 0;
-  let autoRotateSpeed = 0.35;
-  let isInteracting = false;
-
-  function render360() {
-    if (!isInteracting) {
-      targetRotY += autoRotateSpeed;
-    }
-
-    currentRotY += (targetRotY - currentRotY) * 0.12;
-    currentRotX += (targetRotX - currentRotX) * 0.12;
-
-    productWrapper.style.transform = `translateY(-6px) rotateY(${currentRotY}deg) rotateX(${currentRotX}deg) scale(1.02)`;
-
-    if (glare) {
-      const normalizedAngle = ((currentRotY % 360) + 360) % 360;
-      const glarePos = (normalizedAngle / 360) * 100;
-      glare.style.background = `radial-gradient(circle at ${glarePos}% 30%, rgba(255,255,255,0.45) 0%, transparent 60%)`;
-    }
-
-    requestAnimationFrame(render360);
-  }
-
-  render360();
-
-  // Mouse Drag (Desktop)
-  card.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    isInteracting = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    card.style.cursor = 'grabbing';
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const deltaX = e.clientX - startX;
-    const deltaY = e.clientY - startY;
-    startX = e.clientX;
-    startY = e.clientY;
-
-    targetRotY += deltaX * 0.8;
-    targetRotX = Math.max(-25, Math.min(25, targetRotX - deltaY * 0.4));
-  });
-
-  window.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      card.style.cursor = 'grab';
-      setTimeout(() => { isInteracting = false; targetRotX = 0; }, 1800);
-    }
-  });
-
-  // Touch Drag (Mobile 360 Spin)
-  card.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    isInteracting = true;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  }, { passive: true });
-
-  card.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-    startX = touch.clientX;
-    startY = touch.clientY;
-
-    targetRotY += deltaX * 1.1;
-    targetRotX = Math.max(-20, Math.min(20, targetRotX - deltaY * 0.3));
-  }, { passive: true });
-
-  card.addEventListener('touchend', () => {
-    isDragging = false;
-    setTimeout(() => { isInteracting = false; targetRotX = 0; }, 2000);
-  });
-}
-
-/* ── 4. HERO MODEL SWITCHER WITH DYNAMIC PRICE BADGE ── */
+/* ── 3. HERO MODEL SWITCHER ── */
 function initHeroSwitcher() {
   const switchBtns = document.querySelectorAll('.h-switch-btn');
   const heroPic = document.getElementById('heroProductPic');
-  const productWrapper = document.getElementById('product3dWrapper');
   const badgeText = document.getElementById('heroLiveBadgeText');
 
   switchBtns.forEach(btn => {
@@ -189,91 +112,131 @@ function initHeroSwitcher() {
         badgeText.textContent = priceText;
       }
 
-      if (heroPic && productWrapper) {
-        productWrapper.style.transform = 'translateY(10px) rotateY(90deg) scale(0.85)';
+      if (heroPic) {
         heroPic.style.opacity = '0';
-        
+        heroPic.style.transform = 'scale(0.92) translateY(8px)';
         setTimeout(() => {
           heroPic.src = imgPath;
           heroPic.style.opacity = '1';
-          productWrapper.style.transform = 'translateY(0) rotateY(0deg) scale(1)';
+          heroPic.style.transform = 'scale(1) translateY(0)';
         }, 220);
       }
     });
   });
 }
 
-/* ── 5. COLOR SWATCHES & MODEL SWITCHER (4 COLORS 3-FUNC / 3 COLORS 6-FUNC) ── */
+/* ── 4. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
+function initRogCarousel() {
+  const container = document.getElementById('rogCarouselContainer');
+  if (!container) return;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        // Swiped Left -> Next color
+        carouselSlide(1);
+      } else {
+        // Swiped Right -> Prev color
+        carouselSlide(-1);
+      }
+    }
+  }
+}
+
 function selectDemoModel(model) {
+  activeModelKey = model;
+  currentColorIndex = 0;
+
   const tabGold = document.getElementById('demoTabGold');
   const tabSilver = document.getElementById('demoTabSilver');
-  const simImg = document.getElementById('simRealImg');
   const swatches3 = document.getElementById('swatches3Func');
   const swatches6 = document.getElementById('swatches6Func');
-  const activeColorName = document.getElementById('activeColorName');
 
   if (model === 'gold') {
     tabGold.classList.add('active');
     tabSilver.classList.remove('active');
     swatches3.style.display = 'flex';
     swatches6.style.display = 'none';
-    
-    // Select first swatch in 3-func
-    const firstSwatch = swatches3.querySelector('.swatch-btn');
-    if (firstSwatch) {
-      swatches3.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
-      firstSwatch.classList.add('active');
-      simImg.src = firstSwatch.getAttribute('data-img');
-      activeColorName.textContent = firstSwatch.getAttribute('data-name');
-    }
   } else {
     tabSilver.classList.add('active');
     tabGold.classList.remove('active');
     swatches3.style.display = 'none';
     swatches6.style.display = 'flex';
-
-    // Select first swatch in 6-func
-    const firstSwatch = swatches6.querySelector('.swatch-btn');
-    if (firstSwatch) {
-      swatches6.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
-      firstSwatch.classList.add('active');
-      simImg.src = firstSwatch.getAttribute('data-img');
-      activeColorName.textContent = firstSwatch.getAttribute('data-name');
-    }
   }
+
+  updateCarouselUI();
 }
 
-function changeModelColor(btn, funcType) {
-  const parentGroup = funcType === '3' ? document.getElementById('swatches3Func') : document.getElementById('swatches6Func');
-  if (parentGroup) {
-    parentGroup.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
-  }
-  btn.classList.add('active');
+function setCarouselColor(index) {
+  currentColorIndex = index;
+  updateCarouselUI();
+}
 
-  const imgPath = btn.getAttribute('data-img');
-  const colorName = btn.getAttribute('data-name');
+function carouselSlide(dir) {
+  const colors = MODEL_COLOR_DATA[activeModelKey];
+  if (!colors) return;
+  
+  currentColorIndex = (currentColorIndex + dir + colors.length) % colors.length;
+  updateCarouselUI();
+}
 
+function updateCarouselUI() {
+  const colors = MODEL_COLOR_DATA[activeModelKey];
+  if (!colors || !colors[currentColorIndex]) return;
+
+  const currentItem = colors[currentColorIndex];
   const simImg = document.getElementById('simRealImg');
   const activeColorName = document.getElementById('activeColorName');
+  
+  const swatchesGroup = activeModelKey === 'gold' ? document.getElementById('swatches3Func') : document.getElementById('swatches6Func');
 
+  // Update Swatch buttons active state
+  if (swatchesGroup) {
+    const btns = swatchesGroup.querySelectorAll('.swatch-btn');
+    btns.forEach((b, idx) => {
+      if (idx === currentColorIndex) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+  }
+
+  // Smooth ROG 3D slide transition
   if (simImg) {
-    simImg.style.opacity = '0.3';
+    simImg.style.opacity = '0.2';
+    simImg.style.transform = 'scale(0.92) translateX(12px)';
+    
     setTimeout(() => {
-      simImg.src = imgPath;
+      simImg.src = currentItem.img;
       simImg.style.opacity = '1';
-    }, 120);
+      simImg.style.transform = 'scale(1) translateX(0)';
+    }, 180);
   }
 
   if (activeColorName) {
-    activeColorName.textContent = colorName;
+    activeColorName.textContent = currentItem.name;
   }
 }
 
-/* ── 6. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
-let currentSeconds = 900; // 15 mins
+let currentSeconds = 900;
 
 function toggleLiveMassage() {
   const arena = document.getElementById('demoStageArena');
@@ -362,7 +325,7 @@ function loadInteractiveDemo(model) {
   }
 }
 
-/* ── 7. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
+/* ── 6. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -380,7 +343,7 @@ function scrollToContact(productCode) {
   }
 }
 
-/* ── 8. CATALOG INSTALLMENT DURATION FILTER ── */
+/* ── 7. CATALOG INSTALLMENT DURATION FILTER ── */
 function initInstallmentFilter() {
   const tabs = document.querySelectorAll('.tab-btn');
   const allRows = document.querySelectorAll('.p-matrix-row');
@@ -407,7 +370,7 @@ function initInstallmentFilter() {
   });
 }
 
-/* ── 9. FAQ ACCORDION ── */
+/* ── 8. FAQ ACCORDION ── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -422,7 +385,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 10. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
+/* ── 9. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
