@@ -1,11 +1,12 @@
 /**
  * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
- * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Telegram Dispatch
+ * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Dual Telegram Dispatch (Bot & CRM)
  */
 
 const TG_BOT_CONFIG = {
   botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
-  botUsername: 'webdesco_bot'
+  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k',
+  crmApiUrl: 'http://127.0.0.1:8999/api/lead'
 };
 
 // Global State
@@ -277,7 +278,6 @@ function updateCarouselUI() {
     });
   }
 
-  // ULTRA CRISP HIGH-DEFINITION COLOR TRANSITION (NO BLUR, NO OPACITY DIMMING)
   if (simImg) {
     simImg.style.opacity = '0.7';
     simImg.style.transform = 'scale(0.97)';
@@ -417,7 +417,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 8. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
+/* ── 8. DUAL TELEGRAM BOT & CRM WEBHOOK DISPATCH ── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -443,6 +443,24 @@ function showSuccessNotice(customerName) {
 }
 
 async function sendLeadToTelegramBot(lead) {
+  // 1. Post to local CRM Webhook Server
+  try {
+    fetch(TG_BOT_CONFIG.crmApiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: lead.name,
+        phone: lead.phone,
+        product: lead.product,
+        product_code: lead.product_code || '3ta-gold',
+        plan: lead.plan
+      })
+    }).catch(e => console.log('CRM API Local dispatch silent catch:', e));
+  } catch (e) {
+    console.log('CRM Local fetch catch:', e);
+  }
+
+  // 2. Post to standard Web Bot
   const message = `
 🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
 
@@ -516,10 +534,12 @@ function initForms() {
 
       const name = document.getElementById('userName').value.trim();
       const phone = document.getElementById('userPhone').value.trim();
-      const product = document.getElementById('userProduct').options[document.getElementById('userProduct').selectedIndex].text;
+      const productSelect = document.getElementById('userProduct');
+      const product = productSelect.options[productSelect.selectedIndex].text;
+      const product_code = productSelect.value;
       const plan = document.getElementById('userPlan').options[document.getElementById('userPlan').selectedIndex].text;
 
-      await sendLeadToTelegramBot({ name, phone, product, plan });
+      await sendLeadToTelegramBot({ name, phone, product, product_code, plan });
 
       leadForm.reset();
       if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<span class="btn-shine"></span><i class="fas fa-paper-plane"></i> <span>Buyurtmani Yuborish</span>'; }
