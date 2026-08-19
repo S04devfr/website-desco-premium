@@ -1,11 +1,12 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT ENGINE
- * Fast, responsive, luxury interactive engine & dynamic live massage simulator
+ * DESCO.PREMIUM — MAIN JAVASCRIPT & 3D INTERACTIVE ENGINE
+ * High-performance, 3D gyroscope/touch tilt physics, dynamic live massage simulator
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
+  initHero3DInteraction();
   initHeroSwitcher();
   initFaqAccordion();
   initInstallmentFilter();
@@ -63,10 +64,85 @@ function initMobileNav() {
   });
 }
 
-/* ── 3. HERO MODEL SWITCHER ── */
+/* ── 3. INTERACTIVE 3D GYROSCOPE & TOUCH TILT ENGINE ── */
+function initHero3DInteraction() {
+  const card = document.getElementById('hero3dCard');
+  const productWrapper = document.getElementById('product3dWrapper');
+  const glare = document.getElementById('product3dGlare');
+
+  if (!card || !productWrapper) return;
+
+  let isTouching = false;
+  let startX = 0, startY = 0;
+  let currentRotX = 0, currentRotY = 0;
+  let targetRotX = 0, targetRotY = 0;
+
+  function update3DTransform() {
+    currentRotX += (targetRotX - currentRotX) * 0.1;
+    currentRotY += (targetRotY - currentRotY) * 0.1;
+
+    card.style.transform = `rotateX(${currentRotX * 0.4}deg) rotateY(${currentRotY * 0.4}deg)`;
+    productWrapper.style.transform = `translateY(-6px) rotateX(${currentRotX * 0.8}deg) rotateY(${currentRotY * 0.8}deg) scale(1.03)`;
+
+    if (glare) {
+      const glareX = 50 + currentRotY * 2;
+      const glareY = 50 - currentRotX * 2;
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.45) 0%, transparent 65%)`;
+    }
+
+    if (Math.abs(targetRotX - currentRotX) > 0.01 || Math.abs(targetRotY - currentRotY) > 0.01) {
+      requestAnimationFrame(update3DTransform);
+    }
+  }
+
+  // Mouse Move (Desktop)
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    targetRotY = (x / (rect.width / 2)) * 14;
+    targetRotX = -(y / (rect.height / 2)) * 14;
+    requestAnimationFrame(update3DTransform);
+  });
+
+  card.addEventListener('mouseleave', () => {
+    targetRotX = 0;
+    targetRotY = 0;
+    requestAnimationFrame(update3DTransform);
+  });
+
+  // Touch Move (Smartphones)
+  card.addEventListener('touchstart', (e) => {
+    isTouching = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+
+  card.addEventListener('touchmove', (e) => {
+    if (!isTouching) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    targetRotY = Math.max(-18, Math.min(18, deltaX * 0.25));
+    targetRotX = Math.max(-18, Math.min(18, -deltaY * 0.25));
+    requestAnimationFrame(update3DTransform);
+  }, { passive: true });
+
+  card.addEventListener('touchend', () => {
+    isTouching = false;
+    targetRotX = 0;
+    targetRotY = 0;
+    requestAnimationFrame(update3DTransform);
+  });
+}
+
+/* ── 4. HERO MODEL SWITCHER ── */
 function initHeroSwitcher() {
   const switchBtns = document.querySelectorAll('.h-switch-btn');
   const heroPic = document.getElementById('heroProductPic');
+  const productWrapper = document.getElementById('product3dWrapper');
 
   switchBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -75,20 +151,22 @@ function initHeroSwitcher() {
 
       const imgPath = btn.getAttribute('data-img');
 
-      if (heroPic) {
+      if (heroPic && productWrapper) {
+        // 3D Flip Transition
+        productWrapper.style.transform = 'translateY(10px) rotateY(90deg) scale(0.85)';
         heroPic.style.opacity = '0';
-        heroPic.style.transform = 'scale(0.92)';
+        
         setTimeout(() => {
           heroPic.src = imgPath;
           heroPic.style.opacity = '1';
-          heroPic.style.transform = 'scale(1)';
-        }, 200);
+          productWrapper.style.transform = 'translateY(0) rotateY(0deg) scale(1)';
+        }, 220);
       }
     });
   });
 }
 
-/* ── 4. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
@@ -137,14 +215,13 @@ function toggleLiveMassage() {
     hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
     if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
 
-    // Dynamic Pressure Simulation (Air compression pulse)
+    // Dynamic Pressure Simulation
     let pStep = 0;
     const pressures = [35, 52, 68, 76, 54, 28, 45, 72, 80, 60, 32];
     simulatorPressureInterval = setInterval(() => {
       pStep = (pStep + 1) % pressures.length;
       if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
 
-      // Rotate active phase step
       if (pStep < 4) {
         phase1.classList.add('active');
         phase2.classList.remove('active');
@@ -202,7 +279,7 @@ function loadInteractiveDemo(model) {
   }
 }
 
-/* ── 5. CATALOG INSTALLMENT FILTER ── */
+/* ── 6. CATALOG INSTALLMENT FILTER ── */
 function initInstallmentFilter() {
   const tabs = document.querySelectorAll('.tab-btn');
   const matrixRows = document.querySelectorAll('.matrix-row');
@@ -228,7 +305,7 @@ function initInstallmentFilter() {
   });
 }
 
-/* ── 6. FAQ ACCORDION ── */
+/* ── 7. FAQ ACCORDION ── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -243,7 +320,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 7. ORDER MODAL & TELEGRAM DISPATCH ── */
+/* ── 8. ORDER MODAL & TELEGRAM DISPATCH ── */
 function openOrderModal(productName, price) {
   const modal = document.getElementById('orderModal');
   const title = document.getElementById('modalProductTitle');

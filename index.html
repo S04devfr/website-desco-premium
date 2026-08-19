@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <title>Desco.premium — Smart Oyoq Massajerlari</title>
-  <meta name="description" content="15 daqiqada oyoqlardagi charchoq va og'riqdan xalos bo'ling. Desco.premium oyoq massajerlari. 12 oygacha rasmiy nasiya va 100% kafolat!">
+  <title>Desco.premium — Ota-Onangiz Salomatligi Uchun Smart Oyoq Massajerlari</title>
+  <meta name="description" content="Ota-onangiz va yaqinlaringiz uchun eng qadrli sovg'a. 15 daqiqada oyoq og'rig'i va charchoqni yo'qotuvchi Desco.premium oyoq massajerlari. 12 oygacha 0% nasiya!">
   <meta name="theme-color" content="#1A1A1A">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Fonts -->
+  <!-- Modern Luxury Fonts: Outfit + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -77,7 +77,7 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. MINIMALIST & HIGH-CONVERTING HERO SECTION ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION (PARENT-FOCUSED + 3D INTERACTIVE) ═══════════════════ -->
   <section class="hero" id="hero">
     <div class="hero-ambient-glow glow-1"></div>
     <div class="hero-ambient-glow glow-2"></div>
@@ -85,22 +85,22 @@
     <div class="container hero-container">
       <div class="hero-grid">
         
-        <!-- Left: Clear, Impactful Copywriting -->
+        <!-- Left: Parent Care Emotional & Convincing Copywriting -->
         <div class="hero-content">
           <div class="hero-badge">
             <span class="badge-dot"></span>
-            <i class="fas fa-crown gold-icon"></i>
-            <span>Uyda Professional Oyoq Massaji</span>
+            <i class="fas fa-heart gold-icon"></i>
+            <span>Ota-Onangiz Uchun Eng Qadrli Sovg'a</span>
           </div>
 
           <h1 class="hero-title">
-            15 Daqiqada Oyoqlardagi<br>
-            <span class="gold-gradient">Charchoq Va Og'riqdan</span><br>
-            Butkul Xalos Bo'ling!
+            Ota-Onangiz Oyoq Og'rig'idan<br>
+            <span class="gold-gradient">Qiynalmasin — Har Kuni</span><br>
+            Huzur Va Salomatlik Hadya Qiling!
           </h1>
 
           <p class="hero-desc">
-            Kun bo'yi tik oyoqda yurish, varikoz va og'ir charchoqqa qarshi eng qulay yechim. <strong>Desco.premium</strong> bilan har kuni yengil va sog'lom qadam tashlang.
+            Yoshi ulug' ota-onalarimizning oyoq, boldir, bo'g'im va varikoz charchoqlariga eng samarali shifo. Uy sharoitida professional massaj rohati — ularning duosini oling.
           </p>
 
           <div class="hero-cta-group">
@@ -111,7 +111,7 @@
             </a>
             <a href="#interactive-demo" class="btn btn-glass hero-secondary-btn">
               <i class="fas fa-play-circle gold-icon"></i>
-              <span>Ishlashini Ko'rish</span>
+              <span>Qanday Ishlaydi?</span>
             </a>
           </div>
 
@@ -141,9 +141,9 @@
           </div>
         </div>
 
-        <!-- Right: Pure, Elegant Product Showcase (Clutter-Free) -->
+        <!-- Right: Real 3D Interactive Floating Stage -->
         <div class="hero-visual-wrapper">
-          <div class="hero-stage" id="heroStage">
+          <div class="hero-3d-stage-card" id="hero3dCard">
             
             <div class="stage-glow-aura"></div>
 
@@ -162,11 +162,25 @@
               </div>
             </div>
 
-            <!-- Clean Product Display -->
-            <div class="hero-podium-showcase">
-              <div class="podium-pedestal"></div>
-              <div class="product-floating-box" id="productFloatingBox">
-                <img src="img/gold-product-trans.png" alt="Desco Oyoq Massajeri" class="hero-product-pic" id="heroProductPic" loading="eager">
+            <!-- 3D Interactive Viewport with Real Perspective -->
+            <div class="hero-3d-podium" id="hero3dPodium">
+              
+              <!-- 3D Holographic Concentric Rings Base -->
+              <div class="holo-ring holo-ring-1"></div>
+              <div class="holo-ring holo-ring-2"></div>
+              <div class="podium-3d-shadow"></div>
+
+              <!-- 3D Levitating Massager Object -->
+              <div class="product-3d-wrapper" id="product3dWrapper">
+                <img src="img/gold-product-trans.png" alt="Desco 3D Oyoq Massajeri" class="hero-3d-product-pic" id="heroProductPic" loading="eager">
+                
+                <!-- Dynamic 3D Light Glare Flare -->
+                <div class="product-3d-glare" id="product3dGlare"></div>
+              </div>
+
+              <!-- Interactive 3D Touch Hint -->
+              <div class="touch-3d-hint">
+                <i class="fas fa-arrows-spin"></i> <span>3D Ko'rinish (Barmoq bilan burang)</span>
               </div>
             </div>
 
@@ -182,37 +196,37 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 3. PROBLEM & SOLUTION ═══════════════════ -->
+  <!-- ═══════════════════ 3. PARENT CARE BENEFITS (WHY DESCO?) ═══════════════════ -->
   <section class="why-section" id="why-desco">
     <div class="container">
       <div class="section-heading text-center">
-        <span class="luxury-pill">Nima Uchun Desco.premium?</span>
+        <span class="luxury-pill">Ota-Onangizga G'amxo'rlik</span>
         <h2 class="section-title">
-          Kunlik Charchoqni Unuting,<br>
-          <span class="gold-gradient">Salomatligingizni Tiklang</span>
+          Nima Uchun Aynan Desco.premium<br>
+          <span class="gold-gradient">Ota-Onalar Uchun Eng Yaxshi Tanlov?</span>
         </h2>
         <p class="section-subtitle">
-          Kuniga atigi 15 daqiqalik seans orqali butun vujudingizda yengillik his qilasiz.
+          Yillab mehnat qilgan ota-onangizning charchagan oyoqlariga har oqshom orom va shifo hadya qiling.
         </p>
       </div>
 
       <div class="why-grid">
         <div class="why-card">
-          <div class="why-icon"><i class="fas fa-compress-arrows-alt"></i></div>
-          <h3>3D Havo Siqishi (Airbags)</h3>
-          <p>Havo yostiqchalari boldir va oyoqni ikki tomondan chuqur siqib, qon aylanishini va tomirlardagi bosimni yaxshilaydi.</p>
+          <div class="why-icon"><i class="fas fa-person-cane"></i></div>
+          <h3>Boldir & Bo'g'imlardagi Og'riqni Yo'qotadi</h3>
+          <p>3D havo yostiqchalari boldir mushaklarini mayin siqib, yosh kattalardagi qon tomir dimlanishi va uyushishlarni yumshatadi.</p>
         </div>
 
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-spa"></i></div>
-          <h3>Akupunktur Roliklar</h3>
-          <p>Oyoq ostidagi 60+ biologik faol nuqtalarni tovon va kaft bo'ylab aylanma harakatda chuqur uvalaydi.</p>
+          <h3>Oyoq Ostidagi Akupunktur Nuqtalar</h3>
+          <p>Kaft va tovon tagidagi roliklar 60+ biologik faol nuqtalarni uvalab, charchoqni yo'qotadi va tungi uyquni yaxshilaydi.</p>
         </div>
 
         <div class="why-card">
-          <div class="why-icon"><i class="fas fa-wave-square"></i></div>
-          <h3>Ritmik Bo'shashtirish</h3>
-          <p>Mushaklardagi og'riq, qotib qolish va oyoqdagi charchoqni yo'qotib, tanaga xotirjamlik bag'ishlaydi.</p>
+          <div class="why-icon"><i class="fas fa-hand-pointer"></i></div>
+          <h3>Boshqarish Juda Oddiy (1 Ta Tugma)</h3>
+          <p>Hech qanday murakkab sozlamalarsiz, yoshi ulug' insonlar ham 1 ta tugma orqali bemalol va mustaqil ishlata oladilar.</p>
         </div>
       </div>
     </div>
@@ -549,7 +563,7 @@
           <span class="gold-gradient">1 Ta Premium Qutida</span>
         </h2>
         <p class="section-subtitle">
-          Yaqinlaringiz salomatligi uchun unutilmas va qadrli sovg'a.
+          Ota-onangiz va yaqinlaringiz salomatligi uchun unutilmas va qadrli sovg'a.
         </p>
       </div>
 
@@ -637,7 +651,17 @@
 
         <div class="faq-card">
           <button class="faq-header-btn">
-            <span class="faq-q-text">2. Nasiyaga olish uchun qanday hujjatlar kerak?</span>
+            <span class="faq-q-text">2. Ota-onamga olib bermoqchiman, ishlatish qiyin emasmi?</span>
+            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
+          </button>
+          <div class="faq-body-content">
+            <p>Juda oddiy! Bitta "Power" tugmasini bosish bilan avtomatik rejimda ishga tushadi. Katta yoshdagi ota-onalarimiz ham hech qanday qiyinchiliksiz mustaqil foydalana oladilar.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <button class="faq-header-btn">
+            <span class="faq-q-text">3. Nasiyaga olish uchun qanday hujjatlar kerak?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
           <div class="faq-body-content">
@@ -647,21 +671,11 @@
 
         <div class="faq-card">
           <button class="faq-header-btn">
-            <span class="faq-q-text">3. Yetkazib berish qancha vaqt oladi?</span>
+            <span class="faq-q-text">4. Yetkazib berish qancha vaqt oladi?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
           <div class="faq-body-content">
             <p>Toshkent shahrida <strong>2-4 soat ichida</strong>, viloyatlarga esa 24 soat ichida to'g'ridan-to'g'ri xonadoningizgacha yetkazib beriladi.</p>
-          </div>
-        </div>
-
-        <div class="faq-card">
-          <button class="faq-header-btn">
-            <span class="faq-q-text">4. Mahsulotni ko'rib, tekshirib keyin to'lasam bo'ladimi?</span>
-            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
-          </button>
-          <div class="faq-body-content">
-            <p>Albatta! Kuryer yetkazib berganda to'liq tekshirib, ishlatib ko'rasiz va shundan so'ng to'lovni amalga oshirasiz.</p>
           </div>
         </div>
 
@@ -771,7 +785,7 @@
           </div>
         </div>
         <p class="footer-tagline">
-          Sog'lig'ingiz uchun eng qulay va nafis tanlov! Butun O'zbekiston bo'ylab rasmiy yetkazib berish xizmati.
+          Ota-onangiz va o'zingizning sog'lig'ingiz uchun eng oliyjanob tanlov! Butun O'zbekiston bo'ylab rasmiy yetkazib berish xizmati.
         </p>
       </div>
 
