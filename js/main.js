@@ -1,6 +1,6 @@
 /**
  * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
- * Single Hero Visual Card, Live Simulator Section (After Hadiya To'plami), Compact Footer & Telegram Dispatch
+ * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Telegram Dispatch
  */
 
 const TG_BOT_CONFIG = {
@@ -9,7 +9,7 @@ const TG_BOT_CONFIG = {
 };
 
 // Global State
-let activeModelKey = 'gold';
+let activeModelKey = 'gold'; // 'gold' (3-func), 'silver' (6-func), 'gift' (To'plam)
 let currentColorIndex = 0;
 let activeNasiyaPlanMonths = '12';
 
@@ -277,19 +277,20 @@ function updateCarouselUI() {
     });
   }
 
+  // ULTRA CRISP HIGH-DEFINITION COLOR TRANSITION (NO BLUR, NO OPACITY DIMMING)
   if (simImg) {
-    simImg.style.opacity = '0.2';
-    simImg.style.transform = 'scale(0.92) translateX(12px)';
+    simImg.style.opacity = '0.7';
+    simImg.style.transform = 'scale(0.97)';
     
     setTimeout(() => {
       simImg.src = currentItem.img;
       simImg.style.opacity = '1';
-      simImg.style.transform = 'scale(1) translateX(0)';
-    }, 180);
+      simImg.style.transform = 'scale(1)';
+    }, 120);
   }
 }
 
-/* ── 5. LIVE MASSAGE SIMULATOR ENGINE (AFTER HADIYA TO'PLAMI) ── */
+/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
