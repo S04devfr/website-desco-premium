@@ -94,9 +94,10 @@ def tg_request(method, data=None):
         else:
             req = urllib.request.Request(url)
         with urllib.request.urlopen(req, timeout=10) as resp:
-            return json.loads(resp.read().decode('utf-8'))
+            res_str = resp.read().decode('utf-8')
+            return json.loads(res_str)
     except Exception as e:
-        print(f"Telegram API Error [{method}]:", e)
+        print(f"Telegram API Error [{method}]:", e, flush=True)
         return None
 
 def send_message(chat_id, text, reply_markup=None):
@@ -188,6 +189,7 @@ def process_new_lead(lead_data):
     }
 
     chats = get_all_chats()
+    print(f"Broadcasting lead #{lead_id} to chats: {chats}", flush=True)
     for cid in chats:
         send_message(cid, msg_text, reply_markup=inline_kb)
 
@@ -318,6 +320,7 @@ class CRMRequestHandler(BaseHTTPRequestHandler):
             body = self.rfile.read(content_length)
             try:
                 data = json.loads(body.decode('utf-8'))
+                print("Received Webhook Lead Data:", data, flush=True)
                 lead_id = process_new_lead(data)
                 
                 self.send_response(200)
@@ -326,6 +329,7 @@ class CRMRequestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(json.dumps({"status": "ok", "lead_id": lead_id}).encode('utf-8'))
             except Exception as e:
+                print("Webhook Exception:", e, flush=True)
                 self.send_response(400)
                 self.end_headers()
                 self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
@@ -342,12 +346,12 @@ class CRMRequestHandler(BaseHTTPRequestHandler):
 
 def run_http_server():
     server = HTTPServer(('0.0.0.0', 8999), CRMRequestHandler)
-    print("DESCO.CRM Webhook Server running on port 8999...")
+    print("DESCO.CRM Webhook Server running on port 8999...", flush=True)
     server.serve_forever()
 
 # ── 6. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
-    print("Starting DESCO.CRM Financial Accountant Bot Long-Polling Loop...")
+    print("Starting DESCO.CRM Financial Accountant Bot Long-Polling Loop...", flush=True)
     offset = 0
     while True:
         try:
@@ -357,10 +361,11 @@ def bot_polling_loop():
                     offset = u["update_id"] + 1
                     handle_update(u)
         except Exception as e:
-            print("Polling Exception:", e)
+            print("Polling Exception:", e, flush=True)
             time.sleep(2)
 
 def handle_update(u):
+    print("Received Update:", json.dumps(u), flush=True)
     if "message" in u:
         msg = u["message"]
         chat = msg["chat"]
