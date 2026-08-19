@@ -6,6 +6,7 @@ let isMassageRunning = false;
 let currentDemoModel = 'gold';
 let massageTimerInterval = null;
 let phaseCycleInterval = null;
+let pressureInterval = null;
 let timerSeconds = 15 * 60;
 let currentPhase = 1;
 
@@ -222,14 +223,14 @@ function selectDemoModel(model) {
   if (model === 'gold') {
     tabGold.classList.add('active');
     tabSilver.classList.remove('active');
-    simImg.src = 'img/gold-product.jpg';
+    simImg.src = 'img/gold-product-trans.png';
     if (isMassageRunning) {
       hudStatusText.textContent = '3-FUNKSIYALIK (TILLO RANG) JONLI ISHLAMOQDA';
     }
   } else {
     tabSilver.classList.add('active');
     tabGold.classList.remove('active');
-    simImg.src = 'img/silver-product.jpg';
+    simImg.src = 'img/silver-product-trans.png';
     if (isMassageRunning) {
       hudStatusText.textContent = '6-FUNKSIYALIK (SERIY) 3D JONLI ISHLAMOQDA';
     }
@@ -243,6 +244,7 @@ function toggleLiveMassage() {
   const toggleText = document.getElementById('toggleText');
   const hudStatus = document.getElementById('hudStatus');
   const hudStatusText = document.getElementById('hudStatusText');
+  const pressureVal = document.getElementById('pressureVal');
 
   isMassageRunning = !isMassageRunning;
 
@@ -255,6 +257,15 @@ function toggleLiveMassage() {
 
     const modelName = currentDemoModel === 'gold' ? '3-FUNKSIYALIK (TILLO RANG)' : '6-FUNKSIYALIK (SERIY)';
     hudStatusText.textContent = `${modelName} JONLI ISHLAMOQDA`;
+
+    // Dynamic Pressure Simulation (0 -> 45 -> 72 -> 35 kPa)
+    let pressureStep = 0;
+    const pressures = ['48 kPa (Siqish)', '72 kPa (Maksimal)', '54 kPa (Uvalash)', '28 kPa (Bo\'shatish)'];
+    clearInterval(pressureInterval);
+    pressureInterval = setInterval(() => {
+      pressureStep = (pressureStep + 1) % pressures.length;
+      if (pressureVal) pressureVal.textContent = pressures[pressureStep];
+    }, 1200);
 
     // Start Timer
     timerSeconds = 15 * 60;
@@ -285,9 +296,11 @@ function toggleLiveMassage() {
     toggleText.textContent = 'Massajni Ishga Tushirish';
     hudStatus.classList.remove('active');
     hudStatusText.textContent = 'KUTISH REJIMI (Tugmani bosing)';
+    if (pressureVal) pressureVal.textContent = '0 kPa';
 
     clearInterval(massageTimerInterval);
     clearInterval(phaseCycleInterval);
+    clearInterval(pressureInterval);
   }
 }
 
