@@ -3,11 +3,10 @@
  * High-performance 360° orbital rotation with inertia damping & direct Telegram lead dispatch
  */
 
-// TELEGRAM BOT CONFIGURATION FOR INSTANT LEADS
+// OFFICIAL DESCO TELEGRAM BOT CONFIGURATION
 const TG_BOT_CONFIG = {
-  // Agar bot tokeningiz bo'lsa shu yerga yozing, to'g'ridan-to'g'ri guruh/kanalga tushadi:
-  botToken: '8143244837:AAFI0yBwQzF8KkKz23n_5zL8o9_DescoProd', 
-  chatId: '-1002398472910', // Admin guruhi yoki kanali
+  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
+  botUsername: 'webdesco_bot',
   fallbackUsername: 'desco_premium'
 };
 
@@ -93,17 +92,14 @@ function initHero360Rotation() {
   let currentRotX = 0;
   let targetRotY = 0;
   let targetRotX = 0;
-  let velocityY = 0;
-  let autoRotateSpeed = 0.35; // Soft continuous 360 spin when idle
+  let autoRotateSpeed = 0.35;
   let isInteracting = false;
-  let animFrameId = null;
 
   function render360() {
     if (!isInteracting) {
       targetRotY += autoRotateSpeed;
     }
 
-    // Smooth inertia interpolation
     currentRotY += (targetRotY - currentRotY) * 0.12;
     currentRotX += (targetRotX - currentRotX) * 0.12;
 
@@ -115,10 +111,9 @@ function initHero360Rotation() {
       glare.style.background = `radial-gradient(circle at ${glarePos}% 30%, rgba(255,255,255,0.45) 0%, transparent 60%)`;
     }
 
-    animFrameId = requestAnimationFrame(render360);
+    requestAnimationFrame(render360);
   }
 
-  // Start Animation Loop
   render360();
 
   // Mouse Drag (Desktop)
@@ -384,7 +379,6 @@ function closeOrderModal() {
   }
 }
 
-// Show Success Confirmation Banner
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -406,13 +400,13 @@ function showSuccessNotice(customerName) {
   `;
 
   setTimeout(() => { notice.classList.add('open'); }, 100);
-  setTimeout(() => { notice.classList.remove('open'); }, 6000);
+  setTimeout(() => { notice.classList.remove('open'); }, 6500);
 }
 
-// Direct Async Telegram Dispatch
+// Multi-Subscriber Telegram Bot Dispatcher
 async function sendLeadToTelegramBot(lead) {
   const message = `
-🛍 <b>YANGI BUYURTMA (Desco.premium Sayti)</b>
+🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
 
 👤 <b>Xaridor:</b> ${lead.name}
 📞 <b>Telefon:</b> <code>${lead.phone}</code>
@@ -424,24 +418,41 @@ async function sendLeadToTelegramBot(lead) {
   `.trim();
 
   try {
-    if (TG_BOT_CONFIG.botToken && TG_BOT_CONFIG.chatId) {
-      await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: TG_BOT_CONFIG.chatId,
-          text: message,
-          parse_mode: 'HTML'
-        })
+    // 1. Fetch active chats from bot updates
+    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`);
+    const updatesData = await updatesRes.json();
+    
+    const targetChatIds = new Set();
+
+    if (updatesData.ok && Array.isArray(updatesData.result)) {
+      updatesData.result.forEach(u => {
+        if (u.message && u.message.chat && u.message.chat.id) {
+          targetChatIds.add(u.message.chat.id);
+        } else if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) {
+          targetChatIds.add(u.my_chat_member.chat.id);
+        }
       });
     }
-  } catch (err) {
-    console.warn('Telegram Bot API dispatch fallback:', err);
-  }
 
-  // Also open Telegram Direct Chat as instant backup if needed
-  const tgFallbackUrl = `https://t.me/${TG_BOT_CONFIG.fallbackUsername}?text=${encodeURIComponent(message.replace(/<[^>]*>?/gm, ''))}`;
-  return tgFallbackUrl;
+    // 2. Dispatch to all active chat/channel subscribers
+    if (targetChatIds.size > 0) {
+      for (const chatId of targetChatIds) {
+        fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: 'HTML'
+          })
+        }).catch(err => console.error('Send error for chat:', chatId, err));
+      }
+    } else {
+      console.log('Botda hozircha chat_id topilmadi. @webdesco_bot ga /start bosing yoki guruhga qoshing.');
+    }
+  } catch (err) {
+    console.error('Telegram Bot Dispatch Error:', err);
+  }
 }
 
 function initForms() {
@@ -463,7 +474,7 @@ function initForms() {
     });
   });
 
-  // Modal Form Submit -> Send to Bot & Confirm
+  // Modal Form Submit -> Bot Dispatch
   const modalForm = document.getElementById('modalForm');
   if (modalForm) {
     modalForm.addEventListener('submit', async (e) => {
@@ -486,7 +497,7 @@ function initForms() {
     });
   }
 
-  // Lead Section Form Submit -> Send to Bot & Confirm
+  // Lead Section Form Submit -> Bot Dispatch
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
     leadForm.addEventListener('submit', async (e) => {
