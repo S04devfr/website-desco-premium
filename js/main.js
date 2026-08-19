@@ -152,7 +152,6 @@ function initHeroSwitcher() {
       const imgPath = btn.getAttribute('data-img');
 
       if (heroPic && productWrapper) {
-        // 3D Flip Transition
         productWrapper.style.transform = 'translateY(10px) rotateY(90deg) scale(0.85)';
         heroPic.style.opacity = '0';
         
@@ -206,7 +205,6 @@ function toggleLiveMassage() {
   isSimulatorRunning = !isSimulatorRunning;
 
   if (isSimulatorRunning) {
-    // Start Simulation
     arena.classList.add('running');
     toggleBtn.classList.add('running');
     toggleText.textContent = "Massajni To'xtatish";
@@ -215,7 +213,6 @@ function toggleLiveMassage() {
     hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
     if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
 
-    // Dynamic Pressure Simulation
     let pStep = 0;
     const pressures = [35, 52, 68, 76, 54, 28, 45, 72, 80, 60, 32];
     simulatorPressureInterval = setInterval(() => {
@@ -237,7 +234,6 @@ function toggleLiveMassage() {
       }
     }, 1200);
 
-    // Timer Countdown
     simulatorTimerInterval = setInterval(() => {
       if (currentSeconds > 0) {
         currentSeconds--;
@@ -248,7 +244,6 @@ function toggleLiveMassage() {
     }, 1000);
 
   } else {
-    // Stop Simulation
     arena.classList.remove('running');
     toggleBtn.classList.remove('running');
     toggleText.textContent = "Massajni Ishga Tushirish";
@@ -279,10 +274,36 @@ function loadInteractiveDemo(model) {
   }
 }
 
-/* ── 6. CATALOG INSTALLMENT FILTER ── */
+/* ── 6. CATALOG INSTALLMENT DURATION FILTER ── */
 function initInstallmentFilter() {
   const tabs = document.querySelectorAll('.tab-btn');
-  const matrixRows = document.querySelectorAll('.matrix-row');
+  const priceLabelGold = document.getElementById('priceLabelGold');
+  const priceValGold = document.getElementById('priceValGold');
+  const priceLabelSilver = document.getElementById('priceLabelSilver');
+  const priceValSilver = document.getElementById('priceValSilver');
+  const priceLabelGift = document.getElementById('priceLabelGift');
+  const priceValGift = document.getElementById('priceValGift');
+
+  const pricingData = {
+    '3': {
+      label: '3 oylik nasiya:',
+      gold: '563,000',
+      silver: '780,000',
+      gift: '1,516,000'
+    },
+    '6': {
+      label: '6 oylik nasiya:',
+      gold: '303,000',
+      silver: '420,000',
+      gift: '816,000'
+    },
+    '12': {
+      label: '12 oylik nasiya (0% boshlang\'ich):',
+      gold: '163,000',
+      silver: '225,000',
+      gift: '437,000'
+    }
+  };
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -290,17 +311,20 @@ function initInstallmentFilter() {
       tab.classList.add('active');
 
       const period = tab.getAttribute('data-period');
+      const d = pricingData[period] || pricingData['12'];
 
-      matrixRows.forEach(row => {
-        const rowPeriod = row.getAttribute('data-row');
-        if (period === 'cash') {
-          row.classList.remove('highlight', 'gold-highlight', 'dark-highlight');
-        } else if (rowPeriod === period) {
-          row.classList.add('highlight');
-        } else {
-          row.classList.remove('highlight', 'gold-highlight', 'dark-highlight');
-        }
-      });
+      if (priceLabelGold && priceValGold) {
+        priceLabelGold.textContent = d.label;
+        priceValGold.textContent = d.gold;
+      }
+      if (priceLabelSilver && priceValSilver) {
+        priceLabelSilver.textContent = d.label;
+        priceValSilver.textContent = d.silver;
+      }
+      if (priceLabelGift && priceValGift) {
+        priceLabelGift.textContent = d.label;
+        priceValGift.textContent = d.gift;
+      }
     });
   });
 }

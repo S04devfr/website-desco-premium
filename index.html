@@ -35,20 +35,26 @@
         </div>
       </a>
 
-      <!-- Navigation Menu -->
+      <!-- Desktop Navigation Menu -->
       <nav class="nav" id="nav">
         <div class="mobile-nav-header">
-          <span class="mobile-menu-title">Bo'limlar</span>
+          <div class="brand-mobile-drawer">
+            <span class="brand-name">DESCO</span>
+            <span class="brand-sub">PREMIUM</span>
+          </div>
           <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Menyuni yopish">
             <i class="fas fa-times"></i>
           </button>
         </div>
-        <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
-        <a href="#catalog" class="nav-link"><i class="fas fa-layer-group mobile-nav-icon"></i> Katalog & Narxlar</a>
-        <a href="#interactive-demo" class="nav-link"><i class="fas fa-play-circle mobile-nav-icon"></i> Qanday Ishlaydi?</a>
-        <a href="#features" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
-        <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> FAQ</a>
-        <a href="#contact" class="nav-link"><i class="fas fa-phone mobile-nav-icon"></i> Buyurtma</a>
+        
+        <div class="nav-links-wrap">
+          <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
+          <a href="#catalog" class="nav-link"><i class="fas fa-layer-group mobile-nav-icon"></i> Katalog & Narxlar</a>
+          <a href="#interactive-demo" class="nav-link"><i class="fas fa-play-circle mobile-nav-icon"></i> Qanday Ishlaydi?</a>
+          <a href="#features" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
+          <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> FAQ</a>
+          <a href="#contact" class="nav-link"><i class="fas fa-phone mobile-nav-icon"></i> Buyurtma</a>
+        </div>
 
         <div class="mobile-nav-footer">
           <a href="tel:+998900038060" class="btn btn-luxury btn-full">
@@ -77,7 +83,7 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION (PARENT-FOCUSED + 3D INTERACTIVE) ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
   <section class="hero" id="hero">
     <div class="hero-ambient-glow glow-1"></div>
     <div class="hero-ambient-glow glow-2"></div>
@@ -85,7 +91,7 @@
     <div class="container hero-container">
       <div class="hero-grid">
         
-        <!-- Left: Parent Care Emotional & Convincing Copywriting -->
+        <!-- Left: Parent Care Emotional Copywriting -->
         <div class="hero-content">
           <div class="hero-badge">
             <span class="badge-dot"></span>
@@ -141,13 +147,13 @@
           </div>
         </div>
 
-        <!-- Right: Real 3D Interactive Floating Stage -->
+        <!-- Right: 3D Interactive Floating Stage -->
         <div class="hero-visual-wrapper">
           <div class="hero-3d-stage-card" id="hero3dCard">
             
             <div class="stage-glow-aura"></div>
 
-            <!-- Model Switcher Tabs (3 Clean Segments) -->
+            <!-- Model Switcher Tabs -->
             <div class="hero-model-switcher-wrap">
               <div class="hero-model-switcher">
                 <button class="h-switch-btn active" data-img="img/gold-product-trans.png" data-title="3-Funksiyalik (Tillo rang)" data-price="1,300,000 so'm">
@@ -162,23 +168,17 @@
               </div>
             </div>
 
-            <!-- 3D Interactive Viewport with Real Perspective -->
+            <!-- 3D Viewport -->
             <div class="hero-3d-podium" id="hero3dPodium">
-              
-              <!-- 3D Holographic Concentric Rings Base -->
               <div class="holo-ring holo-ring-1"></div>
               <div class="holo-ring holo-ring-2"></div>
               <div class="podium-3d-shadow"></div>
 
-              <!-- 3D Levitating Massager Object -->
               <div class="product-3d-wrapper" id="product3dWrapper">
                 <img src="img/gold-product-trans.png" alt="Desco 3D Oyoq Massajeri" class="hero-3d-product-pic" id="heroProductPic" loading="eager">
-                
-                <!-- Dynamic 3D Light Glare Flare -->
                 <div class="product-3d-glare" id="product3dGlare"></div>
               </div>
 
-              <!-- Interactive 3D Touch Hint -->
               <div class="touch-3d-hint">
                 <i class="fas fa-arrows-spin"></i> <span>3D Ko'rinish (Barmoq bilan burang)</span>
               </div>
@@ -196,7 +196,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 3. PARENT CARE BENEFITS (WHY DESCO?) ═══════════════════ -->
+  <!-- ═══════════════════ 3. PARENT CARE BENEFITS ═══════════════════ -->
   <section class="why-section" id="why-desco">
     <div class="container">
       <div class="section-heading text-center">
@@ -270,7 +270,6 @@
             </button>
           </div>
 
-          <!-- Main Toggle Button -->
           <button class="btn-live-toggle" id="btnLiveToggle" onclick="toggleLiveMassage()">
             <div class="play-btn-ripple"></div>
             <i class="fas fa-play" id="toggleIcon"></i>
@@ -278,10 +277,9 @@
           </button>
         </div>
 
-        <!-- Working Simulator Arena -->
+        <!-- Arena -->
         <div class="demo-stage-arena" id="demoStageArena">
           
-          <!-- Animated Status Bar -->
           <div class="simulator-hud-bar">
             <div class="hud-item status-live" id="hudStatus">
               <span class="hud-dot"></span>
@@ -298,13 +296,12 @@
             </div>
           </div>
 
-          <!-- Simulator Viewport -->
           <div class="simulator-device-viewport">
             <div class="device-base-frame" id="deviceBaseFrame">
               
               <img src="img/gold-product-trans.png" alt="Desco.premium Simulator" class="sim-real-img" id="simRealImg" loading="lazy">
               
-              <!-- Left Leg & Chamber -->
+              <!-- Left Leg -->
               <div class="massage-chamber-overlay left-chamber" id="leftChamber">
                 <div class="inserted-leg-silhouette">
                   <div class="leg-calf-shape"></div>
@@ -321,7 +318,7 @@
                 <div class="compression-force-badge">Havo Siqishi</div>
               </div>
 
-              <!-- Right Leg & Chamber -->
+              <!-- Right Leg -->
               <div class="massage-chamber-overlay right-chamber" id="rightChamber">
                 <div class="inserted-leg-silhouette">
                   <div class="leg-calf-shape"></div>
@@ -338,7 +335,6 @@
                 <div class="compression-force-badge">Havo Siqishi</div>
               </div>
 
-              <!-- Panel Glow -->
               <div class="panel-glow-indicator" id="panelIndicator">
                 <div class="panel-digital-glow"></div>
                 <div class="panel-label">Sensor Panel Faol</div>
@@ -347,7 +343,7 @@
             </div>
           </div>
 
-          <!-- Mechanism Explanation Breakdown -->
+          <!-- 3 Steps -->
           <div class="massage-phases-tracker">
             <div class="phase-step active" id="phase1">
               <div class="phase-num">1</div>
@@ -381,7 +377,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. CATALOG & INSTALLMENT PRICING ═══════════════════ -->
+  <!-- ═══════════════════ 5. CATALOG & STREAMLINED CLEAR PRICING ═══════════════════ -->
   <section class="catalog-section" id="catalog">
     <div class="container">
       
@@ -392,17 +388,16 @@
           <span class="gold-gradient">O'zingiz Tanlang</span>
         </h2>
         <p class="section-subtitle">
-          Boshlang'ich to'lovsiz, 12 oygacha qulay rasmiy bo'lib to'lash.
+          0% Boshlang'ich to'lov, 12 oygacha qulay rasmiy bo'lib to'lash.
         </p>
       </div>
 
-      <!-- Quick duration filter tabs -->
+      <!-- Duration Selector Tabs -->
       <div class="installment-tabs-wrapper">
         <div class="installment-tabs" id="installmentTabs">
           <button class="tab-btn" data-period="3">3 Oyga</button>
           <button class="tab-btn" data-period="6">6 Oyga</button>
           <button class="tab-btn active" data-period="12">12 Oyga (Tavsiya)</button>
-          <button class="tab-btn" data-period="cash">Naqd To'lov</button>
         </div>
       </div>
 
@@ -422,33 +417,30 @@
             <span class="product-color-tag"><i class="fas fa-palette gold-icon"></i> Tillo rang (Gold Edition)</span>
             <p class="card-sub-desc">Oyoq va boldir havo kompressiyasi, tag qismidagi roliklar va avtomatik rejimlar.</p>
 
-            <div class="pricing-matrix">
-              <div class="matrix-row row-3" data-row="3">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
-                <span class="matrix-val">563,000 <small>so'm/oy</small></span>
+            <!-- Clean Highlighted Pricing Box (Not a button!) -->
+            <div class="card-price-hero-box">
+              <div class="price-installment-main">
+                <span class="p-label" id="priceLabelGold">12 oylik nasiya:</span>
+                <div class="p-amount-row">
+                  <strong class="p-val" id="priceValGold">163,000</strong>
+                  <span class="p-unit">so'm / oy</span>
+                </div>
               </div>
-              <div class="matrix-row row-6" data-row="6">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
-                <span class="matrix-val">303,000 <small>so'm/oy</small></span>
-              </div>
-              <div class="matrix-row row-12 highlight gold-highlight" data-row="12">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
-                <span class="matrix-val">163,000 <small>so'm/oy</small></span>
+              <div class="price-cash-sub">
+                <span>Naqd to'lov:</span>
+                <strong>1,300,000 so'm</strong>
               </div>
             </div>
 
-            <div class="cash-price-banner">
-              <span class="cash-title">Naqdga narxi:</span>
-              <span class="cash-amount">1,300,000 <span>SO'M</span></span>
-            </div>
-
-            <div class="card-actions">
-              <button class="btn btn-demo-view" onclick="loadInteractiveDemo('gold')" aria-label="Ishlashini ko'rish">
-                <i class="fas fa-play"></i> <span>Sinov</span>
+            <!-- Single Clear Order Button & Secondary Test Link -->
+            <div class="card-actions-clean">
+              <button class="btn btn-luxury btn-full" onclick="openOrderModal('3-Funksiyalik Oyoq Massajeri (Tillo rang)', '1,300,000')">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Nasiyaga Xarid Qilish</span>
               </button>
-              <button class="btn btn-catalog-order" onclick="openOrderModal('3-Funksiyalik Oyoq Massajeri (Tillo rang)', '1,300,000')">
-                <i class="fas fa-cart-shopping"></i>
-                <span>Nasiyaga Xarid</span>
+              
+              <button class="btn-demo-link" onclick="loadInteractiveDemo('gold')">
+                <i class="fas fa-play-circle gold-icon"></i> <span>Qurilma ishlashini ko'rish</span>
               </button>
             </div>
           </div>
@@ -471,33 +463,31 @@
             <span class="product-color-tag"><i class="fas fa-palette"></i> Seriy (Silver Edition)</span>
             <p class="card-sub-desc">6 xil akupunktur rejimi, to'liq boldir va tovonni qamrab oluvchi 3D chuqur massaj.</p>
 
-            <div class="pricing-matrix">
-              <div class="matrix-row row-3" data-row="3">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
-                <span class="matrix-val">780,000 <small>so'm/oy</small></span>
+            <!-- Clean Highlighted Pricing Box -->
+            <div class="card-price-hero-box featured-price-box">
+              <div class="price-installment-main">
+                <span class="p-label" id="priceLabelSilver">12 oylik nasiya:</span>
+                <div class="p-amount-row">
+                  <strong class="p-val" id="priceValSilver">225,000</strong>
+                  <span class="p-unit">so'm / oy</span>
+                </div>
               </div>
-              <div class="matrix-row row-6" data-row="6">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
-                <span class="matrix-val">420,000 <small>so'm/oy</small></span>
-              </div>
-              <div class="matrix-row row-12 highlight" data-row="12">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
-                <span class="matrix-val">225,000 <small>so'm/oy</small></span>
+              <div class="price-cash-sub">
+                <span>Naqd to'lov:</span>
+                <strong>1,800,000 so'm</strong>
               </div>
             </div>
 
-            <div class="cash-price-banner gold-banner">
-              <span class="cash-title">Naqdga narxi:</span>
-              <span class="cash-amount">1,800,000 <span>SO'M</span></span>
-            </div>
-
-            <div class="card-actions">
-              <button class="btn btn-demo-view" onclick="loadInteractiveDemo('silver')" aria-label="Ishlashini ko'rish">
-                <i class="fas fa-play"></i> <span>Sinov</span>
-              </button>
+            <!-- Single Clear Order Button & Secondary Test Link -->
+            <div class="card-actions-clean">
               <button class="btn btn-luxury btn-full" onclick="openOrderModal('6-Funksiyalik Oyoq Massajeri (Seriy)', '1,800,000')">
-                <i class="fas fa-crown"></i>
-                <span>Nasiyaga Xarid</span>
+                <span class="btn-shine"></span>
+                <i class="fas fa-crown gold-icon"></i>
+                <span>Nasiyaga Xarid Qilish</span>
+              </button>
+              
+              <button class="btn-demo-link" onclick="loadInteractiveDemo('silver')">
+                <i class="fas fa-play-circle gold-icon"></i> <span>Qurilma ishlashini ko'rish</span>
               </button>
             </div>
           </div>
@@ -520,29 +510,25 @@
             <span class="product-color-tag"><i class="fas fa-box-open gold-icon"></i> Qora Premium Qutida</span>
             <p class="card-slogan">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
 
-            <div class="pricing-matrix">
-              <div class="matrix-row row-3" data-row="3">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
-                <span class="matrix-val">1,516,000 <small>so'm/oy</small></span>
+            <!-- Clean Highlighted Pricing Box -->
+            <div class="card-price-hero-box dark-price-box">
+              <div class="price-installment-main">
+                <span class="p-label" id="priceLabelGift">12 oylik nasiya:</span>
+                <div class="p-amount-row">
+                  <strong class="p-val" id="priceValGift">437,000</strong>
+                  <span class="p-unit">so'm / oy</span>
+                </div>
               </div>
-              <div class="matrix-row row-6" data-row="6">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
-                <span class="matrix-val">816,000 <small>so'm/oy</small></span>
-              </div>
-              <div class="matrix-row row-12 highlight dark-highlight" data-row="12">
-                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
-                <span class="matrix-val">437,000 <small>so'm/oy</small></span>
+              <div class="price-cash-sub">
+                <span>Naqd to'lov:</span>
+                <strong>3,500,000 so'm</strong>
               </div>
             </div>
 
-            <div class="cash-price-banner dark-banner">
-              <span class="cash-title">Naqdga narxi:</span>
-              <span class="cash-amount">3,500,000 <span>SO'M</span></span>
-            </div>
-
-            <div class="card-actions">
+            <!-- Single Clear Order Button -->
+            <div class="card-actions-clean">
               <button class="btn btn-dark-luxury btn-full" onclick="openOrderModal('Desco.premium Hadiya To\'plami (5-in-1)', '3,500,000')">
-                <i class="fas fa-gift"></i>
+                <i class="fas fa-gift gold-icon"></i>
                 <span>To'plamni Tanlash</span>
               </button>
             </div>
@@ -581,20 +567,22 @@
           </div>
         </div>
 
+        <!-- 5 Specific Devices Exact to Box Photo -->
         <div class="gift-devices-grid">
+          
           <div class="device-card">
-            <div class="device-thumb"><img src="img/feat-panel.jpg" alt="Boshqaruv Paneli" loading="lazy"></div>
+            <div class="device-thumb"><img src="img/feat-panel.jpg" alt="Boshqaruv Pulti" loading="lazy"></div>
             <div class="device-meta">
-              <h4>Boshqaruv Paneli</h4>
+              <h4>Sensor Boshqaruv Paneli</h4>
               <p>Oddiy va qulay sensor boshqaruv.</p>
             </div>
           </div>
 
           <div class="device-card">
-            <div class="device-thumb"><img src="img/feat-neck.jpg" alt="Bo'yin Massajeri" loading="lazy"></div>
+            <div class="device-thumb"><img src="img/feat-neck.jpg" alt="U-simon Bo'yin Massajeri" loading="lazy"></div>
             <div class="device-meta">
-              <h4>Bo'yin Massajeri</h4>
-              <p>Bo'yin va yelka og'riqlariga qarshi.</p>
+              <h4>U-simon Bo'yin Massajeri</h4>
+              <p>Bo'yin va umurtqa sohasidagi og'riqlarga qarshi.</p>
             </div>
           </div>
 
@@ -609,18 +597,20 @@
           <div class="device-card">
             <div class="device-thumb"><img src="img/feat-point.jpg" alt="Nuqtali Massajer" loading="lazy"></div>
             <div class="device-meta">
-              <h4>Nuqtali Massajer</h4>
+              <h4>Nuqtali Mini Massajer</h4>
               <p>Mushak tugunlarini yumshatish uchun.</p>
             </div>
           </div>
 
+          <!-- 5th Item: 4-Burchakli Bo'yin & Yelka Massajeri -->
           <div class="device-card full-span-device">
-            <div class="device-thumb"><img src="img/waist-massager.jpg" alt="Bel Massajeri" loading="lazy"></div>
+            <div class="device-thumb"><img src="img/feat-square-neck.jpg" alt="4-Burchakli Bo'yin Massajeri" loading="lazy"></div>
             <div class="device-meta">
-              <h4>Bel & Tana Massajeri</h4>
-              <p>Ergonomik qulay tasma va ko'p funksiyali massaj tizimi.</p>
+              <h4>4-Burchakli Bo'yin & Yelka Massajeri</h4>
+              <p>Rolikli chuqur uvalash va mushaklarni to'liq bo'shashtirish uchun qulay yostiq massajeri.</p>
             </div>
           </div>
+
         </div>
       </div>
     </div>
