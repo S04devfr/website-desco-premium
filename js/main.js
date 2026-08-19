@@ -1,393 +1,260 @@
-/* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO PREMIUM — LEAD FRONTEND LOGIC & SENIOR MOBILE EVENT HANDLERS
-   ═══════════════════════════════════════════════════════════════════════════════ */
-
-let isMassageRunning = false;
-let currentDemoModel = 'gold';
-let massageTimerInterval = null;
-let phaseCycleInterval = null;
-let pressureInterval = null;
-let timerSeconds = 15 * 60;
-let currentPhase = 1;
+/**
+ * DESCO.PREMIUM — MAIN JAVASCRIPT ENGINE
+ * Fast, responsive, luxury interactive engine & dynamic live massage simulator
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  // ── 1. Header Scroll Dynamics ──
-  const header = document.getElementById('header');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 30);
-  }, { passive: true });
-
-  // ── 2. Senior Mobile Drawer Navigation ──
-  const mobileToggle = document.getElementById('mobileToggle');
-  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-  const navOverlay = document.getElementById('navOverlay');
-  const nav = document.getElementById('nav');
-
-  function openMobileNav() {
-    if (nav && mobileToggle) {
-      mobileToggle.classList.add('active');
-      nav.classList.add('open');
-      if (navOverlay) navOverlay.classList.add('open');
-      document.body.classList.add('menu-open');
-    }
-  }
-
-  function closeMobileNav() {
-    if (nav && mobileToggle) {
-      mobileToggle.classList.remove('active');
-      nav.classList.remove('open');
-      if (navOverlay) navOverlay.classList.remove('open');
-      document.body.classList.remove('menu-open');
-    }
-  }
-
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (nav.classList.contains('open')) {
-        closeMobileNav();
-      } else {
-        openMobileNav();
-      }
-    });
-  }
-
-  if (mobileCloseBtn) {
-    mobileCloseBtn.addEventListener('click', closeMobileNav);
-  }
-
-  if (navOverlay) {
-    navOverlay.addEventListener('click', closeMobileNav);
-  }
-
-  if (nav) {
-    nav.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        closeMobileNav();
-      });
-    });
-  }
-
-  // ── 3. Active Nav Link on Scroll ──
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + 140;
-    sections.forEach(section => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      const id = section.getAttribute('id');
-      const link = document.querySelector(`.nav-link[href="#${id}"]`);
-      if (link) {
-        if (scrollY >= top && scrollY < top + height) {
-          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-        }
-      }
-    });
-  }, { passive: true });
-
-  // ── 4. Interactive Hero Model Switcher & 3D Tilt ──
-  const heroSwitchBtns = document.querySelectorAll('.h-switch-btn');
-  const heroProductPic = document.getElementById('heroProductPic');
-  const heroStage = document.getElementById('heroStage');
-  const productBox = document.getElementById('productFloatingBox');
-
-  if (heroSwitchBtns.length > 0 && heroProductPic) {
-    heroSwitchBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        heroSwitchBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const newSrc = btn.getAttribute('data-img');
-        
-        heroProductPic.style.opacity = '0';
-        heroProductPic.style.transform = 'scale(0.9) translateY(10px)';
-        
-        setTimeout(() => {
-          heroProductPic.src = newSrc;
-          heroProductPic.style.opacity = '1';
-          heroProductPic.style.transform = 'scale(1) translateY(0)';
-        }, 180);
-      });
-    });
-  }
-
-  // Tilt only on Desktop
-  if (heroStage && productBox && window.innerWidth > 900) {
-    heroStage.addEventListener('mousemove', (e) => {
-      const rect = heroStage.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      const tiltX = (y / rect.height) * -14;
-      const tiltY = (x / rect.width) * 14;
-
-      productBox.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
-    });
-
-    heroStage.addEventListener('mouseleave', () => {
-      productBox.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    });
-  }
-
-  // ── 5. Installment Duration Switcher (Tabs) ──
-  const tabBtns = document.querySelectorAll('.installment-tabs .tab-btn');
-  const matrixRows = document.querySelectorAll('.matrix-row');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const period = btn.getAttribute('data-period');
-      
-      matrixRows.forEach(row => {
-        row.classList.remove('highlight', 'gold-highlight', 'dark-highlight');
-        if (period !== 'cash' && row.getAttribute('data-row') === period) {
-          const card = row.closest('.catalog-card');
-          if (card.classList.contains('featured-gold-card')) {
-            row.classList.add('highlight');
-          } else if (card.classList.contains('vip-gift-card')) {
-            row.classList.add('dark-highlight');
-          } else {
-            row.classList.add('gold-highlight');
-          }
-        }
-      });
-    });
-  });
-
-  // ── 6. FAQ Accordion ──
-  const faqCards = document.querySelectorAll('.faq-card');
-  faqCards.forEach(card => {
-    const btn = card.querySelector('.faq-header-btn');
-    btn.addEventListener('click', () => {
-      const isActive = card.classList.contains('active');
-      faqCards.forEach(c => c.classList.remove('active'));
-      if (!isActive) {
-        card.classList.add('active');
-      }
-    });
-  });
-
-  // ── 7. Phone Mask Formatter (Touch & Mobile friendly) ──
-  function setupPhoneMask(input) {
-    if (!input) return;
-    input.addEventListener('input', (e) => {
-      let val = e.target.value.replace(/\D/g, '');
-      if (val.startsWith('998')) val = val.slice(3);
-      if (val.length > 9) val = val.slice(0, 9);
-
-      if (val.length >= 7) {
-        e.target.value = `+998 (${val.slice(0,2)}) ${val.slice(2,5)}-${val.slice(5,7)}-${val.slice(7)}`;
-      } else if (val.length >= 5) {
-        e.target.value = `+998 (${val.slice(0,2)}) ${val.slice(2,5)}-${val.slice(5)}`;
-      } else if (val.length >= 2) {
-        e.target.value = `+998 (${val.slice(0,2)}) ${val.slice(2)}`;
-      } else if (val.length > 0) {
-        e.target.value = `+998 (${val}`;
-      } else {
-        e.target.value = '';
-      }
-    });
-  }
-
-  setupPhoneMask(document.getElementById('userPhone'));
-  setupPhoneMask(document.getElementById('modalPhone'));
-
-  // ── 8. Lead Form Submission to Telegram ──
-  const leadForm = document.getElementById('leadForm');
-  if (leadForm) {
-    leadForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('userName').value;
-      const phone = document.getElementById('userPhone').value;
-      const productSelect = document.getElementById('userProduct');
-      const product = productSelect.options[productSelect.selectedIndex].text;
-      const planSelect = document.getElementById('userPlan');
-      const plan = planSelect.options[planSelect.selectedIndex].text;
-
-      const telegramMsg = `✨ Yangi Buyurtma (Desco Landing) ✨%0A%0A👤 Ism: ${encodeURIComponent(name)}%0A📞 Tel: ${encodeURIComponent(phone)}%0A📦 Mahsulot: ${encodeURIComponent(product)}%0A💳 To'lov Rejasi: ${encodeURIComponent(plan)}`;
-
-      window.open(`https://t.me/desco_premium?text=${telegramMsg}`, '_blank');
-
-      const submitBtn = leadForm.querySelector('.btn-submit');
-      const origText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Arizangiz Qabul Qilindi!</span>';
-      submitBtn.style.background = '#10B981';
-
-      setTimeout(() => {
-        submitBtn.innerHTML = origText;
-        submitBtn.style.background = '';
-        leadForm.reset();
-      }, 3000);
-    });
-  }
-
-  // ── 9. Modal Order Form ──
-  const modalForm = document.getElementById('modalForm');
-  if (modalForm) {
-    modalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('modalName').value;
-      const phone = document.getElementById('modalPhone').value;
-      const product = document.getElementById('modalProductName').value;
-      const price = document.getElementById('modalProductPrice').value;
-      const plan = document.getElementById('modalPlan').value;
-
-      const telegramMsg = `👑 Yangi Tezkor Buyurtma 👑%0A%0A👤 Ism: ${encodeURIComponent(name)}%0A📞 Tel: ${encodeURIComponent(phone)}%0A📦 Mahsulot: ${encodeURIComponent(product)} (Naqd: ${encodeURIComponent(price)} so'm)%0A💳 Reja: ${encodeURIComponent(plan)}`;
-
-      window.open(`https://t.me/desco_premium?text=${telegramMsg}`, '_blank');
-
-      closeOrderModal();
-    });
-  }
-
-  // Close modal on backdrop click
-  const modalBackdrop = document.getElementById('orderModal');
-  if (modalBackdrop) {
-    modalBackdrop.addEventListener('click', (e) => {
-      if (e.target === modalBackdrop) {
-        closeOrderModal();
-      }
-    });
-  }
-
+  initHeader();
+  initMobileNav();
+  initHeroSwitcher();
+  initFaqAccordion();
+  initInstallmentFilter();
+  initForms();
 });
 
-// ── REAL PRODUCT LIVE MASSAGE SIMULATOR LOGIC ──
+/* ── 1. HEADER SCROLL EFFECT ── */
+function initHeader() {
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }, { passive: true });
+}
+
+/* ── 2. MOBILE DRAWER NAVIGATION ── */
+function initMobileNav() {
+  const toggle = document.getElementById('mobileToggle');
+  const nav = document.getElementById('nav');
+  const overlay = document.getElementById('navOverlay');
+  const closeBtn = document.getElementById('mobileCloseBtn');
+  const links = document.querySelectorAll('.nav-link');
+
+  function openNav() {
+    nav.classList.add('open');
+    overlay.classList.add('open');
+    toggle.classList.add('active');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeNav() {
+    nav.classList.remove('open');
+    overlay.classList.remove('open');
+    toggle.classList.remove('active');
+    document.body.classList.remove('menu-open');
+  }
+
+  if (toggle) toggle.addEventListener('click', () => {
+    if (nav.classList.contains('open')) closeNav();
+    else openNav();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeNav);
+  if (overlay) overlay.addEventListener('click', closeNav);
+
+  links.forEach(l => {
+    l.addEventListener('click', () => {
+      closeNav();
+      links.forEach(x => x.classList.remove('active'));
+      l.classList.add('active');
+    });
+  });
+}
+
+/* ── 3. HERO MODEL SWITCHER ── */
+function initHeroSwitcher() {
+  const switchBtns = document.querySelectorAll('.h-switch-btn');
+  const heroPic = document.getElementById('heroProductPic');
+
+  switchBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const imgPath = btn.getAttribute('data-img');
+
+      if (heroPic) {
+        heroPic.style.opacity = '0';
+        heroPic.style.transform = 'scale(0.92)';
+        setTimeout(() => {
+          heroPic.src = imgPath;
+          heroPic.style.opacity = '1';
+          heroPic.style.transform = 'scale(1)';
+        }, 200);
+      }
+    });
+  });
+}
+
+/* ── 4. LIVE MASSAGE SIMULATOR ENGINE ── */
+let isSimulatorRunning = false;
+let simulatorTimerInterval = null;
+let simulatorPressureInterval = null;
+let currentSeconds = 900; // 15 mins
 
 function selectDemoModel(model) {
-  currentDemoModel = model;
   const tabGold = document.getElementById('demoTabGold');
   const tabSilver = document.getElementById('demoTabSilver');
   const simImg = document.getElementById('simRealImg');
-  const hudStatusText = document.getElementById('hudStatusText');
 
   if (model === 'gold') {
     tabGold.classList.add('active');
     tabSilver.classList.remove('active');
     simImg.src = 'img/gold-product-trans.png';
-    if (isMassageRunning) {
-      hudStatusText.textContent = '3-FUNKSIYALIK JONLI ISHLAMOQDA';
-    }
   } else {
     tabSilver.classList.add('active');
     tabGold.classList.remove('active');
     simImg.src = 'img/silver-product-trans.png';
-    if (isMassageRunning) {
-      hudStatusText.textContent = '6-FUNKSIYALIK 3D JONLI ISHLAMOQDA';
-    }
   }
 }
 
 function toggleLiveMassage() {
   const arena = document.getElementById('demoStageArena');
   const toggleBtn = document.getElementById('btnLiveToggle');
-  const toggleIcon = document.getElementById('toggleIcon');
   const toggleText = document.getElementById('toggleText');
+  const toggleIcon = document.getElementById('toggleIcon');
   const hudStatus = document.getElementById('hudStatus');
   const hudStatusText = document.getElementById('hudStatusText');
   const pressureVal = document.getElementById('pressureVal');
+  const timerVal = document.getElementById('timerVal');
+  const modeVal = document.getElementById('modeVal');
 
-  isMassageRunning = !isMassageRunning;
+  const phase1 = document.getElementById('phase1');
+  const phase2 = document.getElementById('phase2');
+  const phase3 = document.getElementById('phase3');
 
-  if (isMassageRunning) {
+  isSimulatorRunning = !isSimulatorRunning;
+
+  if (isSimulatorRunning) {
+    // Start Simulation
     arena.classList.add('running');
     toggleBtn.classList.add('running');
-    toggleIcon.className = 'fas fa-pause';
-    toggleText.textContent = 'To\'xtatish';
+    toggleText.textContent = "Massajni To'xtatish";
+    toggleIcon.className = "fas fa-stop";
     hudStatus.classList.add('active');
+    hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
+    if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
 
-    const modelName = currentDemoModel === 'gold' ? '3-FUNKSIYALIK (TILLO)' : '6-FUNKSIYALIK (SERIY)';
-    hudStatusText.textContent = `${modelName} ISHLAMOQDA`;
+    // Dynamic Pressure Simulation (Air compression pulse)
+    let pStep = 0;
+    const pressures = [35, 52, 68, 76, 54, 28, 45, 72, 80, 60, 32];
+    simulatorPressureInterval = setInterval(() => {
+      pStep = (pStep + 1) % pressures.length;
+      if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
 
-    // Dynamic Pressure Simulation (0 -> 48 -> 72 -> 28 kPa)
-    let pressureStep = 0;
-    const pressures = ['48 kPa (Siqish)', '72 kPa (Maksimal)', '54 kPa (Uvalash)', '28 kPa (Bo\'shatish)'];
-    clearInterval(pressureInterval);
-    pressureInterval = setInterval(() => {
-      pressureStep = (pressureStep + 1) % pressures.length;
-      if (pressureVal) pressureVal.textContent = pressures[pressureStep];
+      // Rotate active phase step
+      if (pStep < 4) {
+        phase1.classList.add('active');
+        phase2.classList.remove('active');
+        phase3.classList.remove('active');
+      } else if (pStep < 8) {
+        phase1.classList.remove('active');
+        phase2.classList.add('active');
+        phase3.classList.remove('active');
+      } else {
+        phase1.classList.remove('active');
+        phase2.classList.remove('active');
+        phase3.classList.add('active');
+      }
     }, 1200);
 
-    // Start Timer
-    timerSeconds = 15 * 60;
-    updateTimerDisplay();
-    clearInterval(massageTimerInterval);
-    massageTimerInterval = setInterval(() => {
-      timerSeconds--;
-      if (timerSeconds <= 0) {
-        toggleLiveMassage();
-      } else {
-        updateTimerDisplay();
+    // Timer Countdown
+    simulatorTimerInterval = setInterval(() => {
+      if (currentSeconds > 0) {
+        currentSeconds--;
+        const m = Math.floor(currentSeconds / 60);
+        const s = currentSeconds % 60;
+        if (timerVal) timerVal.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
       }
     }, 1000);
 
-    // Rotate Massage Phases
-    currentPhase = 1;
-    updatePhasesTracker(1);
-    clearInterval(phaseCycleInterval);
-    phaseCycleInterval = setInterval(() => {
-      currentPhase = (currentPhase % 3) + 1;
-      updatePhasesTracker(currentPhase);
-    }, 3500);
-
   } else {
+    // Stop Simulation
     arena.classList.remove('running');
     toggleBtn.classList.remove('running');
-    toggleIcon.className = 'fas fa-play';
-    toggleText.textContent = 'Massajni Ishga Tushirish';
+    toggleText.textContent = "Massajni Ishga Tushirish";
+    toggleIcon.className = "fas fa-play";
     hudStatus.classList.remove('active');
-    hudStatusText.textContent = 'KUTISH REJIMI';
-    if (pressureVal) pressureVal.textContent = '0 kPa';
+    hudStatusText.textContent = "KUTISH REJIMI";
+    if (pressureVal) pressureVal.textContent = "0 kPa";
+    if (modeVal) modeVal.textContent = "Avtomatik Massaj";
 
-    clearInterval(massageTimerInterval);
-    clearInterval(phaseCycleInterval);
-    clearInterval(pressureInterval);
+    clearInterval(simulatorPressureInterval);
+    clearInterval(simulatorTimerInterval);
+    currentSeconds = 900;
+    if (timerVal) timerVal.textContent = "15:00";
+    phase1.classList.add('active');
+    phase2.classList.remove('active');
+    phase3.classList.remove('active');
   }
 }
 
-function updateTimerDisplay() {
-  const timerVal = document.getElementById('timerVal');
-  if (!timerVal) return;
-  const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
-  const secs = (timerSeconds % 60).toString().padStart(2, '0');
-  timerVal.textContent = `${mins}:${secs}`;
-}
-
-function updatePhasesTracker(phase) {
-  document.querySelectorAll('.phase-step').forEach(p => p.classList.remove('active'));
-  const activePhase = document.getElementById(`phase${phase}`);
-  if (activePhase) activePhase.classList.add('active');
-}
-
-// Shortcut from Catalog Cards: Jump to Demo and Auto-Start
 function loadInteractiveDemo(model) {
   selectDemoModel(model);
-  const demoSection = document.getElementById('interactive-demo');
-  if (demoSection) {
-    demoSection.scrollIntoView({ behavior: 'smooth' });
+  const demoSec = document.getElementById('interactive-demo');
+  if (demoSec) {
+    demoSec.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
-      if (!isMassageRunning) {
-        toggleLiveMassage();
-      }
+      if (!isSimulatorRunning) toggleLiveMassage();
     }, 600);
   }
 }
 
-// ── Global Modal Open/Close (Touch Friendly) ──
+/* ── 5. CATALOG INSTALLMENT FILTER ── */
+function initInstallmentFilter() {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const matrixRows = document.querySelectorAll('.matrix-row');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const period = tab.getAttribute('data-period');
+
+      matrixRows.forEach(row => {
+        const rowPeriod = row.getAttribute('data-row');
+        if (period === 'cash') {
+          row.classList.remove('highlight', 'gold-highlight', 'dark-highlight');
+        } else if (rowPeriod === period) {
+          row.classList.add('highlight');
+        } else {
+          row.classList.remove('highlight', 'gold-highlight', 'dark-highlight');
+        }
+      });
+    });
+  });
+}
+
+/* ── 6. FAQ ACCORDION ── */
+function initFaqAccordion() {
+  const cards = document.querySelectorAll('.faq-card');
+  cards.forEach(card => {
+    const btn = card.querySelector('.faq-header-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const isOpen = card.classList.contains('active');
+        cards.forEach(c => c.classList.remove('active'));
+        if (!isOpen) card.classList.add('active');
+      });
+    }
+  });
+}
+
+/* ── 7. ORDER MODAL & TELEGRAM DISPATCH ── */
 function openOrderModal(productName, price) {
   const modal = document.getElementById('orderModal');
-  const titleElem = document.getElementById('modalProductTitle');
+  const title = document.getElementById('modalProductTitle');
   const hiddenName = document.getElementById('modalProductName');
   const hiddenPrice = document.getElementById('modalProductPrice');
 
+  if (title) title.textContent = productName;
+  if (hiddenName) hiddenName.value = productName;
+  if (hiddenPrice) hiddenPrice.value = price;
+
   if (modal) {
-    titleElem.textContent = `${productName} — ${price} so'm`;
-    hiddenName.value = productName;
-    hiddenPrice.value = price;
     modal.classList.add('open');
     document.body.classList.add('modal-open');
   }
@@ -398,5 +265,60 @@ function closeOrderModal() {
   if (modal) {
     modal.classList.remove('open');
     document.body.classList.remove('modal-open');
+  }
+}
+
+function initForms() {
+  // Phone Mask
+  const phoneInputs = document.querySelectorAll('input[type="tel"]');
+  phoneInputs.forEach(inp => {
+    inp.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (!v.startsWith('998')) v = '998' + v;
+      if (v.length > 12) v = v.substring(0, 12);
+      
+      let formatted = '+998 ';
+      if (v.length > 3) formatted += '(' + v.substring(3, 5);
+      if (v.length >= 5) formatted += ') ' + v.substring(5, 8);
+      if (v.length >= 8) formatted += '-' + v.substring(8, 10);
+      if (v.length >= 10) formatted += '-' + v.substring(10, 12);
+
+      e.target.value = formatted;
+    });
+  });
+
+  // Modal Form Submit -> Telegram
+  const modalForm = document.getElementById('modalForm');
+  if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('modalName').value.trim();
+      const phone = document.getElementById('modalPhone').value.trim();
+      const product = document.getElementById('modalProductName').value;
+      const plan = document.getElementById('modalPlan').value;
+
+      const message = `🛍 *YANGI BUYURTMA (Desco.premium)*\n\n👤 *Xaridor:* ${name}\n📞 *Telefon:* ${phone}\n📦 *Mahsulot:* ${product}\n💳 *To'lov usuli:* ${plan}\n\nIltimos, tezkor aloqaga chiqing!`;
+      const tgUrl = `https://t.me/desco_premium?text=${encodeURIComponent(message)}`;
+
+      closeOrderModal();
+      window.open(tgUrl, '_blank');
+    });
+  }
+
+  // Lead Section Form Submit -> Telegram
+  const leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('userName').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const product = document.getElementById('userProduct').options[document.getElementById('userProduct').selectedIndex].text;
+      const plan = document.getElementById('userPlan').options[document.getElementById('userPlan').selectedIndex].text;
+
+      const message = `🛍 *YANGI BUYURTMA (Desco.premium)*\n\n👤 *Xaridor:* ${name}\n📞 *Telefon:* ${phone}\n📦 *Model:* ${product}\n💳 *Reja:* ${plan}\n\nIltimos, tezkor aloqaga chiqing!`;
+      const tgUrl = `https://t.me/desco_premium?text=${encodeURIComponent(message)}`;
+
+      window.open(tgUrl, '_blank');
+    });
   }
 }
