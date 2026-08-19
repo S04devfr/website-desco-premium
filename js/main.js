@@ -1,6 +1,6 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT & ROG-STYLE INTERACTIVE COLOR CAROUSEL
- * Swipeable color carousel (ROG/Apple style), clean hero switcher & direct Telegram lead dispatch
+ * DESCO.PREMIUM — MAIN JAVASCRIPT & EXPANDABLE NASIYA SHOWCASE
+ * Integrated Nasiya Pricing Card Toggle, ROG Swipe Carousel & Telegram Lead Dispatch
  */
 
 const TG_BOT_CONFIG = {
@@ -8,22 +8,42 @@ const TG_BOT_CONFIG = {
   botUsername: 'webdesco_bot'
 };
 
-// Global Carousel State
+// Global State
 let activeModelKey = 'gold'; // 'gold' (3-func) or 'silver' (6-func)
 let currentColorIndex = 0;
+let activeNasiyaPlanMonths = '12';
 
 const MODEL_COLOR_DATA = {
   gold: [
-    { name: "Tillo rang (Champagne Gold)", img: "img/color-3-gold.png", glow: "rgba(197, 155, 39, 0.3)" },
-    { name: "Seriy (Metallic Silver)", img: "img/color-3-silver.png", glow: "rgba(156, 163, 175, 0.3)" },
-    { name: "Qora (Obsidian Black)", img: "img/color-3-black.png", glow: "rgba(30, 30, 30, 0.4)" },
-    { name: "Qizil (Ruby Red Edition)", img: "img/color-3-red.png", glow: "rgba(239, 68, 68, 0.35)" }
+    { name: "Tillo rang (Champagne Gold)", img: "img/color-3-gold.png" },
+    { name: "Seriy (Metallic Silver)", img: "img/color-3-silver.png" },
+    { name: "Qora (Obsidian Black)", img: "img/color-3-black.png" },
+    { name: "Qizil (Ruby Red Edition)", img: "img/color-3-red.png" }
   ],
   silver: [
-    { name: "Seriy (Silver Edition)", img: "img/color-6-silver.png", glow: "rgba(156, 163, 175, 0.3)" },
-    { name: "Qora (Obsidian Black)", img: "img/color-6-black.png", glow: "rgba(30, 30, 30, 0.4)" },
-    { name: "Tillo (Champagne Gold)", img: "img/color-6-gold.png", glow: "rgba(197, 155, 39, 0.3)" }
+    { name: "Seriy (Silver Edition)", img: "img/color-6-silver.png" },
+    { name: "Qora (Obsidian Black)", img: "img/color-6-black.png" },
+    { name: "Tillo (Champagne Gold)", img: "img/color-6-gold.png" }
   ]
+};
+
+const PRICING_DATA = {
+  gold: {
+    title: "3-Funksiyalik Oyoq Massajeri",
+    p3: "563,000 so'm/oy",
+    p6: "303,000 so'm/oy",
+    p12: "163,000 so'm/oy",
+    cash: "1,300,000 so'm",
+    code: "3ta-gold"
+  },
+  silver: {
+    title: "6-Funksiyalik Oyoq Massajeri",
+    p3: "780,000 so'm/oy",
+    p6: "420,000 so'm/oy",
+    p12: "225,000 so'm/oy",
+    cash: "1,800,000 so'm",
+    code: "6ta-silver"
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSwitcher();
   initRogCarousel();
   initFaqAccordion();
-  initInstallmentFilter();
   initForms();
+  updateNasiyaCardUI();
 });
 
 /* ── 1. HEADER SCROLL EFFECT ── */
@@ -125,7 +145,55 @@ function initHeroSwitcher() {
   });
 }
 
-/* ── 4. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
+/* ── 4. EXPANDABLE NASIYA PRICING CARD TOGGLE ── */
+function toggleNasiyaCard() {
+  const card = document.getElementById('expandableNasiyaCard');
+  const toggleBtn = document.getElementById('btnNasiyaToggle');
+
+  if (card && toggleBtn) {
+    const isOpen = card.classList.contains('open');
+    if (isOpen) {
+      card.classList.remove('open');
+      toggleBtn.classList.remove('active');
+    } else {
+      card.classList.add('open');
+      toggleBtn.classList.add('active');
+      updateNasiyaCardUI();
+    }
+  }
+}
+
+function selectNasiyaPlan(months) {
+  activeNasiyaPlanMonths = months;
+  const boxes = document.querySelectorAll('.nasiya-plan-box');
+  boxes.forEach(b => b.classList.remove('active'));
+
+  if (months === '3') boxes[0]?.classList.add('active');
+  if (months === '6') boxes[1]?.classList.add('active');
+  if (months === '12') boxes[2]?.classList.add('active');
+}
+
+function updateNasiyaCardUI() {
+  const p = PRICING_DATA[activeModelKey];
+  const cData = MODEL_COLOR_DATA[activeModelKey][currentColorIndex];
+
+  const titleEl = document.getElementById('nasiyaModelTitle');
+  const colorTagEl = document.getElementById('nasiyaModelColorTag');
+  const val3 = document.getElementById('nasiyaVal3');
+  const val6 = document.getElementById('nasiyaVal6');
+  const val12 = document.getElementById('nasiyaVal12');
+  const cashVal = document.getElementById('nasiyaCashVal');
+
+  if (titleEl) titleEl.textContent = p.title;
+  if (colorTagEl && cData) colorTagEl.innerHTML = `<i class="fas fa-palette gold-icon"></i> Tanlangan rang: ${cData.name}`;
+  
+  if (val3) val3.innerHTML = `${p.p3.split(' ')[0]} <small>so'm/oy</small>`;
+  if (val6) val6.innerHTML = `${p.p6.split(' ')[0]} <small>so'm/oy</small>`;
+  if (val12) val12.innerHTML = `${p.p12.split(' ')[0]} <small>so'm/oy</small>`;
+  if (cashVal) cashVal.textContent = p.cash;
+}
+
+/* ── 5. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
 function initRogCarousel() {
   const container = document.getElementById('rogCarouselContainer');
   if (!container) return;
@@ -146,10 +214,8 @@ function initRogCarousel() {
     const diff = touchEndX - touchStartX;
     if (Math.abs(diff) > 40) {
       if (diff < 0) {
-        // Swiped Left -> Next color
         carouselSlide(1);
       } else {
-        // Swiped Right -> Prev color
         carouselSlide(-1);
       }
     }
@@ -178,11 +244,13 @@ function selectDemoModel(model) {
   }
 
   updateCarouselUI();
+  updateNasiyaCardUI();
 }
 
 function setCarouselColor(index) {
   currentColorIndex = index;
   updateCarouselUI();
+  updateNasiyaCardUI();
 }
 
 function carouselSlide(dir) {
@@ -191,6 +259,7 @@ function carouselSlide(dir) {
   
   currentColorIndex = (currentColorIndex + dir + colors.length) % colors.length;
   updateCarouselUI();
+  updateNasiyaCardUI();
 }
 
 function updateCarouselUI() {
@@ -199,11 +268,9 @@ function updateCarouselUI() {
 
   const currentItem = colors[currentColorIndex];
   const simImg = document.getElementById('simRealImg');
-  const activeColorName = document.getElementById('activeColorName');
   
   const swatchesGroup = activeModelKey === 'gold' ? document.getElementById('swatches3Func') : document.getElementById('swatches6Func');
 
-  // Update Swatch buttons active state
   if (swatchesGroup) {
     const btns = swatchesGroup.querySelectorAll('.swatch-btn');
     btns.forEach((b, idx) => {
@@ -215,7 +282,6 @@ function updateCarouselUI() {
     });
   }
 
-  // Smooth ROG 3D slide transition
   if (simImg) {
     simImg.style.opacity = '0.2';
     simImg.style.transform = 'scale(0.92) translateX(12px)';
@@ -226,13 +292,9 @@ function updateCarouselUI() {
       simImg.style.transform = 'scale(1) translateX(0)';
     }, 180);
   }
-
-  if (activeColorName) {
-    activeColorName.textContent = currentItem.name;
-  }
 }
 
-/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 6. LIVE MASSAGE SIMULATOR ENGINE ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
@@ -314,18 +376,7 @@ function toggleLiveMassage() {
   }
 }
 
-function loadInteractiveDemo(model) {
-  selectDemoModel(model);
-  const demoSec = document.getElementById('interactive-demo');
-  if (demoSec) {
-    demoSec.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      if (!isSimulatorRunning) toggleLiveMassage();
-    }, 600);
-  }
-}
-
-/* ── 6. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
+/* ── 7. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -343,31 +394,16 @@ function scrollToContact(productCode) {
   }
 }
 
-/* ── 7. CATALOG INSTALLMENT DURATION FILTER ── */
-function initInstallmentFilter() {
-  const tabs = document.querySelectorAll('.tab-btn');
-  const allRows = document.querySelectorAll('.p-matrix-row');
+function scrollToContactWithPrefill() {
+  const pData = PRICING_DATA[activeModelKey];
+  scrollToContact(pData ? pData.code : 'all');
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const period = tab.getAttribute('data-period');
-
-      allRows.forEach(row => {
-        const rowPeriod = row.getAttribute('data-row');
-        const valSpan = row.querySelector('.m-val');
-        if (rowPeriod === period) {
-          row.classList.add('active-row');
-          if (valSpan) valSpan.classList.add('highlight-val');
-        } else {
-          row.classList.remove('active-row');
-          if (valSpan) valSpan.classList.remove('highlight-val');
-        }
-      });
-    });
-  });
+  const userPlan = document.getElementById('userPlan');
+  if (userPlan) {
+    if (activeNasiyaPlanMonths === '12') userPlan.value = '12-oy';
+    if (activeNasiyaPlanMonths === '6') userPlan.value = '6-oy';
+    if (activeNasiyaPlanMonths === '3') userPlan.value = '3-oy';
+  }
 }
 
 /* ── 8. FAQ ACCORDION ── */

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO.PREMIUM — MODERN TECH-LUXURY DESIGN SYSTEM & ROG-STYLE COLOR SHOWCASE
+   DESCO.PREMIUM — MODERN TECH-LUXURY DESIGN SYSTEM & EXPANDABLE NASIYA SHOWCASE
    Typography: 'Outfit' (Headlines) & 'Plus Jakarta Sans' (Body)
    Palette: Creamy Soft White (#FBFBFA), Obsidian (#1A1A1A), Champagne Gold (#C59B27)
    ═══════════════════════════════════════════════════════════════════════════════ */
@@ -432,7 +432,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   2. HERO SECTION (CLEAN LUXURY APPLE/ROG STYLE STUDIO CARD)
+   2. HERO SECTION
    ═══════════════════════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
@@ -579,7 +579,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   font-weight: 600;
 }
 
-/* Studio Hero Card (Clean & Clutter-Free) */
+/* Studio Hero Card */
 .hero-visual-wrapper {
   position: relative;
   width: 100%;
@@ -612,7 +612,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
   background: radial-gradient(circle, rgba(197, 155, 39, 0.25) 0%, transparent 70%);
   filter: blur(35px);
   pointer-events: none;
-  transition: background 0.4s ease;
 }
 
 .hero-model-switcher-wrap {
@@ -724,7 +723,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   3. ROG-STYLE INTERACTIVE COLOR CAROUSEL & SIMULATOR
+   3. SHOWCASE & EXPANDABLE NASIYA PRICING CARD
    ═══════════════════════════════════════════════════════════════════════════════ */
 .interactive-demo-section {
   padding: 85px 0;
@@ -820,7 +819,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   border: 1px solid rgba(197, 155, 39, 0.4);
 }
 
-/* Color Swatches Bar */
+/* Subbar: Swatches & Large Nasiya Toggle */
 .showcase-options-subbar {
   display: flex;
   align-items: center;
@@ -890,23 +889,195 @@ h1, h2, h3, h4, .brand-name, .section-title {
 .swatch-black { background: #111111; }
 .swatch-red { background: linear-gradient(135deg, #EF4444, #B91C1C); }
 
-.showcase-nasiya-pill {
-  display: flex;
+/* Prominent Large Nasiya Toggle Button */
+.btn-nasiya-toggle {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--gold-dark);
-  background: rgba(197, 155, 39, 0.08);
-  border: 1px solid var(--border-gold);
-  padding: 6px 14px;
+  gap: 10px;
+  padding: 10px 22px;
+  background: var(--obsidian);
+  color: #FFFFFF;
+  border: 1.5px solid var(--border-gold);
   border-radius: 100px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  user-select: none;
 }
 
-.sn-color { color: var(--obsidian); }
-.sn-divider { color: var(--text-light); }
+.btn-nasiya-toggle:hover {
+  background: var(--gold-primary);
+  color: #FFFFFF;
+  border-color: transparent;
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-2px);
+}
 
-/* ROG Carousel Viewport with Left/Right Arrows & Touch Swipe */
+.toggle-arrow-icon {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-nasiya-toggle.active .toggle-arrow-icon {
+  transform: rotate(180deg);
+}
+
+/* Expandable Nasiya Card Container */
+.expandable-nasiya-card {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, padding 0.35s ease;
+  background: linear-gradient(180deg, rgba(197, 155, 39, 0.08) 0%, #FFFFFF 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.expandable-nasiya-card.open {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.nasiya-card-inner {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nasiya-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nasiya-card-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--obsidian);
+}
+
+.nasiya-card-sub {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  display: block;
+  margin-top: 2px;
+}
+
+.nasiya-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+/* 3-Column Installment Options Box */
+.nasiya-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.nasiya-plan-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.nasiya-plan-box:hover {
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+}
+
+.nasiya-plan-box.featured-plan {
+  border-color: var(--gold-primary);
+  background: linear-gradient(135deg, rgba(197, 155, 39, 0.14), rgba(255, 255, 255, 0.95));
+}
+
+.nasiya-plan-box.active {
+  border-color: var(--obsidian);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.plan-period {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--obsidian);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.plan-val {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--obsidian);
+}
+
+.plan-val small {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.plan-val.highlight {
+  font-size: 1.35rem;
+  color: var(--gold-dark);
+}
+
+.plan-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.gold-badge-sm {
+  color: var(--gold-dark);
+  font-weight: 800;
+}
+
+.nasiya-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(26, 26, 26, 0.12);
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.cash-price-info span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.cash-price-info strong {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--obsidian);
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Carousel Stage & Simulator */
 .rog-carousel-container {
   position: relative;
   display: flex;
@@ -1321,328 +1492,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   4. CATALOG & DIRECT LEAD SCROLL
-   ═══════════════════════════════════════════════════════════════════════════════ */
-.catalog-section {
-  padding: 85px 0;
-  background: var(--cream-surface);
-}
-
-.installment-tabs-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 36px;
-  width: 100%;
-}
-
-.installment-tabs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 4px;
-  max-width: 100%;
-  scrollbar-width: none;
-}
-.installment-tabs::-webkit-scrollbar { display: none; }
-
-.tab-btn {
-  padding: 9px 22px;
-  border-radius: 100px;
-  background: #FFFFFF;
-  border: 1.5px solid var(--border-subtle);
-  color: var(--text-main);
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tab-btn:hover {
-  border-color: var(--gold-primary);
-  color: var(--gold-dark);
-}
-
-.tab-btn.active {
-  background: var(--obsidian);
-  color: #FFFFFF;
-  border-color: var(--obsidian);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-}
-
-.catalog-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  align-items: stretch;
-}
-
-.catalog-card {
-  background: #FFFFFF;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: var(--transition-normal);
-}
-
-.catalog-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-luxury);
-  border-color: var(--border-gold);
-}
-
-.featured-gold-card {
-  border: 2px solid var(--gold-primary);
-  box-shadow: var(--shadow-gold);
-  transform: scale(1.02);
-}
-
-.featured-gold-card:hover { transform: scale(1.02) translateY(-5px); }
-
-.popular-ribbon {
-  position: absolute;
-  top: 16px;
-  right: -32px;
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-  color: #FFFFFF;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 5px 36px;
-  transform: rotate(45deg);
-  z-index: 5;
-  text-transform: uppercase;
-}
-
-.vip-ribbon {
-  position: absolute;
-  top: 16px;
-  right: -32px;
-  background: var(--obsidian);
-  color: var(--gold-light);
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 5px 36px;
-  transform: rotate(45deg);
-  z-index: 5;
-  text-transform: uppercase;
-}
-
-.card-num-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 4;
-  width: 34px;
-  height: 34px;
-  background: var(--obsidian);
-  color: #FFFFFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 800;
-}
-
-.gold-badge { background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark)); }
-.dark-badge { background: #111111; color: var(--gold-light); border: 1px solid var(--gold-primary); }
-
-.product-color-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: var(--gold-dark);
-  margin-bottom: 6px;
-}
-
-.card-image-box {
-  position: relative;
-  height: 230px;
-  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(245,244,238,0.6) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 18px;
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-}
-
-.card-img {
-  max-width: 86%;
-  max-height: 86%;
-  object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.08));
-  mix-blend-mode: multiply;
-  transition: var(--transition-smooth);
-}
-
-.catalog-card:hover .card-img { transform: scale(1.06); }
-
-.edition-chip {
-  position: absolute;
-  bottom: 10px;
-  left: 14px;
-  padding: 3px 10px;
-  border-radius: 100px;
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.silver-chip { background: rgba(26, 26, 26, 0.08); color: var(--obsidian); }
-.gold-chip { background: rgba(197, 155, 39, 0.18); color: var(--gold-dark); }
-.vip-chip { background: var(--obsidian); color: var(--gold-light); }
-
-.card-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-
-.card-sub-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-  margin-bottom: 14px;
-  min-height: 36px;
-}
-
-.card-slogan {
-  font-size: 0.82rem;
-  font-style: italic;
-  color: var(--gold-dark);
-  font-weight: 600;
-  margin-bottom: 14px;
-  min-height: 36px;
-}
-
-.pricing-matrix-box {
-  background: var(--cream-bg);
-  border: 1.5px solid var(--border-gold);
-  border-radius: var(--radius-md);
-  padding: 8px 10px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: var(--shadow-sm);
-}
-
-.featured-matrix-box {
-  background: linear-gradient(180deg, rgba(197, 155, 39, 0.08) 0%, #FFFFFF 100%);
-  border-color: var(--gold-primary);
-}
-
-.dark-matrix-box {
-  background: linear-gradient(180deg, rgba(26, 26, 26, 0.05) 0%, #FFFFFF 100%);
-}
-
-.p-matrix-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: var(--radius-xs);
-  transition: var(--transition-fast);
-}
-
-.p-matrix-row.active-row {
-  background: rgba(197, 155, 39, 0.14);
-  border: 1px solid var(--border-gold);
-}
-
-.m-period {
-  font-size: 0.82rem;
-  color: var(--obsidian);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.m-val {
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--obsidian);
-}
-
-.m-val small {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--text-light);
-}
-
-.m-val.highlight-val {
-  font-size: 1.05rem;
-  color: var(--gold-dark);
-  font-weight: 900;
-}
-
-.p-cash-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px 4px;
-  border-top: 1px dashed rgba(26, 26, 26, 0.12);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-.p-cash-footer strong {
-  color: var(--obsidian);
-  font-weight: 800;
-}
-
-.card-actions-clean {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: auto;
-}
-
-.btn-demo-link {
-  background: none;
-  border: none;
-  color: var(--gold-dark);
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 6px 0;
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.btn-demo-link:hover {
-  color: var(--obsidian);
-  transform: translateY(-1px);
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════════
-   5. NIMA UCHUN DESCO (BENEFITS)
+   4. NIMA UCHUN DESCO (BENEFITS)
    ═══════════════════════════════════════════════════════════════════════════════ */
 .why-section {
   padding: 85px 0;
@@ -1696,7 +1546,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   6. 5-IN-1 GIFT SET SHOWCASE
+   5. 5-IN-1 GIFT SET SHOWCASE
    ═══════════════════════════════════════════════════════════════════════════════ */
 .features-section {
   padding: 85px 0;
@@ -1807,7 +1657,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   7. FAQ SECTION
+   6. FAQ SECTION
    ═══════════════════════════════════════════════════════════════════════════════ */
 .faq-section {
   padding: 85px 0;
@@ -1895,7 +1745,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   8. CONTACT & FAST LEAD CAPTURE
+   7. CONTACT & FAST LEAD CAPTURE
    ═══════════════════════════════════════════════════════════════════════════════ */
 .contact-section {
   padding: 85px 0;
@@ -2244,12 +2094,10 @@ h1, h2, h3, h4, .brand-name, .section-title {
   .hero-desc { margin: 0 auto 24px; }
   .trust-strip { margin: 0 auto; }
   .why-grid { grid-template-columns: 1fr; gap: 16px; }
-  .catalog-grid { grid-template-columns: repeat(2, 1fr); }
-  .featured-gold-card { transform: none; }
-  .featured-gold-card:hover { transform: translateY(-5px); }
   .gift-showcase-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: repeat(2, 1fr); }
   .massage-phases-tracker { grid-template-columns: 1fr; }
+  .nasiya-pricing-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -2430,7 +2278,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 
   .hero-live-badge { font-size: 0.68rem; padding: 4px 10px; text-align: center; }
 
-  /* Showcase & Carousel Mobile */
+  /* Showcase Section Mobile */
   .showcase-model-tabs-bar { grid-template-columns: 1fr; }
   .showcase-tab-btn { padding: 12px 16px; border-right: none; border-bottom: 1px solid var(--border-subtle); }
   .showcase-tab-btn:last-child { border-bottom: none; }
@@ -2443,36 +2291,24 @@ h1, h2, h3, h4, .brand-name, .section-title {
     padding: 12px 14px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
 
   .color-picker-box { width: 100%; justify-content: space-between; }
   .color-swatches-group { flex-wrap: wrap; }
   .swatch-btn { padding: 4px 10px 4px 5px; font-size: 0.72rem; }
 
-  .showcase-nasiya-pill { width: 100%; justify-content: center; font-size: 0.74rem; }
+  .btn-nasiya-toggle { width: 100%; justify-content: center; font-size: 0.84rem; padding: 10px 16px; }
 
-  .carousel-nav-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+  .nasiya-card-inner { padding: 16px 14px; }
+  .nasiya-card-title { font-size: 1.15rem; }
+  .nasiya-pricing-grid { grid-template-columns: 1fr; gap: 10px; }
 
-  .why-section, .interactive-demo-section, .catalog-section, .features-section, .faq-section, .contact-section {
+  .why-section, .interactive-demo-section, .features-section, .faq-section, .contact-section {
     padding: 46px 0;
   }
 
   .section-heading { margin-bottom: 22px; }
-
-  .catalog-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-  .card-image-box { height: 190px; }
-  .card-body { padding: 16px 14px; }
-  .pricing-matrix-box { padding: 6px 8px; }
-  .p-matrix-row { padding: 6px 8px; }
-  .m-val { font-size: 0.9rem; }
-  .m-val.highlight-val { font-size: 0.98rem; }
 
   .demo-stage-arena { padding: 12px 8px 18px; }
 

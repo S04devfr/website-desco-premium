@@ -50,7 +50,6 @@
         <div class="nav-links-wrap">
           <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
           <a href="#interactive-demo" class="nav-link"><i class="fas fa-play-circle mobile-nav-icon"></i> Imkoniyatlar & Ranglar</a>
-          <a href="#catalog" class="nav-link"><i class="fas fa-layer-group mobile-nav-icon"></i> Katalog & Narxlar</a>
           <a href="#why-desco" class="nav-link"><i class="fas fa-heart mobile-nav-icon"></i> Nima Uchun Desco?</a>
           <a href="#features" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
           <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> FAQ</a>
@@ -84,7 +83,7 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION (CLEAN LUXURY APPLE/ROG STYLE) ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
   <section class="hero" id="hero">
     <div class="container hero-container">
       <div class="hero-grid">
@@ -145,7 +144,7 @@
           </div>
         </div>
 
-        <!-- Right: Creative Studio Luxury Hero Stage -->
+        <!-- Right: Studio Showcase Card -->
         <div class="hero-visual-wrapper">
           <div class="hero-studio-card" id="heroStudioCard">
             
@@ -186,25 +185,25 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 3. INTERACTIVE ROG-STYLE COLOR CAROUSEL & SIMULATOR ═══════════════════ -->
+  <!-- ═══════════════════ 3. SHOWCASE & EXPANDABLE NASIYA PRICING CARD ═══════════════════ -->
   <section class="interactive-demo-section" id="interactive-demo">
     <div class="container">
       
       <div class="section-heading text-center">
-        <span class="luxury-pill">Qurilma Imkoniyatlari & Ranglar</span>
+        <span class="luxury-pill">Qurilma Imkoniyatlari & Nasiya Rejasi</span>
         <h2 class="section-title">
           Haqiqiy Ishlash Jarayoni Va<br>
           <span class="gold-gradient">Ranglar Kolleksiyasi</span>
         </h2>
         <p class="section-subtitle">
-          Chapga / o'ngga suring yoki rang tugmalarini bosing — mahsulotning barcha ranglari va 3D ishlash animatsiyasi.
+          Qurilma turini va yoqtirgan rangingizni tanlang. Nasiya narxlari va to'lov shartlarini bitta tugma bilan ko'ring.
         </p>
       </div>
 
-      <!-- ROG-Style Showcase Box -->
+      <!-- Main Showcase Container -->
       <div class="rog-showcase-wrapper" id="rogShowcaseWrapper">
         
-        <!-- Model Selection Header -->
+        <!-- Model Selection Header Tabs -->
         <div class="showcase-model-tabs-bar">
           <button class="showcase-tab-btn active" id="demoTabGold" onclick="selectDemoModel('gold')">
             <div class="s-tab-icon"><i class="fas fa-crown"></i></div>
@@ -225,7 +224,7 @@
           </button>
         </div>
 
-        <!-- Color Swatches & Subbar -->
+        <!-- Options Subbar: Color Swatches & Prominent NASIYA TOGGLE BUTTON -->
         <div class="showcase-options-subbar">
           
           <div class="color-picker-box">
@@ -268,15 +267,68 @@
             </div>
           </div>
 
-          <div class="showcase-nasiya-pill">
-            <span class="sn-color" id="activeColorName">Tillo rang (Champagne Gold)</span>
-            <span class="sn-divider">•</span>
-            <span class="sn-nasiya">12 Oyga 0% Nasiya</span>
-          </div>
+          <!-- PROMINENT LARGE NASIYA TOGGLE BUTTON -->
+          <button class="btn-nasiya-toggle" id="btnNasiyaToggle" onclick="toggleNasiyaCard()">
+            <i class="fas fa-credit-card gold-icon"></i>
+            <span>Nasiya Orqali Xarid Qilish</span>
+            <i class="fas fa-chevron-down toggle-arrow-icon"></i>
+          </button>
 
         </div>
 
-        <!-- ROG-Style Swipe Carousel & Interactive Simulator Stage -->
+        <!-- EXPANDABLE NASIYA PRICING & DETAILS CARD (Screenshot 2 Content Integrated) -->
+        <div class="expandable-nasiya-card" id="expandableNasiyaCard">
+          <div class="nasiya-card-inner">
+            
+            <div class="nasiya-header-flex">
+              <div>
+                <h3 class="nasiya-card-title" id="nasiyaModelTitle">3-Funksiyalik Oyoq Massajeri</h3>
+                <span class="nasiya-card-sub" id="nasiyaModelColorTag"><i class="fas fa-palette gold-icon"></i> Tanlangan rang: Tillo rang (Champagne Gold)</span>
+              </div>
+              <div class="nasiya-badge-pill">
+                <i class="fas fa-shield-halved"></i> 12 Oy Rasmiy Kafolat
+              </div>
+            </div>
+
+            <!-- Installment Matrix Grid -->
+            <div class="nasiya-pricing-grid">
+              
+              <div class="nasiya-plan-box" onclick="selectNasiyaPlan('3')">
+                <span class="plan-period"><i class="far fa-calendar-alt"></i> 3 Oyga</span>
+                <strong class="plan-val" id="nasiyaVal3">563,000 <small>so'm/oy</small></strong>
+                <span class="plan-badge">Boshlang'ich to'lovsiz</span>
+              </div>
+
+              <div class="nasiya-plan-box" onclick="selectNasiyaPlan('6')">
+                <span class="plan-period"><div class="far fa-calendar-alt"></div> 6 Oyga</span>
+                <strong class="plan-val" id="nasiyaVal6">303,000 <small>so'm/oy</small></strong>
+                <span class="plan-badge">0% Ustama</span>
+              </div>
+
+              <div class="nasiya-plan-box featured-plan active" onclick="selectNasiyaPlan('12')">
+                <span class="plan-period"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
+                <strong class="plan-val highlight" id="nasiyaVal12">163,000 <small>so'm/oy</small></strong>
+                <span class="plan-badge gold-badge-sm">0% Boshlang'ich To'lov</span>
+              </div>
+
+            </div>
+
+            <div class="nasiya-footer-bar">
+              <div class="cash-price-info">
+                <span>Naqd to'lov narxi:</span>
+                <strong id="nasiyaCashVal">1,300,000 so'm</strong>
+              </div>
+              <button class="btn btn-luxury" onclick="scrollToContactWithPrefill()">
+                <span class="btn-shine"></span>
+                <i class="fas fa-shopping-cart"></i>
+                <span>Buyurtmani Rasmiylashtirish</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Swipeable Carousel & Interactive Simulator Stage -->
         <div class="demo-stage-arena" id="demoStageArena">
           
           <div class="simulator-hud-bar">
@@ -295,7 +347,7 @@
             </div>
           </div>
 
-          <!-- Carousel Stage (Swipeable Left/Right) -->
+          <!-- Carousel Stage -->
           <div class="rog-carousel-container" id="rogCarouselContainer">
             
             <button class="carousel-nav-btn prev-btn" id="carouselPrevBtn" onclick="carouselSlide(-1)" aria-label="Oldingi rang">
@@ -417,181 +469,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 4. CATALOG & DIRECT LEAD SCROLL ═══════════════════ -->
-  <section class="catalog-section" id="catalog">
-    <div class="container">
-      
-      <div class="section-heading text-center">
-        <span class="luxury-pill">Rasmiy Katalog</span>
-        <h2 class="section-title">
-          Qulay To'lov Rejasini<br>
-          <span class="gold-gradient">O'zingiz Tanlang</span>
-        </h2>
-        <p class="section-subtitle">
-          0% Boshlang'ich to'lov, 12 oygacha qulay rasmiy bo'lib to'lash.
-        </p>
-      </div>
-
-      <!-- Duration Selector Tabs -->
-      <div class="installment-tabs-wrapper">
-        <div class="installment-tabs" id="installmentTabs">
-          <button class="tab-btn" data-period="3">3 Oyga</button>
-          <button class="tab-btn" data-period="6">6 Oyga</button>
-          <button class="tab-btn active" data-period="12">12 Oyga (Tavsiya)</button>
-        </div>
-      </div>
-
-      <div class="catalog-grid">
-
-        <!-- CARD 01: 3-Funksiyalik (Gold) -->
-        <div class="catalog-card" data-product="3ta-gold">
-          <div class="card-num-badge gold-badge">01</div>
-          
-          <div class="card-image-box">
-            <img src="img/color-3-gold.png" alt="3-Funksiyalik Gold Massajer" class="card-img" id="catImgGold" loading="lazy">
-            <span class="edition-chip gold-chip">3-Funksiyalik</span>
-          </div>
-
-          <div class="card-body">
-            <h3 class="card-title">3-Funksiyalik Oyoq Massajeri</h3>
-            <span class="product-color-tag"><i class="fas fa-palette gold-icon"></i> 4 xil rang: Tillo, Seriy, Qora, Qizil</span>
-            <p class="card-sub-desc">Oyoq va boldir havo kompressiyasi, tag qismidagi roliklar va avtomatik rejimlar.</p>
-
-            <div class="pricing-matrix-box">
-              <div class="p-matrix-row row-3" data-row="3">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
-                <strong class="m-val">563,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-6" data-row="6">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
-                <strong class="m-val">303,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-12 active-row" data-row="12">
-                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
-                <strong class="m-val highlight-val">163,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-cash-footer">
-                <span>Naqd to'lov:</span>
-                <strong>1,300,000 so'm</strong>
-              </div>
-            </div>
-
-            <!-- Direct Scroll to Form -->
-            <div class="card-actions-clean">
-              <button class="btn btn-luxury btn-full" onclick="scrollToContact('3ta-gold')">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Nasiyaga Xarid Qilish</span>
-              </button>
-              
-              <button class="btn-demo-link" onclick="loadInteractiveDemo('gold')">
-                <i class="fas fa-play-circle gold-icon"></i> <span>Qurilma ishlashini ko'rish</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD 02: 6-Funksiyalik (Silver) [TOP PICK] -->
-        <div class="catalog-card featured-gold-card" data-product="6ta-silver">
-          <div class="popular-ribbon">
-            <i class="fas fa-crown"></i> Eng Ko'p Sotilgan
-          </div>
-          <div class="card-num-badge">02</div>
-          
-          <div class="card-image-box">
-            <img src="img/color-6-silver.png" alt="6-Funksiyalik Silver Massajer" class="card-img" id="catImgSilver" loading="lazy">
-            <span class="edition-chip silver-chip">6-Funksiyalik</span>
-          </div>
-
-          <div class="card-body">
-            <h3 class="card-title">6-Funksiyalik Oyoq Massajeri</h3>
-            <span class="product-color-tag"><i class="fas fa-palette"></i> 3 xil rang: Seriy, Qora, Tillo</span>
-            <p class="card-sub-desc">6 xil akupunktur rejimi, to'liq boldir va tovonni qamrab oluvchi 3D chuqur massaj.</p>
-
-            <div class="pricing-matrix-box featured-matrix-box">
-              <div class="p-matrix-row row-3" data-row="3">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
-                <strong class="m-val">780,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-6" data-row="6">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
-                <strong class="m-val">420,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-12 active-row" data-row="12">
-                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
-                <strong class="m-val highlight-val">225,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-cash-footer">
-                <span>Naqd to'lov:</span>
-                <strong>1,800,000 so'm</strong>
-              </div>
-            </div>
-
-            <!-- Direct Scroll to Form -->
-            <div class="card-actions-clean">
-              <button class="btn btn-luxury btn-full" onclick="scrollToContact('6ta-silver')">
-                <span class="btn-shine"></span>
-                <i class="fas fa-crown gold-icon"></i>
-                <span>Nasiyaga Xarid Qilish</span>
-              </button>
-              
-              <button class="btn-demo-link" onclick="loadInteractiveDemo('silver')">
-                <i class="fas fa-play-circle gold-icon"></i> <span>Qurilma ishlashini ko'rish</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- CARD 03: Desco.premium Hadiya To'plami (5-in-1 Box) -->
-        <div class="catalog-card vip-gift-card" data-product="gift">
-          <div class="vip-ribbon">
-            <i class="fas fa-gem"></i> Hadiya To'plami
-          </div>
-          <div class="card-num-badge dark-badge">03</div>
-          
-          <div class="card-image-box">
-            <img src="img/gift-product-trans.png" alt="Desco.premium 5-in-1 Hadiya To'plami" class="card-img" loading="lazy">
-            <span class="edition-chip vip-chip">5-in-1 To'plam</span>
-          </div>
-
-          <div class="card-body">
-            <h3 class="card-title">Desco.premium Hadiya To'plami</h3>
-            <span class="product-color-tag"><i class="fas fa-box-open gold-icon"></i> Qora Premium Qutida</span>
-            <p class="card-slogan">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
-
-            <div class="pricing-matrix-box dark-matrix-box">
-              <div class="p-matrix-row row-3" data-row="3">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
-                <strong class="m-val">1,516,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-6" data-row="6">
-                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
-                <strong class="m-val">816,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-matrix-row row-12 active-row" data-row="12">
-                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
-                <strong class="m-val highlight-val">437,000 <small>so'm/oy</small></strong>
-              </div>
-              <div class="p-cash-footer">
-                <span>Naqd to'lov:</span>
-                <strong>3,500,000 so'm</strong>
-              </div>
-            </div>
-
-            <!-- Direct Scroll to Form -->
-            <div class="card-actions-clean">
-              <button class="btn btn-dark-luxury btn-full" onclick="scrollToContact('gift-set')">
-                <i class="fas fa-gift gold-icon"></i>
-                <span>To'plamni Tanlash</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════ 5. NIMA UCHUN DESCO.PREMIUM (BENEFITS) ═══════════════════ -->
+  <!-- ═══════════════════ 4. NIMA UCHUN DESCO.PREMIUM (BENEFITS) ═══════════════════ -->
   <section class="why-section" id="why-desco">
     <div class="container">
       <div class="section-heading text-center">
@@ -627,7 +505,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 6. 5-IN-1 DESCO.PREMIUM GIFT SET SHOWCASE ═══════════════════ -->
+  <!-- ═══════════════════ 5. 5-IN-1 DESCO.PREMIUM GIFT SET SHOWCASE ═══════════════════ -->
   <section class="features-section" id="features">
     <div class="container">
       <div class="section-heading text-center">
@@ -703,7 +581,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 7. FAQ SECTION ═══════════════════ -->
+  <!-- ═══════════════════ 6. FAQ SECTION ═══════════════════ -->
   <section class="faq-section" id="faq">
     <div class="container">
       <div class="section-heading text-center">
@@ -760,7 +638,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 8. QUICK LEAD CAPTURE & ORDER ═══════════════════ -->
+  <!-- ═══════════════════ 7. QUICK LEAD CAPTURE & ORDER ═══════════════════ -->
   <section class="contact-section" id="contact">
     <div class="container">
       <div class="lead-wrapper">
@@ -871,7 +749,6 @@
         <ul class="f-links">
           <li><a href="#hero">Asosiy</a></li>
           <li><a href="#interactive-demo">Imkoniyatlar & Ranglar</a></li>
-          <li><a href="#catalog">Katalog & Narxlar</a></li>
           <li><a href="#why-desco">Nima Uchun Desco?</a></li>
           <li><a href="#features">Hadiya To'plami</a></li>
           <li><a href="#faq">FAQ</a></li>
@@ -881,9 +758,9 @@
       <div class="footer-col">
         <h4 class="f-col-title">Mahsulotlar</h4>
         <ul class="f-links">
-          <li><a href="#catalog">3-Funksiyalik (4 xil rang)</a></li>
-          <li><a href="#catalog">6-Funksiyalik (3 xil rang)</a></li>
-          <li><a href="#catalog">Desco.premium 5-in-1 To'plami</a></li>
+          <li><a href="#interactive-demo">3-Funksiyalik (4 xil rang)</a></li>
+          <li><a href="#interactive-demo">6-Funksiyalik (3 xil rang)</a></li>
+          <li><a href="#features">Desco.premium 5-in-1 To'plami</a></li>
         </ul>
       </div>
 
