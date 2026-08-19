@@ -1,6 +1,6 @@
 /**
  * DESCO.PREMIUM — MAIN JAVASCRIPT & 3D 360° INTERACTIVE ENGINE
- * High-performance 360° orbital rotation with inertia damping & direct Telegram lead dispatch
+ * Color swatches switcher, continuous 360° rotation & direct Telegram lead dispatch
  */
 
 // OFFICIAL DESCO TELEGRAM BOT CONFIGURATION
@@ -203,27 +203,77 @@ function initHeroSwitcher() {
   });
 }
 
-/* ── 5. ULTRA-REALISTIC LIVE MASSAGE SIMULATOR ── */
-let isSimulatorRunning = false;
-let simulatorTimerInterval = null;
-let simulatorPressureInterval = null;
-let currentSeconds = 900; // 15 mins
-
+/* ── 5. COLOR SWATCHES & MODEL SWITCHER (4 COLORS 3-FUNC / 3 COLORS 6-FUNC) ── */
 function selectDemoModel(model) {
   const tabGold = document.getElementById('demoTabGold');
   const tabSilver = document.getElementById('demoTabSilver');
   const simImg = document.getElementById('simRealImg');
+  const swatches3 = document.getElementById('swatches3Func');
+  const swatches6 = document.getElementById('swatches6Func');
+  const activeColorName = document.getElementById('activeColorName');
 
   if (model === 'gold') {
     tabGold.classList.add('active');
     tabSilver.classList.remove('active');
-    simImg.src = 'img/gold-product-trans.png';
+    swatches3.style.display = 'flex';
+    swatches6.style.display = 'none';
+    
+    // Select first swatch in 3-func
+    const firstSwatch = swatches3.querySelector('.swatch-btn');
+    if (firstSwatch) {
+      swatches3.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      firstSwatch.classList.add('active');
+      simImg.src = firstSwatch.getAttribute('data-img');
+      activeColorName.textContent = firstSwatch.getAttribute('data-name');
+    }
   } else {
     tabSilver.classList.add('active');
     tabGold.classList.remove('active');
-    simImg.src = 'img/silver-product-trans.png';
+    swatches3.style.display = 'none';
+    swatches6.style.display = 'flex';
+
+    // Select first swatch in 6-func
+    const firstSwatch = swatches6.querySelector('.swatch-btn');
+    if (firstSwatch) {
+      swatches6.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+      firstSwatch.classList.add('active');
+      simImg.src = firstSwatch.getAttribute('data-img');
+      activeColorName.textContent = firstSwatch.getAttribute('data-name');
+    }
   }
 }
+
+function changeModelColor(btn, funcType) {
+  const parentGroup = funcType === '3' ? document.getElementById('swatches3Func') : document.getElementById('swatches6Func');
+  if (parentGroup) {
+    parentGroup.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+  }
+  btn.classList.add('active');
+
+  const imgPath = btn.getAttribute('data-img');
+  const colorName = btn.getAttribute('data-name');
+
+  const simImg = document.getElementById('simRealImg');
+  const activeColorName = document.getElementById('activeColorName');
+
+  if (simImg) {
+    simImg.style.opacity = '0.3';
+    setTimeout(() => {
+      simImg.src = imgPath;
+      simImg.style.opacity = '1';
+    }, 120);
+  }
+
+  if (activeColorName) {
+    activeColorName.textContent = colorName;
+  }
+}
+
+/* ── 6. LIVE MASSAGE SIMULATOR ENGINE ── */
+let isSimulatorRunning = false;
+let simulatorTimerInterval = null;
+let simulatorPressureInterval = null;
+let currentSeconds = 900; // 15 mins
 
 function toggleLiveMassage() {
   const arena = document.getElementById('demoStageArena');
@@ -312,7 +362,25 @@ function loadInteractiveDemo(model) {
   }
 }
 
-/* ── 6. CATALOG INSTALLMENT DURATION FILTER (SYNCS MATRIX ROWS) ── */
+/* ── 7. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
+function scrollToContact(productCode) {
+  const contactSec = document.getElementById('contact');
+  const userProduct = document.getElementById('userProduct');
+  const userName = document.getElementById('userName');
+
+  if (userProduct && productCode !== 'all') {
+    userProduct.value = productCode;
+  }
+
+  if (contactSec) {
+    contactSec.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if (userName) userName.focus();
+    }, 600);
+  }
+}
+
+/* ── 8. CATALOG INSTALLMENT DURATION FILTER ── */
 function initInstallmentFilter() {
   const tabs = document.querySelectorAll('.tab-btn');
   const allRows = document.querySelectorAll('.p-matrix-row');
@@ -339,7 +407,7 @@ function initInstallmentFilter() {
   });
 }
 
-/* ── 7. FAQ ACCORDION ── */
+/* ── 9. FAQ ACCORDION ── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -354,31 +422,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 8. ORDER MODAL & DIRECT TELEGRAM BOT LEAD DISPATCH ── */
-function openOrderModal(productName, price) {
-  const modal = document.getElementById('orderModal');
-  const title = document.getElementById('modalProductTitle');
-  const hiddenName = document.getElementById('modalProductName');
-  const hiddenPrice = document.getElementById('modalProductPrice');
-
-  if (title) title.textContent = productName;
-  if (hiddenName) hiddenName.value = productName;
-  if (hiddenPrice) hiddenPrice.value = price;
-
-  if (modal) {
-    modal.classList.add('open');
-    document.body.classList.add('modal-open');
-  }
-}
-
-function closeOrderModal() {
-  const modal = document.getElementById('orderModal');
-  if (modal) {
-    modal.classList.remove('open');
-    document.body.classList.remove('modal-open');
-  }
-}
-
+/* ── 10. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -403,7 +447,6 @@ function showSuccessNotice(customerName) {
   setTimeout(() => { notice.classList.remove('open'); }, 6500);
 }
 
-// Multi-Subscriber Telegram Bot Dispatcher
 async function sendLeadToTelegramBot(lead) {
   const message = `
 🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
@@ -418,7 +461,6 @@ async function sendLeadToTelegramBot(lead) {
   `.trim();
 
   try {
-    // 1. Fetch active chats from bot updates
     const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`);
     const updatesData = await updatesRes.json();
     
@@ -434,7 +476,6 @@ async function sendLeadToTelegramBot(lead) {
       });
     }
 
-    // 2. Dispatch to all active chat/channel subscribers
     if (targetChatIds.size > 0) {
       for (const chatId of targetChatIds) {
         fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
@@ -447,8 +488,6 @@ async function sendLeadToTelegramBot(lead) {
           })
         }).catch(err => console.error('Send error for chat:', chatId, err));
       }
-    } else {
-      console.log('Botda hozircha chat_id topilmadi. @webdesco_bot ga /start bosing yoki guruhga qoshing.');
     }
   } catch (err) {
     console.error('Telegram Bot Dispatch Error:', err);
@@ -456,7 +495,6 @@ async function sendLeadToTelegramBot(lead) {
 }
 
 function initForms() {
-  // Phone Mask
   const phoneInputs = document.querySelectorAll('input[type="tel"]');
   phoneInputs.forEach(inp => {
     inp.addEventListener('input', (e) => {
@@ -474,30 +512,6 @@ function initForms() {
     });
   });
 
-  // Modal Form Submit -> Bot Dispatch
-  const modalForm = document.getElementById('modalForm');
-  if (modalForm) {
-    modalForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = modalForm.querySelector('button[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...'; }
-
-      const name = document.getElementById('modalName').value.trim();
-      const phone = document.getElementById('modalPhone').value.trim();
-      const product = document.getElementById('modalProductName').value;
-      const plan = document.getElementById('modalPlan').value;
-
-      await sendLeadToTelegramBot({ name, phone, product, plan });
-
-      closeOrderModal();
-      modalForm.reset();
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>'; }
-
-      showSuccessNotice(name);
-    });
-  }
-
-  // Lead Section Form Submit -> Bot Dispatch
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
     leadForm.addEventListener('submit', async (e) => {
