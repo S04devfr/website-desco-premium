@@ -51,6 +51,7 @@
           <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
           <a href="#why-desco" class="nav-link"><i class="fas fa-heart mobile-nav-icon"></i> Nima Uchun Desco?</a>
           <a href="#features" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
+          <a href="#live-simulator-sec" class="nav-link"><i class="fas fa-play-circle mobile-nav-icon"></i> Ishlash Animatsiyasi</a>
           <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> FAQ</a>
           <a href="#contact" class="nav-link"><i class="fas fa-phone mobile-nav-icon"></i> Buyurtma</a>
         </div>
@@ -111,10 +112,10 @@
               <i class="fas fa-shopping-bag"></i>
               <span>Nasiyaga Xarid Qilish</span>
             </button>
-            <button onclick="toggleLiveMassage()" class="btn btn-glass hero-secondary-btn">
+            <a href="#live-simulator-sec" class="btn btn-glass hero-secondary-btn">
               <i class="fas fa-play-circle gold-icon"></i>
               <span>Qanday Ishlaydi?</span>
-            </button>
+            </a>
           </div>
 
           <!-- 3-Item Trust Bar -->
@@ -143,13 +144,13 @@
           </div>
         </div>
 
-        <!-- Right: Single Unified Interactive Showcase Card (Model Tabs + Swatches + ROG Carousel + Expandable Nasiya) -->
+        <!-- Right: Single Unified Interactive Showcase Card -->
         <div class="hero-visual-wrapper">
           <div class="hero-studio-card" id="heroStudioCard">
             
             <div class="hero-ambient-pedestal-glow" id="heroPedestalGlow"></div>
 
-            <!-- 1. Model Switcher Tabs (3-Funksiya / 6-Funksiya / To'plam) -->
+            <!-- Model Switcher Tabs (3-Funksiya / 6-Funksiya / To'plam) -->
             <div class="hero-model-switcher-wrap">
               <div class="hero-model-switcher">
                 <button class="h-switch-btn active" id="demoTabGold" onclick="selectDemoModel('gold')">
@@ -164,7 +165,7 @@
               </div>
             </div>
 
-            <!-- 2. Color Swatches Bar -->
+            <!-- Color Swatches Bar -->
             <div class="hero-swatches-subbar" id="swatchesBar">
               <!-- 3-Funksiya 4 Colors Swatches -->
               <div class="color-swatches-group" id="swatches3Func">
@@ -208,44 +209,15 @@
               </div>
             </div>
 
-            <!-- 3. Studio Product Viewport (ROG Swipeable & Live Simulator) -->
+            <!-- Studio Product Viewport (ROG Swipeable Stage) -->
             <div class="rog-carousel-container" id="rogCarouselContainer">
               <button class="carousel-nav-btn prev-btn" onclick="carouselSlide(-1)" aria-label="Oldingi">
                 <i class="fas fa-chevron-left"></i>
               </button>
 
-              <div class="hero-studio-podium" id="demoStageArena">
-                <div class="studio-product-levitate" id="deviceBaseFrame">
-                  <img src="img/color-3-gold.png" alt="Desco Premium Massajer" class="hero-studio-img" id="simRealImg" loading="eager">
-                  
-                  <!-- Left Leg Chamber overlay for simulation -->
-                  <div class="massage-chamber-overlay left-chamber" id="leftChamber">
-                    <div class="inserted-leg-silhouette"><div class="leg-gradient-skin"></div></div>
-                    <div class="airbag-squeeze-pad pad-outer-left"><div class="airbag-inner-ribs"></div></div>
-                    <div class="airbag-squeeze-pad pad-inner-left"><div class="airbag-inner-ribs"></div></div>
-                    <div class="airbag-pulse-aura"></div>
-                    <div class="roller-acupressure-track">
-                      <div class="roller-track-rail"></div>
-                      <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
-                      <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
-                      <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
-                    </div>
-                  </div>
-
-                  <!-- Right Leg Chamber overlay for simulation -->
-                  <div class="massage-chamber-overlay right-chamber" id="rightChamber">
-                    <div class="inserted-leg-silhouette"><div class="leg-gradient-skin"></div></div>
-                    <div class="airbag-squeeze-pad pad-inner-right"><div class="airbag-inner-ribs"></div></div>
-                    <div class="airbag-squeeze-pad pad-outer-right"><div class="airbag-inner-ribs"></div></div>
-                    <div class="airbag-pulse-aura"></div>
-                    <div class="roller-acupressure-track">
-                      <div class="roller-track-rail"></div>
-                      <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
-                      <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
-                      <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
-                    </div>
-                  </div>
-
+              <div class="hero-studio-podium">
+                <div class="studio-product-levitate">
+                  <img src="img/color-3-gold.png" alt="Desco Premium Massajer" class="hero-studio-img" id="heroProductPic" loading="eager">
                 </div>
                 <div class="studio-ambient-shadow"></div>
               </div>
@@ -255,14 +227,14 @@
               </button>
             </div>
 
-            <!-- 4. Prominent NASIYA TOGGLE BUTTON -->
+            <!-- Prominent NASIYA TOGGLE BUTTON -->
             <button class="btn-nasiya-toggle-hero" id="btnNasiyaToggle" onclick="toggleNasiyaCard()">
               <i class="fas fa-credit-card gold-icon"></i>
               <span id="heroLiveBadgeText">Oyiga 163,000 so'mdan (12 oy nasiya)</span>
               <i class="fas fa-chevron-down toggle-arrow-icon"></i>
             </button>
 
-            <!-- 5. EXPANDABLE NASIYA PRICING & DETAILS CARD -->
+            <!-- EXPANDABLE NASIYA PRICING & DETAILS CARD -->
             <div class="expandable-nasiya-card" id="expandableNasiyaCard">
               <div class="nasiya-card-inner">
                 
@@ -431,7 +403,116 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. FAQ SECTION ═══════════════════ -->
+  <!-- ═══════════════════ 5. MASSAJER ISHLASH ANIMATSIYASI (LIVE SIMULATOR) ═══════════════════ -->
+  <section class="live-simulator-section" id="live-simulator-sec">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="luxury-pill">3D Texnologiya</span>
+        <h2 class="section-title">
+          Massajerning Ishlash Mexanizmi<br>
+          <span class="gold-gradient">Jonli Animatsiya & 3D Model</span>
+        </h2>
+        <p class="section-subtitle">
+          Tugmani bosing — 3D havo yostiqchalari va roliklarning oyoq mushaklariga ta'sir qilish jarayonini kuzating.
+        </p>
+      </div>
+
+      <div class="live-simulator-box" id="demoStageArena">
+        
+        <!-- HUD Control Bar -->
+        <div class="simulator-hud-bar">
+          <div class="hud-item status-live" id="hudStatus">
+            <span class="hud-dot"></span>
+            <strong id="hudStatusText">KUTISH REJIMI</strong>
+          </div>
+          <div class="hud-item pressure" id="hudPressure">
+            <i class="fas fa-compress-arrows-alt"></i> Havo Bosimi: <span id="pressureVal">0 kPa</span>
+          </div>
+          <div class="hud-item mode-live" id="hudMode">
+            <i class="fas fa-sliders"></i> Rejim: <span id="modeVal">Avtomatik Massaj</span>
+          </div>
+          <div class="hud-item timer" id="hudTimer">
+            <i class="far fa-clock"></i> Taymer: <span id="timerVal">15:00</span>
+          </div>
+        </div>
+
+        <!-- Simulator Device Visual Viewport -->
+        <div class="simulator-device-viewport">
+          <div class="device-base-frame">
+            <img src="img/color-3-gold.png" alt="Desco Massaj Simulator" class="sim-real-img" id="simRealImgSim" loading="lazy">
+            
+            <!-- Left Leg Chamber -->
+            <div class="massage-chamber-overlay left-chamber" id="leftChamber">
+              <div class="inserted-leg-silhouette"><div class="leg-gradient-skin"></div></div>
+              <div class="airbag-squeeze-pad pad-outer-left"><div class="airbag-inner-ribs"></div></div>
+              <div class="airbag-squeeze-pad pad-inner-left"><div class="airbag-inner-ribs"></div></div>
+              <div class="airbag-pulse-aura"></div>
+              <div class="roller-acupressure-track">
+                <div class="roller-track-rail"></div>
+                <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
+              </div>
+              <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
+            </div>
+
+            <!-- Right Leg Chamber -->
+            <div class="massage-chamber-overlay right-chamber" id="rightChamber">
+              <div class="inserted-leg-silhouette"><div class="leg-gradient-skin"></div></div>
+              <div class="airbag-squeeze-pad pad-inner-right"><div class="airbag-inner-ribs"></div></div>
+              <div class="airbag-squeeze-pad pad-outer-right"><div class="airbag-inner-ribs"></div></div>
+              <div class="airbag-pulse-aura"></div>
+              <div class="roller-acupressure-track">
+                <div class="roller-track-rail"></div>
+                <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
+              </div>
+              <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <div class="simulator-bottom-actions">
+          <button class="btn-live-toggle" id="btnLiveToggle" onclick="toggleLiveMassage()">
+            <div class="play-btn-ripple"></div>
+            <i class="fas fa-play" id="toggleIcon"></i>
+            <span id="toggleText">Massajni Ishga Tushirish</span>
+          </button>
+        </div>
+
+        <div class="massage-phases-tracker">
+          <div class="phase-step active" id="phase1">
+            <div class="phase-num">1</div>
+            <div class="phase-info">
+              <strong>Boldir va Oyoqni Siqish (Air Compression)</strong>
+              <span>3D havo yostiqchalari boldir mushaklarini ritmik siqib, tomirlardagi qon oqimini faollashtiradi.</span>
+            </div>
+          </div>
+
+          <div class="phase-step" id="phase2">
+            <div class="phase-num">2</div>
+            <div class="phase-info">
+              <strong>Akupunktur Rolikli Uvalash</strong>
+              <span>Kaft va tovon tagidagi maxsus roliklar chuqur nuqtali massaj bilan asab tizimini tinchlantiradi.</span>
+            </div>
+          </div>
+
+          <div class="phase-step" id="phase3">
+            <div class="phase-num">3</div>
+            <div class="phase-info">
+              <strong>Yengillik Va Dam Olish</strong>
+              <span>15 daqiqalik to'liq seansdan so'ng oyoqlardagi barcha og'irlik va charchoq butkul yo'qoladi.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 6. FAQ SECTION ═══════════════════ -->
   <section class="faq-section" id="faq">
     <div class="container">
       <div class="section-heading text-center">
@@ -488,7 +569,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 6. QUICK LEAD CAPTURE & ORDER ═══════════════════ -->
+  <!-- ═══════════════════ 7. QUICK LEAD CAPTURE & ORDER ═══════════════════ -->
   <section class="contact-section" id="contact">
     <div class="container">
       <div class="lead-wrapper">
@@ -576,13 +657,13 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <!-- ═══════════════════ 8. COMPACT ULTRA-LUXURY FOOTER ═══════════════════ -->
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand-col">
         <div class="brand">
           <div class="brand-logo-img">
-            <img src="img/logo.jpg" alt="Desco" class="brand-logo-pic" width="40" height="40">
+            <img src="img/logo.jpg" alt="Desco" class="brand-logo-pic" width="36" height="36">
           </div>
           <div class="brand-text">
             <span class="brand-name text-white">DESCO</span>
@@ -590,7 +671,7 @@
           </div>
         </div>
         <p class="footer-tagline">
-          Ota-onangiz va butun oilangiz salomatligi uchun eng oliyjanob tanlov! Butun O'zbekiston bo'ylab rasmiy yetkazib berish xizmati.
+          Ota-onangiz va butun oilangiz salomatligi uchun eng oliyjanob tanlov!
         </p>
       </div>
 
@@ -600,7 +681,7 @@
           <li><a href="#hero">Asosiy</a></li>
           <li><a href="#why-desco">Nima Uchun Desco?</a></li>
           <li><a href="#features">Hadiya To'plami</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#live-simulator-sec">Ishlash Animatsiyasi</a></li>
         </ul>
       </div>
 

@@ -1,6 +1,6 @@
 /**
  * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
- * Single Hero Visual Card with Model Switcher, Color Swatches, ROG Swipe Carousel, Expandable Nasiya Card & Telegram Lead Dispatch
+ * Single Hero Visual Card, Live Simulator Section (After Hadiya To'plami), Compact Footer & Telegram Dispatch
  */
 
 const TG_BOT_CONFIG = {
@@ -9,7 +9,7 @@ const TG_BOT_CONFIG = {
 };
 
 // Global State
-let activeModelKey = 'gold'; // 'gold' (3-func), 'silver' (6-func), 'gift' (To'plam)
+let activeModelKey = 'gold';
 let currentColorIndex = 0;
 let activeNasiyaPlanMonths = '12';
 
@@ -261,7 +261,7 @@ function updateCarouselUI() {
   if (!colors || !colors[currentColorIndex]) return;
 
   const currentItem = colors[currentColorIndex];
-  const simImg = document.getElementById('simRealImg');
+  const simImg = document.getElementById('heroProductPic');
   
   let swatchesGroup = document.getElementById('swatches3Func');
   if (activeModelKey === 'silver') swatchesGroup = document.getElementById('swatches6Func');
@@ -289,22 +289,85 @@ function updateCarouselUI() {
   }
 }
 
-/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 5. LIVE MASSAGE SIMULATOR ENGINE (AFTER HADIYA TO'PLAMI) ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
+let currentSeconds = 900;
 
 function toggleLiveMassage() {
   const arena = document.getElementById('demoStageArena');
+  const toggleBtn = document.getElementById('btnLiveToggle');
+  const toggleText = document.getElementById('toggleText');
+  const toggleIcon = document.getElementById('toggleIcon');
+  const hudStatus = document.getElementById('hudStatus');
+  const hudStatusText = document.getElementById('hudStatusText');
+  const pressureVal = document.getElementById('pressureVal');
+  const timerVal = document.getElementById('timerVal');
+  const modeVal = document.getElementById('modeVal');
+
+  const phase1 = document.getElementById('phase1');
+  const phase2 = document.getElementById('phase2');
+  const phase3 = document.getElementById('phase3');
 
   isSimulatorRunning = !isSimulatorRunning;
 
   if (isSimulatorRunning) {
-    arena.classList.add('running');
+    if (arena) arena.classList.add('running');
+    if (toggleBtn) toggleBtn.classList.add('running');
+    if (toggleText) toggleText.textContent = "Massajni To'xtatish";
+    if (toggleIcon) toggleIcon.className = "fas fa-stop";
+    if (hudStatus) hudStatus.classList.add('active');
+    if (hudStatusText) hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
+    if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
+
+    let pStep = 0;
+    const pressures = [38, 54, 68, 82, 60, 32, 48, 75, 86, 64, 35];
+    simulatorPressureInterval = setInterval(() => {
+      pStep = (pStep + 1) % pressures.length;
+      if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
+
+      if (pStep < 4) {
+        phase1?.classList.add('active');
+        phase2?.classList.remove('active');
+        phase3?.classList.remove('active');
+      } else if (pStep < 8) {
+        phase1?.classList.remove('active');
+        phase2?.classList.add('active');
+        phase3?.classList.remove('active');
+      } else {
+        phase1?.classList.remove('active');
+        phase2?.classList.remove('active');
+        phase3?.classList.add('active');
+      }
+    }, 1200);
+
+    simulatorTimerInterval = setInterval(() => {
+      if (currentSeconds > 0) {
+        currentSeconds--;
+        const m = Math.floor(currentSeconds / 60);
+        const s = currentSeconds % 60;
+        if (timerVal) timerVal.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      }
+    }, 1000);
+
   } else {
-    arena.classList.remove('running');
+    if (arena) arena.classList.remove('running');
+    if (toggleBtn) toggleBtn.classList.remove('running');
+    if (toggleText) toggleText.textContent = "Massajni Ishga Tushirish";
+    if (toggleIcon) toggleIcon.className = "fas fa-play";
+    if (hudStatus) hudStatus.classList.remove('active');
+    if (hudStatusText) hudStatusText.textContent = "KUTISH REJIMI";
+    if (pressureVal) pressureVal.textContent = "0 kPa";
+    if (modeVal) modeVal.textContent = "Avtomatik Massaj";
+
     clearInterval(simulatorPressureInterval);
     clearInterval(simulatorTimerInterval);
+    currentSeconds = 900;
+    if (timerVal) timerVal.textContent = "15:00";
+    phase1?.classList.add('active');
+    phase2?.classList.remove('active');
+    phase3?.classList.remove('active');
   }
 }
 
