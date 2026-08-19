@@ -12,7 +12,6 @@ BOT_TOKEN = "8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k"
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 DB_PATH = os.path.join(os.path.dirname(__file__), "crm.db")
 
-# User state storage for interactive inputs
 USER_STATES = {}
 
 # ── 1. DATABASE INITIALIZATION ──
@@ -50,27 +49,27 @@ def init_db():
         )
     ''')
 
-    # Inventory Table
+    # Inventory Table (ALL DEFAULT STOCKS ARE 0 — NO FAKE DUMMY NUMBERS!)
     c.execute('''
         CREATE TABLE IF NOT EXISTS inventory (
             code TEXT PRIMARY KEY,
             name TEXT,
-            stock INTEGER
+            stock INTEGER DEFAULT 0
         )
     ''')
 
-    # Pre-populate Inventory if empty
+    # Pre-populate Inventory with 0 if empty
     c.execute('SELECT COUNT(*) FROM inventory')
     if c.fetchone()[0] == 0:
         default_stock = [
-            ('3ta-gold', '3-Funksiyalik (Gold / Tillo)', 50),
-            ('3ta-silver', '3-Funksiyalik (Silver / Seriy)', 35),
-            ('3ta-black', '3-Funksiyalik (Black / Qora)', 40),
-            ('3ta-red', '3-Funksiyalik (Red / Qizil)', 25),
-            ('6ta-silver', '6-Funksiyalik (Silver / Seriy)', 60),
-            ('6ta-black', '6-Funksiyalik (Black / Qora)', 45),
-            ('6ta-gold', '6-Funksiyalik (Gold / Tillo)', 30),
-            ('gift-set', 'Desco 5-in-1 Hadiya To''plami', 20)
+            ('3ta-gold', '3-Funksiyalik (Gold / Tillo)', 0),
+            ('3ta-silver', '3-Funksiyalik (Silver / Seriy)', 0),
+            ('3ta-black', '3-Funksiyalik (Black / Qora)', 0),
+            ('3ta-red', '3-Funksiyalik (Red / Qizil)', 0),
+            ('6ta-silver', '6-Funksiyalik (Silver / Seriy)', 0),
+            ('6ta-black', '6-Funksiyalik (Black / Qora)', 0),
+            ('6ta-gold', '6-Funksiyalik (Gold / Tillo)', 0),
+            ('gift-set', 'Desco 5-in-1 Hadiya To''plami', 0)
         ]
         c.executemany('INSERT INTO inventory (code, name, stock) VALUES (?, ?, ?)', default_stock)
 
@@ -134,13 +133,13 @@ def get_main_menu_keyboard():
     return {
         "keyboard": [
             [{"text": "📊 Bugungi Hisobot"}, {"text": "📦 Ombor Qoldig'i"}],
-            [{"text": "📥 Oxirgi Leadlar"}, {"text": "✏️ Ombor Qoldig'ini Sozlash"}],
+            [{"text": "📥 Oxirgi Leadlar"}, {"text": "✏️ Haqiqiy Ombor Sonini Kiritish"}],
             [{"text": "➕ Qo'lda Lead Qo'shish"}, {"text": "📈 Barcha Statistika"}]
         ],
         "resize_keyboard": True
     }
 
-# ── 3. CRM REPORT & STATS COMPUTATION ──
+# ── 3. REAL CRM REPORT & STATS COMPUTATION ──
 def generate_today_report():
     conn = get_db()
     c = conn.cursor()
@@ -182,7 +181,7 @@ def generate_today_report():
 • Jami tushgan leadlar: <code>{total_all} ta</code>
 • Tasdiqlangan zakazlar: <code>{confirmed_all} ta</code>
 
-⚡ <i>Har bir yangi lead yoki ombor o'zgarishi real vaqtda bazaga yoziladi.</i>
+⚡ <i>Faqatgina real tushgan buyurtmalar hisoblanadi.</i>
     """.strip()
 
     return text
@@ -199,11 +198,11 @@ def generate_inventory_report():
         status_icon = "🟢" if r['stock'] > 10 else ("🟡" if r['stock'] > 0 else "🔴")
         text += f"{status_icon} <b>{r['name']}:</b> <code>{r['stock']} ta</code>\n"
 
-    text += "\n⚡ <i>Ombordagi tovarlar sonini tahrirlash uchun pastdagi tugmani bosing:</i>"
+    text += "\n⚡ <i>Ombordagi haqiqiy tovarlar sonini kiriting:</i>"
 
     kb = {
         "inline_keyboard": [
-            [{"text": "✏️ Ombor Soni Sozlash", "callback_data": "edit_inv_main"}]
+            [{"text": "✏️ Haqiqiy Ombor Sonini Kiritish", "callback_data": "edit_inv_main"}]
         ]
     }
 
@@ -211,7 +210,7 @@ def generate_inventory_report():
 
 # ── 4. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
-    print("Starting Interactive CRM Bot Long-Polling Loop...")
+    print("Starting Clean Real-Time CRM Bot Long-Polling Loop...")
     offset = 0
     while True:
         try:
@@ -236,11 +235,9 @@ def handle_update(u):
 
         text = msg.get("text", "")
 
-        # Handle user text input state (e.g. manual lead creation)
         state = USER_STATES.get(chat_id)
         if state and state.get("step") == "waiting_manual_lead":
             del USER_STATES[chat_id]
-            # Parse lead text (e.g. "Ali 990001122 3-Funksiyalik")
             parts = text.split()
             name = parts[0] if len(parts) > 0 else "Offline Mijoz"
             phone = parts[1] if len(parts) > 1 else "Telefon berilmadi"
@@ -254,7 +251,23 @@ def handle_update(u):
             conn.commit()
             conn.close()
 
-            send_message(chat_id, f"✅ <b>Qo'lda zakaz muvaffaqiyatli saqlandi! (ID: #{lead_id})</b>\n👤 Mijoz: {name}\n📞 Telefon: {phone}\n📦 Mahsulot: {product}\n🟢 Ombordan 1 ta mahsulot ayrildi.", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, f"✅ <b>Haqiqiy zakaz saqlandi! (ID: #{lead_id})</b>\n👤 Mijoz: {name}\n📞 Telefon: {phone}\n📦 Mahsulot: {product}\n🟢 Ombordan 1 ta mahsulot ayrildi.", reply_markup=get_main_menu_keyboard())
+            return
+
+        if state and state.get("step") == "waiting_stock_set":
+            code = state.get("code")
+            del USER_STATES[chat_id]
+            try:
+                val = int(text.strip())
+                conn = get_db()
+                c = conn.cursor()
+                c.execute("UPDATE inventory SET stock = ? WHERE code = ?", (val, code))
+                conn.commit()
+                conn.close()
+                send_message(chat_id, f"✅ <b>Ombor soni {val} ta deb o'zgartirildi!</b>", reply_markup=get_main_menu_keyboard())
+                show_inventory_editor(chat_id)
+            except ValueError:
+                send_message(chat_id, "⚠️ Iltimos faqat son kiriting (masalan: 15).", reply_markup=get_main_menu_keyboard())
             return
 
         if text.startswith("/start") or text == "/menu":
@@ -268,12 +281,12 @@ def handle_update(u):
             inv_text, kb = generate_inventory_report()
             send_message(chat_id, inv_text, reply_markup=kb)
 
-        elif text == "✏️ Ombor Qoldig'ini Sozlash":
+        elif text == "✏️ Haqiqiy Ombor Sonini Kiritish":
             show_inventory_editor(chat_id)
 
         elif text == "➕ Qo'lda Lead Qo'shish":
             USER_STATES[chat_id] = {"step": "waiting_manual_lead"}
-            send_message(chat_id, "✍️ <b>Yangi zakaz ma'lumotlarini kiriting:</b>\n\nFormat: <code>Ism Telefon Mahsulot_nomi</code>\nMisol: <code>Jasur +998901234567 6-Funksiyalik</code>", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, "✍️ <b>Yangi real zakaz ma'lumotlarini kiriting:</b>\n\nFormat: <code>Ism Telefon Mahsulot_nomi</code>\nMisol: <code>Jasur +998901234567 6-Funksiyalik</code>", reply_markup=get_main_menu_keyboard())
 
         elif text == "📥 Oxirgi Leadlar":
             conn = get_db()
@@ -283,9 +296,9 @@ def handle_update(u):
             conn.close()
 
             if not rows:
-                send_message(chat_id, "ℹ️ Hali hech qanday lead kelmagan.", reply_markup=get_main_menu_keyboard())
+                send_message(chat_id, "ℹ️ Hali hech qanday real lead tushmagan.", reply_markup=get_main_menu_keyboard())
             else:
-                send_message(chat_id, f"📥 <b>OXIRGI 5 TA LEAD:</b>", reply_markup=get_main_menu_keyboard())
+                send_message(chat_id, f"📥 <b>OXIRGI 5 TA REAL LEAD:</b>", reply_markup=get_main_menu_keyboard())
                 for r in rows:
                     st_icon = "🟢" if r['status'] == 'CONFIRMED' else ("🔴" if r['status'] == 'CANCELLED' else "🟡")
                     l_text = f"{st_icon} <b>Lead #{r['id']}</b> — {r['name']} ({r['phone']})\n📦 {r['product']} | Status: <b>{r['status']}</b>"
@@ -310,8 +323,13 @@ def handle_update(u):
         if data == "edit_inv_main":
             show_inventory_editor(chat_id, msg_id)
 
+        elif data.startswith("setst_"):
+            code = data.split("_")[1]
+            USER_STATES[chat_id] = {"step": "waiting_stock_set", "code": code}
+            send_message(chat_id, f"✍️ <b>{code} uchun haqiqiy ombor sonini raqam bilan kiriting (masalan: 20):</b>")
+            tg_request("answerCallbackQuery", {"callback_query_id": cb_id})
+
         elif data.startswith("addst_"):
-            # Format: addst_3ta-gold_5
             _, code, amt_str = data.split("_")
             amt = int(amt_str)
             conn = get_db()
@@ -324,7 +342,6 @@ def handle_update(u):
             show_inventory_editor(chat_id, msg_id)
 
         elif data.startswith("subst_"):
-            # Format: subst_3ta-gold_1
             _, code, amt_str = data.split("_")
             amt = int(amt_str)
             conn = get_db()
@@ -399,14 +416,14 @@ def show_inventory_editor(chat_id, message_id=None):
     rows = c.fetchall()
     conn.close()
 
-    text = "✏️ <b>OMBOR QOLDIG'INI TAHRIRLASH:</b>\n<i>Tugmalarni bosib real sonini oshiring yoki kamaytiring:</i>\n\n"
+    text = "✏️ <b>HAQIQIY OMBOR QOLDIG'INI SIZ BELGILANG:</b>\n<i>Tugmalar orqali yoki aniq son kiritib o'zgartiring:</i>\n\n"
     keyboard = []
 
     for r in rows:
         text += f"• <b>{r['name']}:</b> <code>{r['stock']} ta</code>\n"
         keyboard.append([
-            {"text": f"➖ 1 ({r['code']})", "callback_data": f"subst_{r['code']}_1"},
-            {"text": f"➕ 5 ({r['code']})", "callback_data": f"addst_{r['code']}_5"},
+            {"text": f"✍️ Son yozish ({r['code']})", "callback_data": f"setst_{r['code']}"},
+            {"text": f"➕ 5", "callback_data": f"addst_{r['code']}_5"},
             {"text": f"➕ 10", "callback_data": f"addst_{r['code']}_10"}
         ])
 
