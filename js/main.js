@@ -1,6 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO PREMIUM — LEAD FRONTEND LOGIC & THREE.JS 3D INTERACTIVITY
+   DESCO PREMIUM — LEAD FRONTEND LOGIC & REAL MASSAGER WORKING SIMULATOR
    ═══════════════════════════════════════════════════════════════════════════════ */
+
+let isMassageRunning = false;
+let currentDemoModel = 'gold';
+let massageTimerInterval = null;
+let phaseCycleInterval = null;
+let timerSeconds = 15 * 60;
+let currentPhase = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -59,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newSrc = btn.getAttribute('data-img');
         
-        // Smooth transition animation
         heroProductPic.style.opacity = '0';
         heroProductPic.style.transform = 'scale(0.9) translateY(10px)';
         
@@ -72,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Interactive 3D Parallax Tilt on Hero Stage
   if (heroStage && productBox && window.innerWidth > 768) {
     heroStage.addEventListener('mousemove', (e) => {
       const rect = heroStage.getBoundingClientRect();
@@ -106,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (period !== 'cash' && row.getAttribute('data-row') === period) {
           const card = row.closest('.catalog-card');
           if (card.classList.contains('featured-gold-card')) {
-            row.classList.add('gold-highlight');
+            row.classList.add('highlight');
           } else if (card.classList.contains('vip-gift-card')) {
             row.classList.add('dark-highlight');
           } else {
-            row.classList.add('highlight');
+            row.classList.add('gold-highlight');
           }
         }
       });
@@ -203,10 +208,116 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── 10. Three.js 3D Interactive Massager Canvas ──
-  initThreeDViewer();
-
 });
+
+// ── REAL PRODUCT LIVE MASSAGE SIMULATOR LOGIC ──
+
+function selectDemoModel(model) {
+  currentDemoModel = model;
+  const tabGold = document.getElementById('demoTabGold');
+  const tabSilver = document.getElementById('demoTabSilver');
+  const simImg = document.getElementById('simRealImg');
+  const hudStatusText = document.getElementById('hudStatusText');
+
+  if (model === 'gold') {
+    tabGold.classList.add('active');
+    tabSilver.classList.remove('active');
+    simImg.src = 'img/gold-product.jpg';
+    if (isMassageRunning) {
+      hudStatusText.textContent = '3-FUNKSIYALIK (TILLO RANG) JONLI ISHLAMOQDA';
+    }
+  } else {
+    tabSilver.classList.add('active');
+    tabGold.classList.remove('active');
+    simImg.src = 'img/silver-product.jpg';
+    if (isMassageRunning) {
+      hudStatusText.textContent = '6-FUNKSIYALIK (SERIY) 3D JONLI ISHLAMOQDA';
+    }
+  }
+}
+
+function toggleLiveMassage() {
+  const arena = document.getElementById('demoStageArena');
+  const toggleBtn = document.getElementById('btnLiveToggle');
+  const toggleIcon = document.getElementById('toggleIcon');
+  const toggleText = document.getElementById('toggleText');
+  const hudStatus = document.getElementById('hudStatus');
+  const hudStatusText = document.getElementById('hudStatusText');
+
+  isMassageRunning = !isMassageRunning;
+
+  if (isMassageRunning) {
+    arena.classList.add('running');
+    toggleBtn.classList.add('running');
+    toggleIcon.className = 'fas fa-pause';
+    toggleText.textContent = 'To\'xtatish';
+    hudStatus.classList.add('active');
+
+    const modelName = currentDemoModel === 'gold' ? '3-FUNKSIYALIK (TILLO RANG)' : '6-FUNKSIYALIK (SERIY)';
+    hudStatusText.textContent = `${modelName} JONLI ISHLAMOQDA`;
+
+    // Start Timer
+    timerSeconds = 15 * 60;
+    updateTimerDisplay();
+    clearInterval(massageTimerInterval);
+    massageTimerInterval = setInterval(() => {
+      timerSeconds--;
+      if (timerSeconds <= 0) {
+        toggleLiveMassage();
+      } else {
+        updateTimerDisplay();
+      }
+    }, 1000);
+
+    // Rotate Massage Phases
+    currentPhase = 1;
+    updatePhasesTracker(1);
+    clearInterval(phaseCycleInterval);
+    phaseCycleInterval = setInterval(() => {
+      currentPhase = (currentPhase % 3) + 1;
+      updatePhasesTracker(currentPhase);
+    }, 3500);
+
+  } else {
+    arena.classList.remove('running');
+    toggleBtn.classList.remove('running');
+    toggleIcon.className = 'fas fa-play';
+    toggleText.textContent = 'Massajni Ishga Tushirish';
+    hudStatus.classList.remove('active');
+    hudStatusText.textContent = 'KUTISH REJIMI (Tugmani bosing)';
+
+    clearInterval(massageTimerInterval);
+    clearInterval(phaseCycleInterval);
+  }
+}
+
+function updateTimerDisplay() {
+  const timerVal = document.getElementById('timerVal');
+  if (!timerVal) return;
+  const mins = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+  const secs = (timerSeconds % 60).toString().padStart(2, '0');
+  timerVal.textContent = `${mins}:${secs}`;
+}
+
+function updatePhasesTracker(phase) {
+  document.querySelectorAll('.phase-step').forEach(p => p.classList.remove('active'));
+  const activePhase = document.getElementById(`phase${phase}`);
+  if (activePhase) activePhase.classList.add('active');
+}
+
+// Shortcut from Catalog Cards: Jump to Demo and Auto-Start
+function loadInteractiveDemo(model) {
+  selectDemoModel(model);
+  const demoSection = document.getElementById('interactive-demo');
+  if (demoSection) {
+    demoSection.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if (!isMassageRunning) {
+        toggleLiveMassage();
+      }
+    }, 600);
+  }
+}
 
 // ── Global Modal Open/Close ──
 function openOrderModal(productName, price) {
@@ -226,202 +337,4 @@ function openOrderModal(productName, price) {
 function closeOrderModal() {
   const modal = document.getElementById('orderModal');
   if (modal) modal.classList.remove('open');
-}
-
-// ── Hotspot Highlighter ──
-function highlightHotspot(num) {
-  document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
-  document.querySelectorAll('.th-feat').forEach(f => f.classList.remove('active'));
-
-  const spot = document.querySelector(`.hotspot-${num}`);
-  if (spot) spot.classList.add('active');
-
-  const feat = document.querySelectorAll('.th-feat')[num - 1];
-  if (feat) feat.classList.add('active');
-}
-
-// ── 3D Interactive Three.js Engine ──
-function initThreeDViewer() {
-  const container = document.getElementById('canvasContainer');
-  if (!container || typeof THREE === 'undefined') return;
-
-  const width = container.clientWidth;
-  const height = container.clientHeight;
-
-  const scene = new THREE.Scene();
-  scene.background = null;
-
-  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-  camera.position.set(0, 1.6, 3.8);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  container.appendChild(renderer.domElement);
-
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-  scene.add(ambientLight);
-
-  const dirLight = new THREE.DirectionalLight(0xfffaed, 1.2);
-  dirLight.position.set(5, 8, 5);
-  dirLight.castShadow = true;
-  scene.add(dirLight);
-
-  const goldAccentLight = new THREE.PointLight(0xC59B27, 2, 8);
-  goldAccentLight.position.set(-3, 2, 2);
-  scene.add(goldAccentLight);
-
-  const blueAirGlow = new THREE.PointLight(0x6366f1, 1.5, 6);
-  blueAirGlow.position.set(0, 0.5, 0);
-  scene.add(blueAirGlow);
-
-  // Group for the 3D Massager
-  const massagerGroup = new THREE.Group();
-
-  // 1. Base Housing (Curved Metallic Silver / Champagne Gold Body)
-  const baseGeo = new THREE.CylinderGeometry(1.2, 1.05, 0.65, 32);
-  const silverMat = new THREE.MeshStandardMaterial({
-    color: 0xE5E7EB,
-    metalness: 0.85,
-    roughness: 0.25
-  });
-  const baseMesh = new THREE.Mesh(baseGeo, silverMat);
-  baseMesh.castShadow = true;
-  baseMesh.receiveShadow = true;
-  massagerGroup.add(baseMesh);
-
-  // 2. Gold Trim Accent Ring
-  const ringGeo = new THREE.TorusGeometry(1.21, 0.035, 16, 64);
-  const goldMat = new THREE.MeshStandardMaterial({
-    color: 0xD4AF37,
-    metalness: 0.95,
-    roughness: 0.15
-  });
-  const trimRing = new THREE.Mesh(ringGeo, goldMat);
-  trimRing.rotation.x = Math.PI / 2;
-  trimRing.position.y = 0.1;
-  massagerGroup.add(trimRing);
-
-  // 3. Foot Cavity 1 (Left Massage Chamber)
-  const cavityGeo = new THREE.CylinderGeometry(0.32, 0.28, 0.5, 24);
-  const darkCavityMat = new THREE.MeshStandardMaterial({
-    color: 0x1E1E24,
-    roughness: 0.8
-  });
-  const cavityLeft = new THREE.Mesh(cavityGeo, darkCavityMat);
-  cavityLeft.position.set(-0.45, 0.18, 0.05);
-  cavityLeft.rotation.x = 0.15;
-  massagerGroup.add(cavityLeft);
-
-  // 4. Foot Cavity 2 (Right Massage Chamber)
-  const cavityRight = new THREE.Mesh(cavityGeo, darkCavityMat);
-  cavityRight.position.set(0.45, 0.18, 0.05);
-  cavityRight.rotation.x = 0.15;
-  massagerGroup.add(cavityRight);
-
-  // 5. Smart Touch Control Display on Top
-  const screenGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.04, 32);
-  const screenMat = new THREE.MeshStandardMaterial({
-    color: 0x111827,
-    metalness: 0.9,
-    roughness: 0.1
-  });
-  const screenMesh = new THREE.Mesh(screenGeo, screenMat);
-  screenMesh.position.set(0, 0.34, -0.35);
-  screenMesh.rotation.x = 0.25;
-  massagerGroup.add(screenMesh);
-
-  // 6. Glowing Blue LED Ring on Screen
-  const ledRingGeo = new THREE.TorusGeometry(0.28, 0.015, 16, 32);
-  const ledMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-  const ledRing = new THREE.Mesh(ledRingGeo, ledMat);
-  ledRing.position.set(0, 0.365, -0.35);
-  ledRing.rotation.x = Math.PI / 2 + 0.25;
-  massagerGroup.add(ledRing);
-
-  scene.add(massagerGroup);
-
-  // Interactive Drag Rotation
-  let isDragging = false;
-  let prevMouseX = 0;
-  let prevMouseY = 0;
-  let targetRotationY = 0.35;
-  let targetRotationX = 0.2;
-
-  container.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    prevMouseX = e.clientX;
-    prevMouseY = e.clientY;
-  });
-
-  window.addEventListener('mouseup', () => { isDragging = false; });
-
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const deltaX = e.clientX - prevMouseX;
-    const deltaY = e.clientY - prevMouseY;
-    prevMouseX = e.clientX;
-    prevMouseY = e.clientY;
-
-    targetRotationY += deltaX * 0.008;
-    targetRotationX += deltaY * 0.005;
-    targetRotationX = Math.max(-0.2, Math.min(0.6, targetRotationX));
-  });
-
-  // Touch support for mobile
-  container.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 1) {
-      isDragging = true;
-      prevMouseX = e.touches[0].clientX;
-      prevMouseY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-
-  window.addEventListener('touchend', () => { isDragging = false; });
-
-  window.addEventListener('touchmove', (e) => {
-    if (!isDragging || e.touches.length !== 1) return;
-    const deltaX = e.touches[0].clientX - prevMouseX;
-    const deltaY = e.touches[0].clientY - prevMouseY;
-    prevMouseX = e.touches[0].clientX;
-    prevMouseY = e.touches[0].clientY;
-
-    targetRotationY += deltaX * 0.008;
-    targetRotationX += deltaY * 0.005;
-    targetRotationX = Math.max(-0.2, Math.min(0.6, targetRotationX));
-  }, { passive: true });
-
-  // Animation Loop
-  let clock = new THREE.Clock();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const elapsedTime = clock.getElapsedTime();
-
-    if (!isDragging) {
-      targetRotationY += 0.003;
-    }
-
-    massagerGroup.rotation.y += (targetRotationY - massagerGroup.rotation.y) * 0.08;
-    massagerGroup.rotation.x += (targetRotationX - massagerGroup.rotation.x) * 0.08;
-    massagerGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.04;
-
-    blueAirGlow.intensity = 1.2 + Math.sin(elapsedTime * 3) * 0.5;
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // Resize handler
-  window.addEventListener('resize', () => {
-    const newWidth = container.clientWidth;
-    const newHeight = container.clientHeight;
-    camera.aspect = newWidth / newHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(newWidth, newHeight);
-  });
 }

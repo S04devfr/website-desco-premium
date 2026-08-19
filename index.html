@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desco Premium — Smart Oyoq Massajerlari & Wellness Hadiya To'plamlari</title>
-  <meta name="description" content="Desco Premium — Innovatsion massaj texnologiyalari. Oyoq massajerlari va 5-in-1 Zerda hadiya to'plamlari. 12 oygacha qulay nasiya!">
+  <meta name="description" content="Desco Premium — Innovatsion massaj texnologiyalari. Oyoq va boldir massajerlari hamda 5-in-1 Zerda hadiya to'plamlari. 12 oygacha qulay nasiya!">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +13,6 @@
   
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <!-- Three.js for 3D Interactive Exploration -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -38,7 +35,7 @@
       <nav class="nav" id="nav">
         <a href="#hero" class="nav-link active">Asosiy</a>
         <a href="#catalog" class="nav-link">Katalog & Nasiya</a>
-        <a href="#explore-3d" class="nav-link">3D Ko'rinish</a>
+        <a href="#interactive-demo" class="nav-link">Ishlash Animatsiyasi</a>
         <a href="#features" class="nav-link">Imkoniyatlar</a>
         <a href="#about" class="nav-link">Biz Haqimizda</a>
         <a href="#faq" class="nav-link">FAQ</a>
@@ -63,7 +60,7 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION (KREATIV & INTERACTIVE) ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
   <section class="hero" id="hero">
     <div class="hero-ambient-glow glow-1"></div>
     <div class="hero-ambient-glow glow-2"></div>
@@ -85,7 +82,7 @@
           </h1>
 
           <p class="hero-desc">
-            <strong>Desco Premium</strong> — Innovatsion massaj texnologiyalari orqali tanangizga yengillik, ruhingizga orom bag'ishlang. Kunlik charchoq va oyoq og'riqlariga zamonaviy yechim.
+            <strong>Desco Premium</strong> — Innovatsion massaj texnologiyalari orqali tanangizga yengillik, ruhingizga orom bag'ishlang. Kunlik oyoq va boldir charchoqlariga professional yechim.
           </p>
 
           <div class="hero-cta-group">
@@ -94,9 +91,9 @@
               <i class="fas fa-shopping-bag"></i>
               <span>Buyurtma Berish</span>
             </a>
-            <a href="#catalog" class="btn btn-glass">
-              <i class="fas fa-calculator"></i>
-              <span>Nasiya Shartlari</span>
+            <a href="#interactive-demo" class="btn btn-glass">
+              <i class="fas fa-play-circle gold-icon"></i>
+              <span>Ishlashini Ko'rish</span>
             </a>
           </div>
 
@@ -127,29 +124,28 @@
           </div>
         </div>
 
-        <!-- KREATIV HERO SHOWCASE (3D Tilt + Luxury Showcase + Model Switcher) -->
+        <!-- HERO STAGE: REAL HIGH-RES PRODUCT WITH 3D TILT -->
         <div class="hero-visual-wrapper">
           <div class="hero-stage" id="heroStage">
             
-            <!-- Atmospheric Lighting & Wave Rings -->
             <div class="stage-glow-aura"></div>
             <div class="stage-energy-wave wave-1"></div>
             <div class="stage-energy-wave wave-2"></div>
 
             <!-- Model Switcher Tabs inside Hero -->
             <div class="hero-model-switcher">
-              <button class="h-switch-btn active" data-img="img/gold-product.jpg" data-title="Gold Premium 6-in-1" data-price="1,800,000 so'm">
-                <i class="fas fa-crown"></i> Gold Edition
+              <button class="h-switch-btn active" data-img="img/gold-product.jpg" data-title="3-Funksiyalik (Tillo rang)" data-price="1,300,000 so'm">
+                <i class="fas fa-crown"></i> 3-Funksiyalik (Gold)
               </button>
-              <button class="h-switch-btn" data-img="img/silver-product.jpg" data-title="Silver Edition 3-in-1" data-price="1,300,000 so'm">
-                <i class="fas fa-gem"></i> Silver Edition
+              <button class="h-switch-btn" data-img="img/silver-product.jpg" data-title="6-Funksiyalik (Seriy)" data-price="1,800,000 so'm">
+                <i class="fas fa-gem"></i> 6-Funksiyalik (Silver)
               </button>
               <button class="h-switch-btn" data-img="img/gift-product.jpg" data-title="Zerda 5-in-1 VIP Box" data-price="3,500,000 so'm">
-                <i class="fas fa-gift"></i> VIP To'plam
+                <i class="fas fa-gift"></i> VIP Hadiya
               </button>
             </div>
 
-            <!-- Main Interactive Product Display (With 3D Float) -->
+            <!-- Main Interactive Product Display -->
             <div class="hero-podium-showcase">
               <div class="podium-pedestal"></div>
               <div class="product-floating-box" id="productFloatingBox">
@@ -157,12 +153,12 @@
               </div>
             </div>
 
-            <!-- Floating Interactive Feature Callouts -->
+            <!-- Floating Feature Callout Pills -->
             <div class="hero-feature-pill feat-top-right">
               <div class="h-feat-icon"><i class="fas fa-wave-square"></i></div>
               <div class="h-feat-text">
-                <strong>Akupunktur Roliklar</strong>
-                <span>Chuqur nuqtali stimulyatsiya</span>
+                <strong>Oyoq & Boldir Massaji</strong>
+                <span>Chuqur havo siqish tizimi</span>
               </div>
             </div>
 
@@ -170,13 +166,13 @@
               <div class="h-feat-icon heat"><i class="fas fa-fire-flame-curved"></i></div>
               <div class="h-feat-text">
                 <strong>Infraqizil Isitish 45°C</strong>
-                <span>Qon aylanishini tezlashtiradi</span>
+                <span>Qon aylanishini faollashtiradi</span>
               </div>
             </div>
 
             <div class="hero-live-badge">
               <div class="live-pulse-dot"></div>
-              <span>Hozirda 12 oylik nasiyaga mavjud</span>
+              <span>12 oygacha rasmiy nasiyaga xarid qiling</span>
             </div>
 
           </div>
@@ -203,7 +199,7 @@
 
       <!-- Quick duration filter tabs -->
       <div class="installment-tabs" id="installmentTabs">
-        <span class="tabs-label"><i class="fas fa-sliders"></i> To'lov muddatini taqqoslash:</span>
+        <span class="tabs-label"><i class="fas fa-sliders"></i> Muddatni taqqoslash:</span>
         <button class="tab-btn" data-period="3">3 Oyga</button>
         <button class="tab-btn" data-period="6">6 Oyga</button>
         <button class="tab-btn active" data-period="12">12 Oyga (Tavsiya etiladi)</button>
@@ -212,18 +208,19 @@
 
       <div class="catalog-grid">
 
-        <!-- CARD 01: 3 Ta Funksiyalik Silver Edition -->
-        <div class="catalog-card" data-product="silver">
-          <div class="card-num-badge">01</div>
+        <!-- CARD 01: 3 Ta Funksiyalik Oyoq Massajeri (Tillo rang / Gold) -->
+        <div class="catalog-card" data-product="3ta-gold">
+          <div class="card-num-badge gold-badge">01</div>
           
           <div class="card-image-box">
-            <img src="img/silver-product.jpg" alt="3 Ta Funksiyalik Oyoq Massajeri Silver Edition" class="card-img">
-            <span class="edition-chip silver-chip">Silver Edition</span>
+            <img src="img/gold-product.jpg" alt="3 Ta Funksiyalik Oyoq Massajeri (Tillo rang)" class="card-img">
+            <span class="edition-chip gold-chip">3 Ta Funksiyalik</span>
           </div>
 
           <div class="card-body">
             <h3 class="card-title">3 Ta Funksiyalik Oyoq Massajeri</h3>
-            <p class="card-sub-desc">Chuqur rolikli massaj, havo yostiqchalari va yengil isitish funksiyasi.</p>
+            <span class="product-color-tag"><i class="fas fa-palette gold-icon"></i> Tillo rang (Gold Edition)</span>
+            <p class="card-sub-desc">Oyoq va boldir qismini chuqur qamrab oluvchi rolikli massaj, havo yostiqchalari va isitish.</p>
 
             <div class="pricing-matrix">
               <div class="matrix-row row-3" data-row="3">
@@ -234,7 +231,7 @@
                 <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
                 <span class="matrix-val">303,000 <small>so'm/oy</small></span>
               </div>
-              <div class="matrix-row row-12 highlight" data-row="12">
+              <div class="matrix-row row-12 highlight gold-highlight" data-row="12">
                 <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
                 <span class="matrix-val">163,000 <small>so'm/oy</small></span>
               </div>
@@ -246,7 +243,10 @@
             </div>
 
             <div class="card-actions">
-              <button class="btn btn-catalog-order" onclick="openOrderModal('3 Ta Funksiyalik Oyoq Massajeri (Silver)', '1,300,000')">
+              <button class="btn btn-demo-view" onclick="loadInteractiveDemo('gold')">
+                <i class="fas fa-play"></i> <span>Ishlashini Ko'rish</span>
+              </button>
+              <button class="btn btn-catalog-order" onclick="openOrderModal('3 Ta Funksiyalik Oyoq Massajeri (Tillo rang)', '1,300,000')">
                 <i class="fas fa-cart-shopping"></i>
                 <span>Nasiyaga Xarid Qilish</span>
               </button>
@@ -254,21 +254,22 @@
           </div>
         </div>
 
-        <!-- CARD 02: 6 Ta Funksiyalik Gold Premium Edition (Featured) -->
-        <div class="catalog-card featured-gold-card" data-product="gold">
+        <!-- CARD 02: 6 Ta Funksiyalik Oyoq Massajeri (Seriy / Silver) -->
+        <div class="catalog-card featured-gold-card" data-product="6ta-silver">
           <div class="popular-ribbon">
             <i class="fas fa-crown"></i> Eng Ommabop Tanlov
           </div>
-          <div class="card-num-badge gold-badge">02</div>
+          <div class="card-num-badge">02</div>
           
           <div class="card-image-box">
-            <img src="img/gold-product.jpg" alt="6 Ta Funksiyalik Oyoq Massajeri Gold Edition" class="card-img">
-            <span class="edition-chip gold-chip">Gold Premium Edition</span>
+            <img src="img/silver-product.jpg" alt="6 Ta Funksiyalik Oyoq Massajeri (Seriy)" class="card-img">
+            <span class="edition-chip silver-chip">6 Ta Funksiyalik</span>
           </div>
 
           <div class="card-body">
             <h3 class="card-title">6 Ta Funksiyalik Oyoq Massajeri</h3>
-            <p class="card-sub-desc">6 xil akupunktur rejimi, to'liq oyoq kaftini qamrab oluvchi 3D havo bosimi.</p>
+            <span class="product-color-tag"><i class="fas fa-palette"></i> Seriy (Silver Edition)</span>
+            <p class="card-sub-desc">6 xil chuqur akupunktur rejimi, boldir va to'liq oyoq kaftini qamrab oluvchi 3D havo kompressiyasi.</p>
 
             <div class="pricing-matrix">
               <div class="matrix-row row-3" data-row="3">
@@ -279,7 +280,7 @@
                 <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
                 <span class="matrix-val">420,000 <small>so'm/oy</small></span>
               </div>
-              <div class="matrix-row row-12 highlight gold-highlight" data-row="12">
+              <div class="matrix-row row-12 highlight" data-row="12">
                 <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
                 <span class="matrix-val">225,000 <small>so'm/oy</small></span>
               </div>
@@ -291,7 +292,10 @@
             </div>
 
             <div class="card-actions">
-              <button class="btn btn-luxury btn-full" onclick="openOrderModal('6 Ta Funksiyalik Oyoq Massajeri (Gold Premium)', '1,800,000')">
+              <button class="btn btn-demo-view" onclick="loadInteractiveDemo('silver')">
+                <i class="fas fa-play"></i> <span>Ishlashini Ko'rish</span>
+              </button>
+              <button class="btn btn-luxury btn-full" onclick="openOrderModal('6 Ta Funksiyalik Oyoq Massajeri (Seriy)', '1,800,000')">
                 <i class="fas fa-crown"></i>
                 <span>Nasiyaga Xarid Qilish</span>
               </button>
@@ -313,6 +317,7 @@
 
           <div class="card-body">
             <h3 class="card-title">Zerda Maxsus Hadiya To'plami</h3>
+            <span class="product-color-tag"><i class="fas fa-box-open gold-icon"></i> Qora Premium Qutida</span>
             <p class="card-slogan">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
 
             <div class="pricing-matrix">
@@ -348,81 +353,145 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 4. INTERACTIVE 3D EXPLORATION SECTION ═══════════════════ -->
-  <section class="explore-3d-section" id="explore-3d">
+  <!-- ═══════════════════ 4. REAL PRODUCT LIVE WORKING MASSAGE SIMULATOR ═══════════════════ -->
+  <section class="interactive-demo-section" id="interactive-demo">
     <div class="container">
+      
       <div class="section-heading text-center">
-        <span class="luxury-pill">3D Interaktiv Ko'rgazma</span>
+        <span class="luxury-pill">Jonli Massaj Jarayoni</span>
         <h2 class="section-title">
-          Mahsulotni Har Tomonlama<br>
-          <span class="gold-gradient">360° Aylantirib O'rganing</span>
+          Mahsulotning Qanday Ishlashini<br>
+          <span class="gold-gradient">Jonli Animatsiyada Ko'ring</span>
         </h2>
         <p class="section-subtitle">
-          Sichqoncha yoki barmoq yordamida massajerni 3D rejimda aylantiring va interaktiv nuqtalarni bosing.
+          Qurilmani tanlang va <strong>"Ishlash Animatsiyasini Ko'rish"</strong> tugmasini bosing. Oyoq va boldir qismlari qanday massaj qilinishi real vaqt rejimida ko'rsatiladi.
         </p>
       </div>
 
-      <div class="three-d-wrapper">
-        <div class="three-d-canvas-container" id="canvasContainer">
-          <div class="canvas-instructions">
-            <i class="fas fa-arrows-spin"></i>
-            <span>360° Aylantirish uchun ushlab suring</span>
+      <!-- Real Device Simulator Stage -->
+      <div class="demo-simulator-wrapper">
+        
+        <!-- Top Device Model Switcher Tabs -->
+        <div class="demo-controls-header">
+          <div class="demo-device-tabs">
+            <button class="demo-tab active" id="demoTabGold" onclick="selectDemoModel('gold')">
+              <div class="tab-indicator"></div>
+              <i class="fas fa-crown gold-icon"></i>
+              <div>
+                <strong>3-Funksiyalik (Tillo rang)</strong>
+                <span>Oyoq & Boldir massaji</span>
+              </div>
+            </button>
+
+            <button class="demo-tab" id="demoTabSilver" onclick="selectDemoModel('silver')">
+              <div class="tab-indicator"></div>
+              <i class="fas fa-gem gold-icon"></i>
+              <div>
+                <strong>6-Funksiyalik (Seriy)</strong>
+                <span>3D Akupunktur & Havo bosimi</span>
+              </div>
+            </button>
           </div>
 
-          <!-- Interactive Hotspots -->
-          <div class="hotspot hotspot-1" data-spot="panel" style="top: 28%; left: 50%;">
-            <div class="hotspot-pulse"></div>
-            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
-            <div class="hotspot-card">
-              <h4><i class="fas fa-sliders"></i> Smart Boshqaruv Paneli</h4>
-              <p>Oddiy sensor boshqaruv, 3+ tezlik va avtomatik rejimlar. Bitta tugma orqali to'liq nazorat.</p>
-            </div>
-          </div>
-
-          <div class="hotspot hotspot-2" data-spot="acupressure" style="top: 55%; left: 32%;">
-            <div class="hotspot-pulse"></div>
-            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
-            <div class="hotspot-card">
-              <h4><i class="fas fa-circle-nodes"></i> Chuqur Akupunktur & Rolik</h4>
-              <p>Oyoq tagidagi asab nuqtalarini chuqur massaj qilib, qon aylanishini va immunitetni yaxshilaydi.</p>
-            </div>
-          </div>
-
-          <div class="hotspot hotspot-3" data-spot="infrared" style="top: 55%; left: 68%;">
-            <div class="hotspot-pulse"></div>
-            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
-            <div class="hotspot-card">
-              <h4><i class="fas fa-fire-flame-curved"></i> Infraqizil Isitish Tizimi</h4>
-              <p>Charchagan mushaklarni chuqur isituvchi va qon tomirlarini kengaytiruvchi terapevtik harorat.</p>
-            </div>
-          </div>
+          <!-- Main Start/Pause Massage Button -->
+          <button class="btn-live-toggle" id="btnLiveToggle" onclick="toggleLiveMassage()">
+            <div class="play-btn-ripple"></div>
+            <i class="fas fa-play" id="toggleIcon"></i>
+            <span id="toggleText">Massajni Ishga Tushirish</span>
+          </button>
         </div>
 
-        <!-- 3D Feature Bar -->
-        <div class="three-d-features-bar">
-          <div class="th-feat active" onclick="highlightHotspot(1)">
-            <div class="th-icon"><i class="fas fa-microchip"></i></div>
-            <div class="th-info">
-              <strong>Sensor Panel</strong>
-              <span>Oddiy sensor boshqaruv</span>
+        <!-- Visual Working Simulator Arena -->
+        <div class="demo-stage-arena" id="demoStageArena">
+          
+          <!-- Animated Status Bar on Top of Simulator -->
+          <div class="simulator-hud-bar">
+            <div class="hud-item status-live" id="hudStatus">
+              <span class="hud-dot"></span>
+              <strong id="hudStatusText">KUTISH REJIMI (Tugmani bosing)</strong>
+            </div>
+            <div class="hud-item timer" id="hudTimer">
+              <i class="far fa-clock"></i> Taymer: <span id="timerVal">15:00</span>
+            </div>
+            <div class="hud-item heat" id="hudHeat">
+              <i class="fas fa-temperature-arrow-up"></i> Isitish: <span id="heatVal">45°C FAOL</span>
             </div>
           </div>
-          <div class="th-feat" onclick="highlightHotspot(2)">
-            <div class="th-icon"><i class="fas fa-wave-square"></i></div>
-            <div class="th-info">
-              <strong>Akupunktur Rolik</strong>
-              <span>Chuqur nuqtali ta'sir</span>
+
+          <!-- The Real Massager Graphic with Interactive Anatomy Layers -->
+          <div class="simulator-device-viewport">
+            
+            <!-- Real Product Photo Base -->
+            <div class="device-base-frame" id="deviceBaseFrame">
+              <img src="img/gold-product.jpg" alt="Desco Real Massager Simulator" class="sim-real-img" id="simRealImg">
+              
+              <!-- ── WORKING MASSAGE OVERLAYS (AIRBAGS, ROLLERS, HEAT) ── -->
+              
+              <!-- 1. Left Chamber Massage Waves (Calf & Foot Squeeze) -->
+              <div class="massage-chamber-overlay left-chamber" id="leftChamber">
+                <div class="airbag-pulse-ring ring-top"></div>
+                <div class="airbag-pulse-ring ring-mid"></div>
+                <div class="airbag-pulse-ring ring-bot"></div>
+                <div class="infrared-heat-glow"></div>
+                <div class="roller-spark-nodes">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chamber-label">Boldir & Oyoq Siqishi</div>
+              </div>
+
+              <!-- 2. Right Chamber Massage Waves (Calf & Foot Squeeze) -->
+              <div class="massage-chamber-overlay right-chamber" id="rightChamber">
+                <div class="airbag-pulse-ring ring-top"></div>
+                <div class="airbag-pulse-ring ring-mid"></div>
+                <div class="airbag-pulse-ring ring-bot"></div>
+                <div class="infrared-heat-glow"></div>
+                <div class="roller-spark-nodes">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="chamber-label">Boldir & Oyoq Siqishi</div>
+              </div>
+
+              <!-- 3. Smart Control Panel Glow -->
+              <div class="panel-glow-indicator" id="panelIndicator">
+                <div class="panel-digital-glow"></div>
+                <div class="panel-label">Sensor Panel Faol</div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom Step-by-Step Massage Phases Tracker -->
+          <div class="massage-phases-tracker">
+            <div class="phase-step active" id="phase1">
+              <div class="phase-num">1</div>
+              <div class="phase-info">
+                <strong>Boldirni Siqish</strong>
+                <span>Havo yostiqchalari boldir mushaklarini qamrab oladi</span>
+              </div>
+            </div>
+
+            <div class="phase-step" id="phase2">
+              <div class="phase-num">2</div>
+              <div class="phase-info">
+                <strong>Akupunktur Roliklar</strong>
+                <span>Oyoq kafti va tovon nuqtalarini chuqur uvalaydi</span>
+              </div>
+            </div>
+
+            <div class="phase-step" id="phase3">
+              <div class="phase-num">3</div>
+              <div class="phase-info">
+                <strong>Infraqizil Isitish (45°C)</strong>
+                <span>Charchoqni yo'qotib, qon aylanishini normallashtiradi</span>
+              </div>
             </div>
           </div>
-          <div class="th-feat" onclick="highlightHotspot(3)">
-            <div class="th-icon"><i class="fas fa-temperature-high"></i></div>
-            <div class="th-info">
-              <strong>Infraqizil Isitish</strong>
-              <span>Qon aylanishini yaxshilash</span>
-            </div>
-          </div>
+
         </div>
+
       </div>
+
     </div>
   </section>
 
@@ -671,8 +740,8 @@
             <div class="input-field">
               <label for="userProduct"><i class="far fa-box-open"></i> Tanlangan Mahsulot</label>
               <select id="userProduct" required>
-                <option value="6ta-gold" selected>6 Ta Funksiyalik Oyoq Massajeri (Gold) — 1,800,000 so'm</option>
-                <option value="3ta-silver">3 Ta Funksiyalik Oyoq Massajeri (Silver) — 1,300,000 so'm</option>
+                <option value="3ta-gold" selected>3 Ta Funksiyalik (Tillo rang) — 1,300,000 so'm</option>
+                <option value="6ta-silver">6 Ta Funksiyalik (Seriy) — 1,800,000 so'm</option>
                 <option value="gift-set">Zerda Maxsus Hadiya To'plami (VIP) — 3,500,000 so'm</option>
               </select>
             </div>
@@ -723,7 +792,7 @@
         <ul class="f-links">
           <li><a href="#hero">Asosiy</a></li>
           <li><a href="#catalog">Katalog & Nasiya</a></li>
-          <li><a href="#explore-3d">3D Ko'rinish</a></li>
+          <li><a href="#interactive-demo">Ishlash Animatsiyasi</a></li>
           <li><a href="#features">Zerda To'plami</a></li>
           <li><a href="#faq">Ko'p Beriladigan Savollar</a></li>
         </ul>
@@ -732,8 +801,8 @@
       <div class="footer-col">
         <h4 class="f-col-title">Mahsulotlar</h4>
         <ul class="f-links">
-          <li><a href="#catalog">Silver Oyoq Massajeri</a></li>
-          <li><a href="#catalog">Gold Oyoq Massajeri</a></li>
+          <li><a href="#catalog">3-Funksiyalik (Tillo rang)</a></li>
+          <li><a href="#catalog">6-Funksiyalik (Seriy)</a></li>
           <li><a href="#catalog">Zerda 5-in-1 Gift Box</a></li>
           <li><a href="#catalog">Nasiya Kalkulyatori</a></li>
         </ul>
@@ -766,7 +835,7 @@
       <div class="modal-header">
         <div class="modal-icon"><i class="fas fa-crown"></i></div>
         <h3 class="modal-title">Tezkor Buyurtma</h3>
-        <p class="modal-sub" id="modalProductTitle">6 Ta Funksiyalik Oyoq Massajeri (Gold)</p>
+        <p class="modal-sub" id="modalProductTitle">3 Ta Funksiyalik Oyoq Massajeri (Tillo rang)</p>
       </div>
 
       <form class="modal-form" id="modalForm">
