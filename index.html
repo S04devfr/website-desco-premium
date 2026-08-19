@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desco Premium — Smart Oyoq Massajerlari & Wellness Hadiya To'plamlari</title>
+  <meta name="description" content="Desco Premium — Innovatsion massaj texnologiyalari. Oyoq massajerlari va 5-in-1 Zerda hadiya to'plamlari. 12 oygacha qulay nasiya!">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Three.js for 3D Interactive Exploration -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════ 1. HEADER & NAVIGATION ═══════════════════ -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="brand">
+        <div class="brand-logo-img">
+          <img src="img/logo.jpg" alt="Desco Premium Logo" class="brand-logo-pic">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">DESCO</span>
+          <span class="brand-sub">PREMIUM</span>
+        </div>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="#hero" class="nav-link active">Asosiy</a>
+        <a href="#catalog" class="nav-link">Katalog & Nasiya</a>
+        <a href="#explore-3d" class="nav-link">3D Ko'rinish</a>
+        <a href="#features" class="nav-link">Imkoniyatlar</a>
+        <a href="#about" class="nav-link">Biz Haqimizda</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Aloqa</a>
+      </nav>
+
+      <div class="header-right">
+        <a href="tel:+998900038060" class="header-phone-btn">
+          <div class="phone-icon-pulse">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div class="phone-text">
+            <span class="phone-sub">Buyurtma uchun:</span>
+            <span class="phone-val">+998 (90) 003-80-60</span>
+          </div>
+        </a>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menyu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-ambient-glow glow-1"></div>
+    <div class="hero-ambient-glow glow-2"></div>
+    
+    <div class="container hero-container">
+      <div class="hero-grid">
+        
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <i class="fas fa-crown gold-icon"></i>
+            <span>Premium Salomatlik & Dam Olish</span>
+          </div>
+
+          <h1 class="hero-title">
+            Sog'lig'ingiz Uchun<br>
+            <span class="gold-gradient">Eng Qulay Va Nafis</span><br>
+            Tanlov!
+          </h1>
+
+          <p class="hero-desc">
+            <strong>Desco Premium</strong> — Innovatsion massaj texnologiyalari orqali tanangizga yengillik, ruhingizga orom bag'ishlang.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#catalog" class="btn btn-luxury">
+              <span class="btn-shine"></span>
+              <i class="fas fa-shopping-bag"></i>
+              <span>Buyurtma Berish</span>
+            </a>
+            <a href="#catalog" class="btn btn-glass">
+              <i class="fas fa-calculator"></i>
+              <span>Nasiya Shartlari</span>
+            </a>
+          </div>
+
+          <div class="trust-strip">
+            <div class="trust-item">
+              <div class="trust-icon"><i class="fas fa-calendar-alt"></i></div>
+              <div class="trust-meta">
+                <strong>12 Oygacha</strong>
+                <span>Bo'lib to'lash</span>
+              </div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+              <div class="trust-icon"><i class="fas fa-shield-check"></i></div>
+              <div class="trust-meta">
+                <strong>100% Rasmiy</strong>
+                <span>Kafolat</span>
+              </div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+              <div class="trust-icon"><i class="fas fa-truck-fast"></i></div>
+              <div class="trust-meta">
+                <strong>O'zbekiston</strong>
+                <span>Bo'ylab tezkor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-wrapper">
+          <div class="hero-visual-card">
+            <!-- Energy wave & Blue-Violet Air-Glow Aura -->
+            <div class="energy-wave-ring ring-1"></div>
+            <div class="energy-wave-ring ring-2"></div>
+            <div class="air-glow-overlay"></div>
+            
+            <div class="hero-image-box">
+              <img src="img/full-poster.jpg" alt="Desco Premium Massaj Mahsulotlari" class="hero-main-img">
+            </div>
+
+            <!-- Floating luxury tags -->
+            <div class="floating-tag tag-top">
+              <i class="fas fa-sparkles"></i>
+              <span>Akupunktur & Rolikli Massaj</span>
+            </div>
+
+            <div class="floating-tag tag-bottom">
+              <i class="fas fa-temperature-arrow-up"></i>
+              <span>Infraqizil Isitish Texnologiyasi</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 3. INTERACTIVE INSTALLMENT & CATALOG SECTION ═══════════════════ -->
+  <section class="catalog-section" id="catalog">
+    <div class="container">
+      
+      <div class="section-heading text-center">
+        <span class="luxury-pill">Nasiya To'lov Rejalari</span>
+        <h2 class="section-title">
+          O'zingizga Mos Keladigan<br>
+          <span class="gold-gradient">To'lov Rejasini Tanlang</span>
+        </h2>
+        <p class="section-subtitle">
+          Sog'lig'ingiz uchun eng qulay va nafis tanlov! Boshlang'ich to'lovsiz, qulay oylik grafik.
+        </p>
+      </div>
+
+      <!-- Quick duration filter tabs -->
+      <div class="installment-tabs" id="installmentTabs">
+        <span class="tabs-label"><i class="fas fa-sliders"></i> To'lov muddatini taqqoslash:</span>
+        <button class="tab-btn" data-period="3">3 Oyga</button>
+        <button class="tab-btn" data-period="6">6 Oyga</button>
+        <button class="tab-btn active" data-period="12">12 Oyga (Tavsiya etiladi)</button>
+        <button class="tab-btn" data-period="cash">Naqd To'lov</button>
+      </div>
+
+      <div class="catalog-grid">
+
+        <!-- CARD 01: 3 Ta Funksiyalik Silver Edition -->
+        <div class="catalog-card" data-product="silver">
+          <div class="card-num-badge">01</div>
+          
+          <div class="card-image-box">
+            <img src="img/silver-product.jpg" alt="3 Ta Funksiyalik Oyoq Massajeri Silver Edition" class="card-img">
+            <span class="edition-chip silver-chip">Silver Edition</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">3 Ta Funksiyalik Oyoq Massajeri</h3>
+            <p class="card-sub-desc">Chuqur rolikli massaj, havo yostiqchalari va yengil isitish funksiyasi.</p>
+
+            <div class="pricing-matrix">
+              <div class="matrix-row row-3" data-row="3">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
+                <span class="matrix-val">563,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-6" data-row="6">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
+                <span class="matrix-val">303,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-12 highlight" data-row="12">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
+                <span class="matrix-val">163,000 <small>so'm/oy</small></span>
+              </div>
+            </div>
+
+            <div class="cash-price-banner">
+              <span class="cash-title">Naqdga narxi:</span>
+              <span class="cash-amount">1,300,000 <span>SO'M</span></span>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-catalog-order" onclick="openOrderModal('3 Ta Funksiyalik Oyoq Massajeri (Silver)', '1,300,000')">
+                <i class="fas fa-cart-shopping"></i>
+                <span>Nasiyaga Xarid Qilish</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 02: 6 Ta Funksiyalik Gold Premium Edition (Featured) -->
+        <div class="catalog-card featured-gold-card" data-product="gold">
+          <div class="popular-ribbon">
+            <i class="fas fa-crown"></i> Eng Ommabop Tanlov
+          </div>
+          <div class="card-num-badge gold-badge">02</div>
+          
+          <div class="card-image-box">
+            <img src="img/gold-product.jpg" alt="6 Ta Funksiyalik Oyoq Massajeri Gold Edition" class="card-img">
+            <span class="edition-chip gold-chip">Gold Premium Edition</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">6 Ta Funksiyalik Oyoq Massajeri</h3>
+            <p class="card-sub-desc">6 xil akupunktur rejimi, to'liq oyoq kaftini qamrab oluvchi 3D havo bosimi.</p>
+
+            <div class="pricing-matrix">
+              <div class="matrix-row row-3" data-row="3">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
+                <span class="matrix-val">780,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-6" data-row="6">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
+                <span class="matrix-val">420,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-12 highlight gold-highlight" data-row="12">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
+                <span class="matrix-val">225,000 <small>so'm/oy</small></span>
+              </div>
+            </div>
+
+            <div class="cash-price-banner gold-banner">
+              <span class="cash-title">Naqdga narxi:</span>
+              <span class="cash-amount">1,800,000 <span>SO'M</span></span>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-luxury btn-full" onclick="openOrderModal('6 Ta Funksiyalik Oyoq Massajeri (Gold Premium)', '1,800,000')">
+                <i class="fas fa-crown"></i>
+                <span>Nasiyaga Xarid Qilish</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 03: Zerda Maxsus Hadiya To'plami (5-in-1 VIP Box) -->
+        <div class="catalog-card vip-gift-card" data-product="gift">
+          <div class="vip-ribbon">
+            <i class="fas fa-gem"></i> VIP To'plam
+          </div>
+          <div class="card-num-badge dark-badge">03</div>
+          
+          <div class="card-image-box">
+            <img src="img/gift-product.jpg" alt="Zerda Maxsus Hadiya To'plami 5-in-1" class="card-img">
+            <span class="edition-chip vip-chip">5-in-1 Premium Gift Box</span>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-title">Zerda Maxsus Hadiya To'plami</h3>
+            <p class="card-slogan">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
+
+            <div class="pricing-matrix">
+              <div class="matrix-row row-3" data-row="3">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 3 oyga</span>
+                <span class="matrix-val">1,516,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-6" data-row="6">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 6 oyga</span>
+                <span class="matrix-val">816,000 <small>so'm/oy</small></span>
+              </div>
+              <div class="matrix-row row-12 highlight dark-highlight" data-row="12">
+                <span class="matrix-period"><i class="far fa-calendar-check"></i> 12 oyga</span>
+                <span class="matrix-val">437,000 <small>so'm/oy</small></span>
+              </div>
+            </div>
+
+            <div class="cash-price-banner dark-banner">
+              <span class="cash-title">Naqdga narxi:</span>
+              <span class="cash-amount">3,500,000 <span>SO'M</span></span>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn btn-dark-luxury btn-full" onclick="openOrderModal('Zerda Maxsus Hadiya To\'plami (5-in-1 VIP)', '3,500,000')">
+                <i class="fas fa-gift"></i>
+                <span>To'plamni Tanlash</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 4. INTERACTIVE 3D EXPLORATION SECTION ═══════════════════ -->
+  <section class="explore-3d-section" id="explore-3d">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="luxury-pill">3D Interaktiv Ko'rgazma</span>
+        <h2 class="section-title">
+          Mahsulotni Har Tomonlama<br>
+          <span class="gold-gradient">360° Aylantirib O'rganing</span>
+        </h2>
+        <p class="section-subtitle">
+          Sichqoncha yoki barmoq yordamida massajerni 3D rejimda aylantiring va interaktiv nuqtalarni bosing.
+        </p>
+      </div>
+
+      <div class="three-d-wrapper">
+        <div class="three-d-canvas-container" id="canvasContainer">
+          <!-- Three.js renders here -->
+          <div class="canvas-instructions">
+            <i class="fas fa-arrows-spin"></i>
+            <span>360° Aylantirish uchun ushlab suring</span>
+          </div>
+
+          <!-- Interactive Hotspots -->
+          <div class="hotspot hotspot-1" data-spot="panel" style="top: 28%; left: 50%;">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
+            <div class="hotspot-card">
+              <h4><i class="fas fa-sliders"></i> Smart Boshqaruv Paneli</h4>
+              <p>Oddiy sensor boshqaruv, 3+ tezlik va avtomatik rejimlar. Bitta tugma orqali to'liq nazorat.</p>
+            </div>
+          </div>
+
+          <div class="hotspot hotspot-2" data-spot="acupressure" style="top: 55%; left: 32%;">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
+            <div class="hotspot-card">
+              <h4><i class="fas fa-circle-nodes"></i> Chuqur Akupunktur & Rolik</h4>
+              <p>Oyoq tagidagi asab nuqtalarini chuqur massaj qilib, qon aylanishini va immunitetni yaxshilaydi.</p>
+            </div>
+          </div>
+
+          <div class="hotspot hotspot-3" data-spot="infrared" style="top: 55%; left: 68%;">
+            <div class="hotspot-pulse"></div>
+            <div class="hotspot-btn"><i class="fas fa-plus"></i></div>
+            <div class="hotspot-card">
+              <h4><i class="fas fa-fire-flame-curved"></i> Infraqizil Isitish Tizimi</h4>
+              <p>Charchagan mushaklarni chuqur isituvchi va qon tomirlarini kengaytiruvchi terapevtik harorat.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Feature Bar -->
+        <div class="three-d-features-bar">
+          <div class="th-feat active" onclick="highlightHotspot(1)">
+            <div class="th-icon"><i class="fas fa-microchip"></i></div>
+            <div class="th-info">
+              <strong>Sensor Panel</strong>
+              <span>Oddiy sensor boshqaruv</span>
+            </div>
+          </div>
+          <div class="th-feat" onclick="highlightHotspot(2)">
+            <div class="th-icon"><i class="fas fa-wave-square"></i></div>
+            <div class="th-info">
+              <strong>Akupunktur Rolik</strong>
+              <span>Chuqur nuqtali ta'sir</span>
+            </div>
+          </div>
+          <div class="th-feat" onclick="highlightHotspot(3)">
+            <div class="th-icon"><i class="fas fa-temperature-high"></i></div>
+            <div class="th-info">
+              <strong>Infraqizil Isitish</strong>
+              <span>Qon aylanishini yaxshilash</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 5. 5-IN-1 ZERDA GIFT SET SHOWCASE ═══════════════════ -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="luxury-pill">Zerda Premium To'plam</span>
+        <h2 class="section-title">
+          05 — 3 Ta Funksiyalik<br>
+          <span class="gold-gradient">Bir To'plamda, Ko'p Imkoniyat</span>
+        </h2>
+        <p class="section-subtitle">
+          5 ta maxsus qurilma — 1 ta premium quti ichida to'liq tana salomatligi.
+        </p>
+      </div>
+
+      <div class="gift-showcase-grid">
+        <div class="gift-main-card">
+          <div class="gift-main-img-box">
+            <img src="img/gift-set-detail.jpg" alt="Zerda 5 in 1 Hadiya To'plami" class="gift-main-img">
+          </div>
+          <div class="gift-main-info">
+            <div class="gift-stamp">
+              <i class="fas fa-gift"></i>
+              <span>03 — HADIYA TO'PLAMI (5 ta qurilma, 1 ta yechim)</span>
+            </div>
+            <p class="gift-quote">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
+          </div>
+        </div>
+
+        <div class="gift-devices-grid">
+          
+          <div class="device-card">
+            <div class="device-thumb">
+              <img src="img/feat-panel.jpg" alt="Boshqaruv Paneli">
+            </div>
+            <div class="device-meta">
+              <h4>Boshqaruv Paneli</h4>
+              <p>Oddiy boshqaruv, 3 ta maxsus rejim.</p>
+            </div>
+          </div>
+
+          <div class="device-card">
+            <div class="device-thumb">
+              <img src="img/feat-neck.jpg" alt="Bo'yin Massajeri">
+            </div>
+            <div class="device-meta">
+              <h4>Bo'yin Massajeri</h4>
+              <p>Chuqur massaj, qon aylanishini yaxshilaydi.</p>
+            </div>
+          </div>
+
+          <div class="device-card">
+            <div class="device-thumb">
+              <img src="img/feat-eye.jpg" alt="Ko'z Massajeri">
+            </div>
+            <div class="device-meta">
+              <h4>Ko'z Massajeri</h4>
+              <p>Ko'z charchoqlarini kamaytiradi va tinchlantiradi.</p>
+            </div>
+          </div>
+
+          <div class="device-card">
+            <div class="device-thumb">
+              <img src="img/feat-point.jpg" alt="Nuqtali Massajer">
+            </div>
+            <div class="device-meta">
+              <h4>Nuqtali Massajer</h4>
+              <p>Aniq nuqtali ta'sir, dam olishingiz uchun.</p>
+            </div>
+          </div>
+
+          <div class="device-card full-span-device">
+            <div class="device-thumb">
+              <img src="img/waist-massager.jpg" alt="Bel va Tana Massajeri">
+            </div>
+            <div class="device-meta">
+              <h4>Bel & Tana Massajeri</h4>
+              <p>Ergonomik qulay tasma va ko'p funksiyali elektr quvvatlash tizimi.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 6. ABOUT BRAND & QUALITY ASSURANCE ═══════════════════ -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="luxury-pill dark-pill">Bizning Falsafamiz</span>
+        <h2 class="section-title text-white">
+          Desco & Zerda —<br>
+          <span class="gold-gradient">Salomatlik va Mukammal Dam Olish</span>
+        </h2>
+        <p class="section-subtitle text-gray">
+          Bizning maqsadimiz — har bir xonadonga salomatlik, xotirjamlik va premium qulaylik olib kirish.
+        </p>
+      </div>
+
+      <div class="about-cards-grid">
+        
+        <div class="about-feature-box">
+          <div class="af-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3 class="af-title">Ishonchli Sifat & Kafolat</h3>
+          <p class="af-desc">Barcha mahsulotlar xalqaro sifat standartlariga javob beradi va to'liq 12 oylik rasmiy kafolat bilan beriladi.</p>
+        </div>
+
+        <div class="about-feature-box">
+          <div class="af-icon"><i class="fas fa-gem"></i></div>
+          <h3 class="af-title">Sifatli Xomashyo</h3>
+          <p class="af-desc">Eko-charm, yuqori sifatli matolar va bardoshli elektr motorlar — uzoq yillik xizmat garovidir.</p>
+        </div>
+
+        <div class="about-feature-box">
+          <div class="af-icon"><i class="fas fa-bolt-lightning"></i></div>
+          <h3 class="af-title">Xavfsiz Quvvatlanish</h3>
+          <p class="af-desc">Haddan tashqari qizib ketishdan himoyalovchi smart chip va avtomatik o'chish taymeri mavjud.</p>
+        </div>
+
+        <div class="about-feature-box">
+          <div class="af-icon"><i class="fas fa-truck-ramp-box"></i></div>
+          <h3 class="af-title">Tezkor Yetkazib Berish</h3>
+          <p class="af-desc">O'zbekistonning barcha viloyatlariga to'g'ridan-to'g'ri xonadoningizgacha ishonchli yetkazib berish xizmati.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 7. FAQ (ACCORDION) ═══════════════════ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="luxury-pill">Ko'p Beriladigan Savollar</span>
+        <h2 class="section-title">
+          Savollaringizga<br>
+          <span class="gold-gradient">Aniq va Tez Javoblar</span>
+        </h2>
+      </div>
+
+      <div class="faq-accordion-box">
+        
+        <div class="faq-card active">
+          <button class="faq-header-btn">
+            <span class="faq-q-text">1. Kafolat muddati qancha va u nimani o'z ichiga oladi?</span>
+            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
+          </button>
+          <div class="faq-body-content">
+            <p>Barcha mahsulotlarimiz uchun <strong>12 oylik rasmiy kafolat</strong> taqdim etiladi. Kafolat motor, elektron boshqaruv tizimlari va ichki mexanizmlarni o'z ichiga oladi. Nosozlik aniqlansa, mutlaqo bepul ta'mirlanadi yoki yangisiga almashtiriladi.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <button class="faq-header-btn">
+            <span class="faq-q-text">2. Nasiya to'lovni rasmiylashtirish uchun qanday hujjatlar kerak?</span>
+            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
+          </button>
+          <div class="faq-body-content">
+            <p>Nasiya savdo uchun faqatgina <strong>Passport (ID karta) va plastik karta</strong> talab qilinadi. Rasmiylashtirish 5 daqiqada onlayn yoki yetkazib berilganda amalga oshiriladi. Boshlang'ich to'lovsiz!</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <button class="faq-header-btn">
+            <span class="faq-q-text">3. Toshkent va viloyatlarga yetkazib berish muddati qancha?</span>
+            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
+          </button>
+          <div class="faq-body-content">
+            <p>Toshkent shahri bo'ylab <strong>o'sha kunning o'zida</strong> (2-4 soatda) yetkazib beriladi. Viloyat markazlari va tumanlarga 24 soat ichida yetkaziladi. Mahsulotni tekshirib, keyin to'lov qilasiz.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <button class="faq-header-btn">
+            <span class="faq-q-text">4. Mahsulotni qaytarish yoki almashtirish imkoniyati bormi?</span>
+            <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
+          </button>
+          <div class="faq-body-content">
+            <p>Albatta! Agar mahsulotda zavod nuqsoni aniqlansa yoki siz kutgan sifatga mos kelmasa, 14 kun ichida almashtirib berish yoki to'lovni to'liq qaytarish kafolatlanadi.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 8. QUICK LEAD CAPTURE & FOOTER ═══════════════════ -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="lead-wrapper">
+        
+        <div class="lead-info">
+          <span class="luxury-pill">Tezkor Murojaat</span>
+          <h2 class="lead-title">
+            Express<br>
+            <span class="gold-gradient">Buyurtma Berish</span>
+          </h2>
+          <p class="lead-text">
+            Ma'lumotlaringizni qoldiring, mutaxassisimiz 5 daqiqa ichida siz bilan bog'lanib, eng qulay to'lov rejasini hisoblab beradi.
+          </p>
+
+          <div class="direct-contacts">
+            <a href="tel:+998900038060" class="direct-item">
+              <div class="d-icon"><i class="fas fa-phone"></i></div>
+              <div class="d-info">
+                <span>Qo'ng'iroq uchun:</span>
+                <strong>+998 (90) 003-80-60</strong>
+              </div>
+            </a>
+
+            <a href="https://t.me/Desco_premium_bot" target="_blank" class="direct-item">
+              <div class="d-icon tg"><i class="fab fa-telegram-plane"></i></div>
+              <div class="d-info">
+                <span>Telegram Bot:</span>
+                <strong>@Desco_premium_bot</strong>
+              </div>
+            </a>
+
+            <a href="https://instagram.com/Desco.premium" target="_blank" class="direct-item">
+              <div class="d-icon insta"><i class="fab fa-instagram"></i></div>
+              <div class="d-info">
+                <span>Instagram Sahifamiz:</span>
+                <strong>@Desco.premium</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="lead-form-container">
+          <form class="lead-form" id="leadForm">
+            <h3 class="form-title">Ariza Qoldirish</h3>
+            
+            <div class="input-field">
+              <label for="userName"><i class="far fa-user"></i> Ismingiz</label>
+              <input type="text" id="userName" placeholder="Masalan: Azizbek" required>
+            </div>
+
+            <div class="input-field">
+              <label for="userPhone"><i class="far fa-phone"></i> Telefon Raqamingiz</label>
+              <input type="tel" id="userPhone" placeholder="+998 (__) ___-__-__" required>
+            </div>
+
+            <div class="input-field">
+              <label for="userProduct"><i class="far fa-box-open"></i> Tanlangan Mahsulot</label>
+              <select id="userProduct" required>
+                <option value="6ta-gold" selected>6 Ta Funksiyalik Oyoq Massajeri (Gold) — 1,800,000 so'm</option>
+                <option value="3ta-silver">3 Ta Funksiyalik Oyoq Massajeri (Silver) — 1,300,000 so'm</option>
+                <option value="gift-set">Zerda Maxsus Hadiya To'plami (VIP) — 3,500,000 so'm</option>
+              </select>
+            </div>
+
+            <div class="input-field">
+              <label for="userPlan"><i class="far fa-calendar-check"></i> To'lov Rejasi</label>
+              <select id="userPlan">
+                <option value="12-oy">12 Oylik Nasiya (Boshlang'ich to'lovsiz)</option>
+                <option value="6-oy">6 Oylik Nasiya</option>
+                <option value="3-oy">3 Oylik Nasiya</option>
+                <option value="naqd">Naqd To'lov (Yetkazilganda)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-luxury btn-full btn-submit">
+              <span class="btn-shine"></span>
+              <i class="fas fa-paper-plane"></i>
+              <span>Buyurtmani Rasmiylashtirish</span>
+            </button>
+            <p class="form-privacy"><i class="fas fa-lock"></i> Ma'lumotlaringiz xavfsizligi 100% kafolatlanadi</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand-col">
+        <div class="brand">
+          <div class="brand-logo-img">
+            <img src="img/logo.jpg" alt="Desco Logo" class="brand-logo-pic">
+          </div>
+          <div class="brand-text">
+            <span class="brand-name text-white">DESCO</span>
+            <span class="brand-sub">PREMIUM</span>
+          </div>
+        </div>
+        <p class="footer-tagline">
+          Sog'lig'ingiz uchun eng qulay va nafis tanlov! Butun O'zbekiston bo'ylab rasmiy yetkazib berish xizmati.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="f-col-title">Bo'limlar</h4>
+        <ul class="f-links">
+          <li><a href="#hero">Asosiy</a></li>
+          <li><a href="#catalog">Katalog & Nasiya</a></li>
+          <li><a href="#explore-3d">3D Ko'rinish</a></li>
+          <li><a href="#features">Zerda To'plami</a></li>
+          <li><a href="#faq">Ko'p Beriladigan Savollar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="f-col-title">Mahsulotlar</h4>
+        <ul class="f-links">
+          <li><a href="#catalog">Silver Oyoq Massajeri</a></li>
+          <li><a href="#catalog">Gold Oyoq Massajeri</a></li>
+          <li><a href="#catalog">Zerda 5-in-1 Gift Box</a></li>
+          <li><a href="#catalog">Nasiya Kalkulyatori</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="f-col-title">Aloqa Markazi</h4>
+        <div class="f-contact-list">
+          <a href="tel:+998900038060" class="f-contact-link"><i class="fas fa-phone-alt gold-icon"></i> +998 (90) 003-80-60</a>
+          <a href="https://t.me/Desco_premium_bot" target="_blank" class="f-contact-link"><i class="fab fa-telegram gold-icon"></i> @Desco_premium_bot</a>
+          <a href="https://instagram.com/Desco.premium" target="_blank" class="f-contact-link"><i class="fab fa-instagram gold-icon"></i> @Desco.premium</a>
+          <span class="f-address"><i class="fas fa-location-dot gold-icon"></i> Toshkent shahri, O'zbekiston</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 Desco Premium. Barcha huquqlar himoyalangan.</p>
+        <p class="dev-credit">Crafted with Luxury & Precision</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════ ORDER MODAL ═══════════════════ -->
+  <div class="order-modal-backdrop" id="orderModal">
+    <div class="order-modal-card">
+      <button class="modal-close-btn" onclick="closeOrderModal()"><i class="fas fa-times"></i></button>
+      
+      <div class="modal-header">
+        <div class="modal-icon"><i class="fas fa-crown"></i></div>
+        <h3 class="modal-title">Tezkor Buyurtma</h3>
+        <p class="modal-sub" id="modalProductTitle">6 Ta Funksiyalik Oyoq Massajeri (Gold)</p>
+      </div>
+
+      <form class="modal-form" id="modalForm">
+        <input type="hidden" id="modalProductName">
+        <input type="hidden" id="modalProductPrice">
+        
+        <div class="input-field">
+          <label><i class="far fa-user"></i> Ismingiz</label>
+          <input type="text" id="modalName" placeholder="Ismingizni kiriting" required>
+        </div>
+
+        <div class="input-field">
+          <label><i class="far fa-phone"></i> Telefon Raqamingiz</label>
+          <input type="tel" id="modalPhone" placeholder="+998 (__) ___-__-__" required>
+        </div>
+
+        <div class="input-field">
+          <label><i class="far fa-calendar-check"></i> To'lov Usuli</label>
+          <select id="modalPlan">
+            <option value="12 oy">12 Oylik Nasiya</option>
+            <option value="6 oy">6 Oylik Nasiya</option>
+            <option value="3 oy">3 Oylik Nasiya</option>
+            <option value="Naqd">Naqd To'lov</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-luxury btn-full">
+          <span class="btn-shine"></span>
+          <i class="fas fa-paper-plane"></i>
+          <span>Buyurtmani Tasdiqlash</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FLOATING CTA BUTTON -->
+  <a href="https://t.me/Desco_premium_bot" target="_blank" class="floating-tg-btn" aria-label="Telegram orqali buyurtma berish">
+    <div class="floating-pulse"></div>
+    <i class="fab fa-telegram-plane"></i>
+    <span class="floating-tooltip">Savolingiz bormi? Yozing!</span>
+  </a>
+
+  <!-- Main JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
