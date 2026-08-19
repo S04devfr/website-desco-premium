@@ -4,6 +4,7 @@ import json
 import sqlite3
 import urllib.request
 import urllib.parse
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from threading import Thread
 import time
 from datetime import datetime
@@ -14,7 +15,6 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "crm.db")
 
 USER_STATES = {}
 
-# Prices for Financial Accountant Module
 PRODUCT_PRICES = {
     '3ta-gold': 1300000,
     '3ta-silver': 1300000,
@@ -44,7 +44,6 @@ def init_db():
             product TEXT,
             product_code TEXT,
             plan TEXT,
-            price INTEGER DEFAULT 0,
             status TEXT DEFAULT 'NEW',
             confirmed_by TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -129,6 +128,14 @@ def register_chat(chat_id, chat_title, chat_type):
     conn.commit()
     conn.close()
 
+def get_all_chats():
+    conn = get_db()
+    c = conn.cursor()
+    c.execute('SELECT chat_id FROM subscribed_chats')
+    rows = c.fetchall()
+    conn.close()
+    return [r['chat_id'] for r in rows]
+
 def get_main_menu_keyboard():
     return {
         "keyboard": [
@@ -139,22 +146,67 @@ def get_main_menu_keyboard():
         "resize_keyboard": True
     }
 
-# ── 3. FINANCIAL ACCOUNTANT REPORT GENERATION ──
+# ── 3. PROCESS NEW LEAD FROM LANDING PAGE OR API ──
+def process_new_lead(lead_data):
+    conn = get_db()
+    c = conn.cursor()
+
+    name = lead_data.get('name', 'Noma\'lum')
+    phone = lead_data.get('phone', 'Noma\'lum')
+    product = lead_data.get('product', '3-Funksiyalik Oyoq Massajeri')
+    product_code = lead_data.get('product_code', '3ta-gold')
+    plan = lead_data.get('plan', '12 oylik nasiya')
+
+    c.execute('''
+        INSERT INTO leads (name, phone, product, product_code, plan, status)
+        VALUES (?, ?, ?, ?, ?, 'NEW')
+    ''', (name, phone, product, product_code, plan))
+    
+    lead_id = c.lastrowid
+    conn.commit()
+    conn.close()
+
+    msg_text = f"""
+🛍 <b>YANGI BUYURTMA — CRM LEAD #{lead_id}</b>
+
+👤 <b>Mijoz:</b> {name}
+📞 <b>Telefon:</b> <code>{phone}</code>
+📦 <b>Mahsulot:</b> {product}
+💳 <b>To'lov rejasi:</b> {plan}
+🕒 <b>Vaqt:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M:%S')}
+
+⚡ <i>Statusni belgilash uchun tugmani bosing:</i>
+    """.strip()
+
+    inline_kb = {
+        "inline_keyboard": [
+            [
+                {"text": "✅ Zakaz Olindi", "callback_data": f"conf_{lead_id}"},
+                {"text": "❌ O'tkaz (Rad)", "callback_data": f"canc_{lead_id}"}
+            ]
+        ]
+    }
+
+    # Broadcast lead to all registered admins / groups
+    chats = get_all_chats()
+    for cid in chats:
+        send_message(cid, msg_text, reply_markup=inline_kb)
+
+    return lead_id
+
+# ── 4. REPORTS GENERATION ──
 def generate_financial_report():
     conn = get_db()
     c = conn.cursor()
 
-    # Today's Revenue
     c.execute("SELECT product_code FROM leads WHERE date(created_at) = date('now') AND status = 'CONFIRMED'")
     today_confirmed = c.fetchall()
     today_revenue = sum(PRODUCT_PRICES.get(r['product_code'], 1300000) for r in today_confirmed)
 
-    # Total All-Time Revenue
     c.execute("SELECT product_code FROM leads WHERE status = 'CONFIRMED'")
     all_confirmed = c.fetchall()
     total_revenue = sum(PRODUCT_PRICES.get(r['product_code'], 1300000) for r in all_confirmed)
 
-    # Total confirmed counts per model
     c.execute("SELECT product_code, COUNT(*) as cnt FROM leads WHERE status = 'CONFIRMED' GROUP BY product_code")
     model_counts = c.fetchall()
 
@@ -232,7 +284,7 @@ def generate_today_report():
 • Jami tushgan leadlar: <code>{total_all} ta</code>
 • Tasdiqlangan zakazlar: <code>{confirmed_all} ta</code>
 
-⚡ <i>Faqatgina real tushgan buyurtmalar hisoblanadi.</i>
+⚡ <i>Har bir tushgan buyurtma avtomatik hisoblanadi.</i>
     """.strip()
 
     return text
@@ -259,7 +311,42 @@ def generate_inventory_report():
 
     return text, kb
 
-# ── 4. BOT LONG-POLLING ENGINE ──
+# ── 5. HTTP SERVER FOR LANDING PAGE WEBHOOK (CORS SUPPORTED) ──
+class CRMRequestHandler(BaseHTTPRequestHandler):
+    def do_POST(self):
+        if self.path == '/api/lead':
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length)
+            try:
+                data = json.loads(body.decode('utf-8'))
+                lead_id = process_new_lead(data)
+                
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ok", "lead_id": lead_id}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
+def run_http_server():
+    server = HTTPServer(('0.0.0.0', 8999), CRMRequestHandler)
+    print("CRM HTTP Webhook Server running on port 8999...")
+    server.serve_forever()
+
+# ── 6. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
     print("Starting Financial Accountant CRM Bot Long-Polling Loop...")
     offset = 0
@@ -294,15 +381,15 @@ def handle_update(u):
             phone = parts[1] if len(parts) > 1 else "Telefon berilmadi"
             product = " ".join(parts[2:]) if len(parts) > 2 else "3-Funksiyalik Oyoq Massajeri"
 
-            conn = get_db()
-            c = conn.cursor()
-            c.execute("INSERT INTO leads (name, phone, product, product_code, plan, status) VALUES (?, ?, ?, '3ta-gold', 'Naqd', 'CONFIRMED')", (name, phone, product))
-            lead_id = c.lastrowid
-            c.execute("UPDATE inventory SET stock = MAX(0, stock - 1) WHERE code = '3ta-gold'")
-            conn.commit()
-            conn.close()
+            lead_id = process_new_lead({
+                "name": name,
+                "phone": phone,
+                "product": product,
+                "product_code": "3ta-gold",
+                "plan": "Naqd To'lov"
+            })
 
-            send_message(chat_id, f"✅ <b>Haqiqiy zakaz saqlandi! (ID: #{lead_id})</b>\n👤 Mijoz: {name}\n📞 Telefon: {phone}\n📦 Mahsulot: {product}\n🟢 Ombordan 1 ta mahsulot ayrildi.", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, f"✅ <b>Haqiqiy zakaz CRM bazaga saqlandi! (ID: #{lead_id})</b>", reply_markup=get_main_menu_keyboard())
             return
 
         if state and state.get("step") == "waiting_stock_set":
@@ -502,7 +589,13 @@ def show_inventory_editor(chat_id, message_id=None):
     else:
         send_message(chat_id, text, reply_markup=reply_markup)
 
-# ── 5. MAIN ENTRYPOINT ──
+# ── 7. MAIN ENTRYPOINT ──
 if __name__ == '__main__':
     init_db()
+
+    # Start HTTP Webhook Server thread for site API
+    http_thread = Thread(target=run_http_server, daemon=True)
+    http_thread.start()
+
+    # Start Bot Polling loop
     bot_polling_loop()
