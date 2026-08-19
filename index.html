@@ -35,14 +35,14 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation Menu -->
+      <!-- Desktop & Mobile Navigation Menu -->
       <nav class="nav" id="nav">
         <div class="mobile-nav-header">
           <div class="brand-mobile-drawer">
             <span class="brand-name">DESCO</span>
             <span class="brand-sub">PREMIUM</span>
           </div>
-          <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Menyuni yopish">
+          <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Menyuni yopish" type="button">
             <i class="fas fa-times"></i>
           </button>
         </div>
@@ -76,7 +76,7 @@
           </div>
         </a>
 
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Menyu">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menyu" type="button">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -156,13 +156,13 @@
             <!-- Model Switcher Tabs -->
             <div class="hero-model-switcher-wrap">
               <div class="hero-model-switcher">
-                <button class="h-switch-btn active" data-img="img/gold-product-trans.png" data-title="3-Funksiyalik (Tillo rang)" data-price="1,300,000 so'm">
+                <button class="h-switch-btn active" data-img="img/gold-product-trans.png" data-title="3-Funksiyalik (Tillo rang)" data-price="Oyiga 163,000 so'mdan (12 oy nasiya)">
                   <i class="fas fa-crown"></i> <span>3-Funksiya</span>
                 </button>
-                <button class="h-switch-btn" data-img="img/silver-product-trans.png" data-title="6-Funksiyalik (Seriy)" data-price="1,800,000 so'm">
+                <button class="h-switch-btn" data-img="img/silver-product-trans.png" data-title="6-Funksiyalik (Seriy)" data-price="Oyiga 225,000 so'mdan (12 oy nasiya)">
                   <i class="fas fa-gem"></i> <span>6-Funksiya</span>
                 </button>
-                <button class="h-switch-btn" data-img="img/gift-product-trans.png" data-title="Hadiya To'plami" data-price="3,500,000 so'm">
+                <button class="h-switch-btn" data-img="img/gift-product-trans.png" data-title="Hadiya To'plami" data-price="Oyiga 437,000 so'mdan (12 oy nasiya)">
                   <i class="fas fa-gift"></i> <span>To'plam</span>
                 </button>
               </div>
@@ -184,9 +184,10 @@
               </div>
             </div>
 
-            <div class="hero-live-badge">
+            <!-- Dynamic Price Badge (Changes per model!) -->
+            <div class="hero-live-badge" id="heroLiveBadge">
               <div class="live-pulse-dot"></div>
-              <span>Oyiga 163,000 so'mdan boshlab xarid qiling</span>
+              <span id="heroLiveBadgeText">Oyiga 163,000 so'mdan (12 oy nasiya)</span>
             </div>
 
           </div>
@@ -232,7 +233,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 4. REALISTIC LIVE MASSAGE SIMULATOR ═══════════════════ -->
+  <!-- ═══════════════════ 4. ULTRA-REALISTIC LIVE SIMULATOR ═══════════════════ -->
   <section class="interactive-demo-section" id="interactive-demo">
     <div class="container">
       
@@ -277,7 +278,7 @@
           </button>
         </div>
 
-        <!-- Arena -->
+        <!-- Working Simulator Arena (Realistic Anatomy & Pneumatic Airbags) -->
         <div class="demo-stage-arena" id="demoStageArena">
           
           <div class="simulator-hud-bar">
@@ -301,38 +302,56 @@
               
               <img src="img/gold-product-trans.png" alt="Desco.premium Simulator" class="sim-real-img" id="simRealImg" loading="lazy">
               
-              <!-- Left Leg -->
+              <!-- Left Leg Chamber (Anatomical 3D Chambers) -->
               <div class="massage-chamber-overlay left-chamber" id="leftChamber">
                 <div class="inserted-leg-silhouette">
-                  <div class="leg-calf-shape"></div>
-                  <div class="leg-foot-shape"></div>
+                  <div class="leg-gradient-skin"></div>
                 </div>
-                <div class="airbag-squeeze-pad pad-outer-left"></div>
-                <div class="airbag-squeeze-pad pad-inner-left"></div>
+                
+                <!-- Realistic Curved Pneumatic Airbag Pads -->
+                <div class="airbag-squeeze-pad pad-outer-left">
+                  <div class="airbag-inner-ribs"></div>
+                </div>
+                <div class="airbag-squeeze-pad pad-inner-left">
+                  <div class="airbag-inner-ribs"></div>
+                </div>
+                
                 <div class="airbag-pulse-aura"></div>
+                
+                <!-- Realistic Mechanical Roller Track -->
                 <div class="roller-acupressure-track">
-                  <div class="roller-bead b1"></div>
-                  <div class="roller-bead b2"></div>
-                  <div class="roller-bead b3"></div>
+                  <div class="roller-track-rail"></div>
+                  <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                  <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                  <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="compression-force-badge">Havo Siqishi</div>
+
+                <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
               </div>
 
-              <!-- Right Leg -->
+              <!-- Right Leg Chamber -->
               <div class="massage-chamber-overlay right-chamber" id="rightChamber">
                 <div class="inserted-leg-silhouette">
-                  <div class="leg-calf-shape"></div>
-                  <div class="leg-foot-shape"></div>
+                  <div class="leg-gradient-skin"></div>
                 </div>
-                <div class="airbag-squeeze-pad pad-inner-right"></div>
-                <div class="airbag-squeeze-pad pad-outer-right"></div>
+
+                <div class="airbag-squeeze-pad pad-inner-right">
+                  <div class="airbag-inner-ribs"></div>
+                </div>
+                <div class="airbag-squeeze-pad pad-outer-right">
+                  <div class="airbag-inner-ribs"></div>
+                </div>
+
                 <div class="airbag-pulse-aura"></div>
+
                 <div class="roller-acupressure-track">
-                  <div class="roller-bead b1"></div>
-                  <div class="roller-bead b2"></div>
-                  <div class="roller-bead b3"></div>
+                  <div class="roller-track-rail"></div>
+                  <div class="roller-bead b1"><i class="fas fa-cog"></i></div>
+                  <div class="roller-bead b2"><i class="fas fa-cog"></i></div>
+                  <div class="roller-bead b3"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="compression-force-badge">Havo Siqishi</div>
+
+                <div class="compression-force-badge"><i class="fas fa-arrows-left-right"></i> Boldir Siqishi</div>
               </div>
 
               <div class="panel-glow-indicator" id="panelIndicator">
@@ -377,7 +396,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. CATALOG & STREAMLINED CLEAR PRICING ═══════════════════ -->
+  <!-- ═══════════════════ 5. CATALOG (RESTORED MATRIX FROM SCREENSHOT 3) ═══════════════════ -->
   <section class="catalog-section" id="catalog">
     <div class="container">
       
@@ -417,16 +436,21 @@
             <span class="product-color-tag"><i class="fas fa-palette gold-icon"></i> Tillo rang (Gold Edition)</span>
             <p class="card-sub-desc">Oyoq va boldir havo kompressiyasi, tag qismidagi roliklar va avtomatik rejimlar.</p>
 
-            <!-- Clean Highlighted Pricing Box (Not a button!) -->
-            <div class="card-price-hero-box">
-              <div class="price-installment-main">
-                <span class="p-label" id="priceLabelGold">12 oylik nasiya:</span>
-                <div class="p-amount-row">
-                  <strong class="p-val" id="priceValGold">163,000</strong>
-                  <span class="p-unit">so'm / oy</span>
-                </div>
+            <!-- Restored Clean Matrix Rows (Screenshot 3) -->
+            <div class="pricing-matrix-box">
+              <div class="p-matrix-row row-3" data-row="3">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
+                <strong class="m-val">563,000 <small>so'm/oy</small></strong>
               </div>
-              <div class="price-cash-sub">
+              <div class="p-matrix-row row-6" data-row="6">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
+                <strong class="m-val">303,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-matrix-row row-12 active-row" data-row="12">
+                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
+                <strong class="m-val highlight-val">163,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-cash-footer">
                 <span>Naqd to'lov:</span>
                 <strong>1,300,000 so'm</strong>
               </div>
@@ -463,16 +487,21 @@
             <span class="product-color-tag"><i class="fas fa-palette"></i> Seriy (Silver Edition)</span>
             <p class="card-sub-desc">6 xil akupunktur rejimi, to'liq boldir va tovonni qamrab oluvchi 3D chuqur massaj.</p>
 
-            <!-- Clean Highlighted Pricing Box -->
-            <div class="card-price-hero-box featured-price-box">
-              <div class="price-installment-main">
-                <span class="p-label" id="priceLabelSilver">12 oylik nasiya:</span>
-                <div class="p-amount-row">
-                  <strong class="p-val" id="priceValSilver">225,000</strong>
-                  <span class="p-unit">so'm / oy</span>
-                </div>
+            <!-- Restored Clean Matrix Rows (Screenshot 3) -->
+            <div class="pricing-matrix-box featured-matrix-box">
+              <div class="p-matrix-row row-3" data-row="3">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
+                <strong class="m-val">780,000 <small>so'm/oy</small></strong>
               </div>
-              <div class="price-cash-sub">
+              <div class="p-matrix-row row-6" data-row="6">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
+                <strong class="m-val">420,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-matrix-row row-12 active-row" data-row="12">
+                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
+                <strong class="m-val highlight-val">225,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-cash-footer">
                 <span>Naqd to'lov:</span>
                 <strong>1,800,000 so'm</strong>
               </div>
@@ -510,16 +539,21 @@
             <span class="product-color-tag"><i class="fas fa-box-open gold-icon"></i> Qora Premium Qutida</span>
             <p class="card-slogan">"Tana orom oladi, ruh xotirjam bo'ladi"</p>
 
-            <!-- Clean Highlighted Pricing Box -->
-            <div class="card-price-hero-box dark-price-box">
-              <div class="price-installment-main">
-                <span class="p-label" id="priceLabelGift">12 oylik nasiya:</span>
-                <div class="p-amount-row">
-                  <strong class="p-val" id="priceValGift">437,000</strong>
-                  <span class="p-unit">so'm / oy</span>
-                </div>
+            <!-- Restored Clean Matrix Rows (Screenshot 3) -->
+            <div class="pricing-matrix-box dark-matrix-box">
+              <div class="p-matrix-row row-3" data-row="3">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 3 oyga</span>
+                <strong class="m-val">1,516,000 <small>so'm/oy</small></strong>
               </div>
-              <div class="price-cash-sub">
+              <div class="p-matrix-row row-6" data-row="6">
+                <span class="m-period"><i class="far fa-calendar-check gold-icon"></i> 6 oyga</span>
+                <strong class="m-val">816,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-matrix-row row-12 active-row" data-row="12">
+                <span class="m-period"><i class="fas fa-check-circle gold-icon"></i> 12 oyga (0%)</span>
+                <strong class="m-val highlight-val">437,000 <small>so'm/oy</small></strong>
+              </div>
+              <div class="p-cash-footer">
                 <span>Naqd to'lov:</span>
                 <strong>3,500,000 so'm</strong>
               </div>
@@ -567,11 +601,11 @@
           </div>
         </div>
 
-        <!-- 5 Specific Devices Exact to Box Photo -->
+        <!-- 5 Specific Devices with Exact Waist & Body Massager from Screenshot 4 -->
         <div class="gift-devices-grid">
           
           <div class="device-card">
-            <div class="device-thumb"><img src="img/feat-panel.jpg" alt="Boshqaruv Pulti" loading="lazy"></div>
+            <div class="device-thumb"><img src="img/feat-panel.jpg" alt="Sensor Boshqaruv Pulti" loading="lazy"></div>
             <div class="device-meta">
               <h4>Sensor Boshqaruv Paneli</h4>
               <p>Oddiy va qulay sensor boshqaruv.</p>
@@ -602,12 +636,12 @@
             </div>
           </div>
 
-          <!-- 5th Item: 4-Burchakli Bo'yin & Yelka Massajeri -->
+          <!-- 5th Item: Bel va Tana Massajeri (from Screenshot 4) -->
           <div class="device-card full-span-device">
-            <div class="device-thumb"><img src="img/feat-square-neck.jpg" alt="4-Burchakli Bo'yin Massajeri" loading="lazy"></div>
+            <div class="device-thumb"><img src="img/waist-body-massager.jpg" alt="Bel va Tana Massajeri" loading="lazy"></div>
             <div class="device-meta">
-              <h4>4-Burchakli Bo'yin & Yelka Massajeri</h4>
-              <p>Rolikli chuqur uvalash va mushaklarni to'liq bo'shashtirish uchun qulay yostiq massajeri.</p>
+              <h4>Bel va Tana Massajeri</h4>
+              <p>Bel, umurtqa va butun tana mushaklarini chuqur uvalovchi maxsus qulay massajer.</p>
             </div>
           </div>
 

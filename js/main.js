@@ -25,7 +25,7 @@ function initHeader() {
   }, { passive: true });
 }
 
-/* ── 2. MOBILE DRAWER NAVIGATION ── */
+/* ── 2. BULLETPROOF MOBILE DRAWER NAVIGATION ── */
 function initMobileNav() {
   const toggle = document.getElementById('mobileToggle');
   const nav = document.getElementById('nav');
@@ -33,27 +33,39 @@ function initMobileNav() {
   const closeBtn = document.getElementById('mobileCloseBtn');
   const links = document.querySelectorAll('.nav-link');
 
-  function openNav() {
+  function openNav(e) {
+    if (e) e.preventDefault();
     nav.classList.add('open');
     overlay.classList.add('open');
     toggle.classList.add('active');
     document.body.classList.add('menu-open');
   }
 
-  function closeNav() {
+  function closeNav(e) {
+    if (e) e.preventDefault();
     nav.classList.remove('open');
     overlay.classList.remove('open');
     toggle.classList.remove('active');
     document.body.classList.remove('menu-open');
   }
 
-  if (toggle) toggle.addEventListener('click', () => {
-    if (nav.classList.contains('open')) closeNav();
-    else openNav();
-  });
+  if (toggle) {
+    toggle.addEventListener('click', (e) => {
+      if (nav.classList.contains('open')) {
+        closeNav(e);
+      } else {
+        openNav(e);
+      }
+    });
+  }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeNav);
-  if (overlay) overlay.addEventListener('click', closeNav);
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeNav);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeNav);
+  }
 
   links.forEach(l => {
     l.addEventListener('click', () => {
@@ -138,11 +150,12 @@ function initHero3DInteraction() {
   });
 }
 
-/* ── 4. HERO MODEL SWITCHER ── */
+/* ── 4. HERO MODEL SWITCHER WITH DYNAMIC PRICE BADGE ── */
 function initHeroSwitcher() {
   const switchBtns = document.querySelectorAll('.h-switch-btn');
   const heroPic = document.getElementById('heroProductPic');
   const productWrapper = document.getElementById('product3dWrapper');
+  const badgeText = document.getElementById('heroLiveBadgeText');
 
   switchBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -150,6 +163,11 @@ function initHeroSwitcher() {
       btn.classList.add('active');
 
       const imgPath = btn.getAttribute('data-img');
+      const priceText = btn.getAttribute('data-price');
+
+      if (badgeText && priceText) {
+        badgeText.textContent = priceText;
+      }
 
       if (heroPic && productWrapper) {
         productWrapper.style.transform = 'translateY(10px) rotateY(90deg) scale(0.85)';
@@ -165,7 +183,7 @@ function initHeroSwitcher() {
   });
 }
 
-/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 5. ULTRA-REALISTIC LIVE MASSAGE SIMULATOR ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
@@ -214,7 +232,7 @@ function toggleLiveMassage() {
     if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
 
     let pStep = 0;
-    const pressures = [35, 52, 68, 76, 54, 28, 45, 72, 80, 60, 32];
+    const pressures = [38, 54, 68, 82, 60, 32, 48, 75, 86, 64, 35];
     simulatorPressureInterval = setInterval(() => {
       pStep = (pStep + 1) % pressures.length;
       if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
@@ -274,57 +292,29 @@ function loadInteractiveDemo(model) {
   }
 }
 
-/* ── 6. CATALOG INSTALLMENT DURATION FILTER ── */
+/* ── 6. CATALOG INSTALLMENT DURATION FILTER (SYNCS MATRIX ROWS) ── */
 function initInstallmentFilter() {
   const tabs = document.querySelectorAll('.tab-btn');
-  const priceLabelGold = document.getElementById('priceLabelGold');
-  const priceValGold = document.getElementById('priceValGold');
-  const priceLabelSilver = document.getElementById('priceLabelSilver');
-  const priceValSilver = document.getElementById('priceValSilver');
-  const priceLabelGift = document.getElementById('priceLabelGift');
-  const priceValGift = document.getElementById('priceValGift');
-
-  const pricingData = {
-    '3': {
-      label: '3 oylik nasiya:',
-      gold: '563,000',
-      silver: '780,000',
-      gift: '1,516,000'
-    },
-    '6': {
-      label: '6 oylik nasiya:',
-      gold: '303,000',
-      silver: '420,000',
-      gift: '816,000'
-    },
-    '12': {
-      label: '12 oylik nasiya (0% boshlang\'ich):',
-      gold: '163,000',
-      silver: '225,000',
-      gift: '437,000'
-    }
-  };
+  const allRows = document.querySelectorAll('.p-matrix-row');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      const period = tab.getAttribute('data-period');
-      const d = pricingData[period] || pricingData['12'];
+      const period = tab.getAttribute('data-period'); // '3', '6', '12'
 
-      if (priceLabelGold && priceValGold) {
-        priceLabelGold.textContent = d.label;
-        priceValGold.textContent = d.gold;
-      }
-      if (priceLabelSilver && priceValSilver) {
-        priceLabelSilver.textContent = d.label;
-        priceValSilver.textContent = d.silver;
-      }
-      if (priceLabelGift && priceValGift) {
-        priceLabelGift.textContent = d.label;
-        priceValGift.textContent = d.gift;
-      }
+      allRows.forEach(row => {
+        const rowPeriod = row.getAttribute('data-row');
+        const valSpan = row.querySelector('.m-val');
+        if (rowPeriod === period) {
+          row.classList.add('active-row');
+          if (valSpan) valSpan.classList.add('highlight-val');
+        } else {
+          row.classList.remove('active-row');
+          if (valSpan) valSpan.classList.remove('highlight-val');
+        }
+      });
     });
   });
 }
