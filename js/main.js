@@ -45,7 +45,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── 4. Installment Duration Switcher (Tabs) ──
+  // ── 4. Interactive Hero Model Switcher & 3D Tilt ──
+  const heroSwitchBtns = document.querySelectorAll('.h-switch-btn');
+  const heroProductPic = document.getElementById('heroProductPic');
+  const heroStage = document.getElementById('heroStage');
+  const productBox = document.getElementById('productFloatingBox');
+
+  if (heroSwitchBtns.length > 0 && heroProductPic) {
+    heroSwitchBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        heroSwitchBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const newSrc = btn.getAttribute('data-img');
+        
+        // Smooth transition animation
+        heroProductPic.style.opacity = '0';
+        heroProductPic.style.transform = 'scale(0.9) translateY(10px)';
+        
+        setTimeout(() => {
+          heroProductPic.src = newSrc;
+          heroProductPic.style.opacity = '1';
+          heroProductPic.style.transform = 'scale(1) translateY(0)';
+        }, 200);
+      });
+    });
+  }
+
+  // Interactive 3D Parallax Tilt on Hero Stage
+  if (heroStage && productBox && window.innerWidth > 768) {
+    heroStage.addEventListener('mousemove', (e) => {
+      const rect = heroStage.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const tiltX = (y / rect.height) * -16;
+      const tiltY = (x / rect.width) * 16;
+
+      productBox.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.04, 1.04, 1.04)`;
+    });
+
+    heroStage.addEventListener('mouseleave', () => {
+      productBox.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  }
+
+  // ── 5. Installment Duration Switcher (Tabs) ──
   const tabBtns = document.querySelectorAll('.installment-tabs .tab-btn');
   const matrixRows = document.querySelectorAll('.matrix-row');
 
@@ -72,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── 5. FAQ Accordion ──
+  // ── 6. FAQ Accordion ──
   const faqCards = document.querySelectorAll('.faq-card');
   faqCards.forEach(card => {
     const btn = card.querySelector('.faq-header-btn');
@@ -85,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── 6. Phone Mask Formatter ──
+  // ── 7. Phone Mask Formatter ──
   function setupPhoneMask(input) {
     if (!input) return;
     input.addEventListener('input', (e) => {
@@ -110,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPhoneMask(document.getElementById('userPhone'));
   setupPhoneMask(document.getElementById('modalPhone'));
 
-  // ── 7. Lead Form Submission to Telegram ──
+  // ── 8. Lead Form Submission to Telegram ──
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
     leadForm.addEventListener('submit', (e) => {
@@ -139,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── 8. Modal Order Form ──
+  // ── 9. Modal Order Form ──
   const modalForm = document.getElementById('modalForm');
   if (modalForm) {
     modalForm.addEventListener('submit', (e) => {
@@ -158,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── 9. Three.js 3D Interactive Massager Canvas ──
+  // ── 10. Three.js 3D Interactive Massager Canvas ──
   initThreeDViewer();
 
 });
@@ -357,7 +402,7 @@ function initThreeDViewer() {
     const elapsedTime = clock.getElapsedTime();
 
     if (!isDragging) {
-      targetRotationY += 0.003; // Gentle auto-rotation
+      targetRotationY += 0.003;
     }
 
     massagerGroup.rotation.y += (targetRotationY - massagerGroup.rotation.y) * 0.08;

@@ -9,7 +9,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
   
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -63,7 +63,7 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
+  <!-- ═══════════════════ 2. HERO SECTION (KREATIV & INTERACTIVE) ═══════════════════ -->
   <section class="hero" id="hero">
     <div class="hero-ambient-glow glow-1"></div>
     <div class="hero-ambient-glow glow-2"></div>
@@ -85,7 +85,7 @@
           </h1>
 
           <p class="hero-desc">
-            <strong>Desco Premium</strong> — Innovatsion massaj texnologiyalari orqali tanangizga yengillik, ruhingizga orom bag'ishlang.
+            <strong>Desco Premium</strong> — Innovatsion massaj texnologiyalari orqali tanangizga yengillik, ruhingizga orom bag'ishlang. Kunlik charchoq va oyoq og'riqlariga zamonaviy yechim.
           </p>
 
           <div class="hero-cta-group">
@@ -127,27 +127,58 @@
           </div>
         </div>
 
+        <!-- KREATIV HERO SHOWCASE (3D Tilt + Luxury Showcase + Model Switcher) -->
         <div class="hero-visual-wrapper">
-          <div class="hero-visual-card">
-            <!-- Energy wave & Blue-Violet Air-Glow Aura -->
-            <div class="energy-wave-ring ring-1"></div>
-            <div class="energy-wave-ring ring-2"></div>
-            <div class="air-glow-overlay"></div>
+          <div class="hero-stage" id="heroStage">
             
-            <div class="hero-image-box">
-              <img src="img/full-poster.jpg" alt="Desco Premium Massaj Mahsulotlari" class="hero-main-img">
+            <!-- Atmospheric Lighting & Wave Rings -->
+            <div class="stage-glow-aura"></div>
+            <div class="stage-energy-wave wave-1"></div>
+            <div class="stage-energy-wave wave-2"></div>
+
+            <!-- Model Switcher Tabs inside Hero -->
+            <div class="hero-model-switcher">
+              <button class="h-switch-btn active" data-img="img/gold-product.jpg" data-title="Gold Premium 6-in-1" data-price="1,800,000 so'm">
+                <i class="fas fa-crown"></i> Gold Edition
+              </button>
+              <button class="h-switch-btn" data-img="img/silver-product.jpg" data-title="Silver Edition 3-in-1" data-price="1,300,000 so'm">
+                <i class="fas fa-gem"></i> Silver Edition
+              </button>
+              <button class="h-switch-btn" data-img="img/gift-product.jpg" data-title="Zerda 5-in-1 VIP Box" data-price="3,500,000 so'm">
+                <i class="fas fa-gift"></i> VIP To'plam
+              </button>
             </div>
 
-            <!-- Floating luxury tags -->
-            <div class="floating-tag tag-top">
-              <i class="fas fa-sparkles"></i>
-              <span>Akupunktur & Rolikli Massaj</span>
+            <!-- Main Interactive Product Display (With 3D Float) -->
+            <div class="hero-podium-showcase">
+              <div class="podium-pedestal"></div>
+              <div class="product-floating-box" id="productFloatingBox">
+                <img src="img/gold-product.jpg" alt="Desco Flagship Massager" class="hero-product-pic" id="heroProductPic">
+              </div>
             </div>
 
-            <div class="floating-tag tag-bottom">
-              <i class="fas fa-temperature-arrow-up"></i>
-              <span>Infraqizil Isitish Texnologiyasi</span>
+            <!-- Floating Interactive Feature Callouts -->
+            <div class="hero-feature-pill feat-top-right">
+              <div class="h-feat-icon"><i class="fas fa-wave-square"></i></div>
+              <div class="h-feat-text">
+                <strong>Akupunktur Roliklar</strong>
+                <span>Chuqur nuqtali stimulyatsiya</span>
+              </div>
             </div>
+
+            <div class="hero-feature-pill feat-bottom-left">
+              <div class="h-feat-icon heat"><i class="fas fa-fire-flame-curved"></i></div>
+              <div class="h-feat-text">
+                <strong>Infraqizil Isitish 45°C</strong>
+                <span>Qon aylanishini tezlashtiradi</span>
+              </div>
+            </div>
+
+            <div class="hero-live-badge">
+              <div class="live-pulse-dot"></div>
+              <span>Hozirda 12 oylik nasiyaga mavjud</span>
+            </div>
+
           </div>
         </div>
 
@@ -333,7 +364,6 @@
 
       <div class="three-d-wrapper">
         <div class="three-d-canvas-container" id="canvasContainer">
-          <!-- Three.js renders here -->
           <div class="canvas-instructions">
             <i class="fas fa-arrows-spin"></i>
             <span>360° Aylantirish uchun ushlab suring</span>
@@ -413,7 +443,7 @@
       <div class="gift-showcase-grid">
         <div class="gift-main-card">
           <div class="gift-main-img-box">
-            <img src="img/gift-set-detail.jpg" alt="Zerda 5 in 1 Hadiya To'plami" class="gift-main-img">
+            <img src="img/gift-product.jpg" alt="Zerda 5 in 1 Hadiya To'plami" class="gift-main-img">
           </div>
           <div class="gift-main-info">
             <div class="gift-stamp">
