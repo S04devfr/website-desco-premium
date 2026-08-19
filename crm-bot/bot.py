@@ -14,6 +14,18 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "crm.db")
 
 USER_STATES = {}
 
+# Prices for Financial Accountant Module
+PRODUCT_PRICES = {
+    '3ta-gold': 1300000,
+    '3ta-silver': 1300000,
+    '3ta-black': 1300000,
+    '3ta-red': 1300000,
+    '6ta-silver': 1800000,
+    '6ta-black': 1800000,
+    '6ta-gold': 1800000,
+    'gift-set': 3500000
+}
+
 # ── 1. DATABASE INITIALIZATION ──
 def get_db():
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
@@ -24,7 +36,6 @@ def init_db():
     conn = get_db()
     c = conn.cursor()
     
-    # Leads Table
     c.execute('''
         CREATE TABLE IF NOT EXISTS leads (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,13 +44,13 @@ def init_db():
             product TEXT,
             product_code TEXT,
             plan TEXT,
+            price INTEGER DEFAULT 0,
             status TEXT DEFAULT 'NEW',
             confirmed_by TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
 
-    # Subscribed Group & User Chats
     c.execute('''
         CREATE TABLE IF NOT EXISTS subscribed_chats (
             chat_id INTEGER PRIMARY KEY,
@@ -49,7 +60,6 @@ def init_db():
         )
     ''')
 
-    # Inventory Table (ALL DEFAULT STOCKS ARE 0 — NO FAKE DUMMY NUMBERS!)
     c.execute('''
         CREATE TABLE IF NOT EXISTS inventory (
             code TEXT PRIMARY KEY,
@@ -58,7 +68,6 @@ def init_db():
         )
     ''')
 
-    # Pre-populate Inventory with 0 if empty
     c.execute('SELECT COUNT(*) FROM inventory')
     if c.fetchone()[0] == 0:
         default_stock = [
@@ -120,26 +129,68 @@ def register_chat(chat_id, chat_title, chat_type):
     conn.commit()
     conn.close()
 
-def get_all_chats():
-    conn = get_db()
-    c = conn.cursor()
-    c.execute('SELECT chat_id FROM subscribed_chats')
-    rows = c.fetchall()
-    conn.close()
-    return [r['chat_id'] for r in rows]
-
-# Persistent main menu keyboard
 def get_main_menu_keyboard():
     return {
         "keyboard": [
             [{"text": "📊 Bugungi Hisobot"}, {"text": "📦 Ombor Qoldig'i"}],
-            [{"text": "📥 Oxirgi Leadlar"}, {"text": "✏️ Haqiqiy Ombor Sonini Kiritish"}],
-            [{"text": "➕ Qo'lda Lead Qo'shish"}, {"text": "📈 Barcha Statistika"}]
+            [{"text": "💰 Moliyaviy Hisobchi (Pul & Sotuv)"}, {"text": "✏️ Ombor Sonini Sozlash"}],
+            [{"text": "➕ Qo'lda Lead Qo'shish"}, {"text": "📥 Excel / CSV Hisobot Yuklash"}]
         ],
         "resize_keyboard": True
     }
 
-# ── 3. REAL CRM REPORT & STATS COMPUTATION ──
+# ── 3. FINANCIAL ACCOUNTANT REPORT GENERATION ──
+def generate_financial_report():
+    conn = get_db()
+    c = conn.cursor()
+
+    # Today's Revenue
+    c.execute("SELECT product_code FROM leads WHERE date(created_at) = date('now') AND status = 'CONFIRMED'")
+    today_confirmed = c.fetchall()
+    today_revenue = sum(PRODUCT_PRICES.get(r['product_code'], 1300000) for r in today_confirmed)
+
+    # Total All-Time Revenue
+    c.execute("SELECT product_code FROM leads WHERE status = 'CONFIRMED'")
+    all_confirmed = c.fetchall()
+    total_revenue = sum(PRODUCT_PRICES.get(r['product_code'], 1300000) for r in all_confirmed)
+
+    # Total confirmed counts per model
+    c.execute("SELECT product_code, COUNT(*) as cnt FROM leads WHERE status = 'CONFIRMED' GROUP BY product_code")
+    model_counts = c.fetchall()
+
+    conn.close()
+
+    formatted_today_rev = f"{today_revenue:,}".replace(",", " ")
+    formatted_total_rev = f"{total_revenue:,}".replace(",", " ")
+
+    text = f"""
+💰 <b>DESCO.PREMIUM — MOLIYAVIY HISOBCHI BALANSI</b>
+📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M')}
+
+💵 <b>Bugungi Sof Sotuv Tushumi:</b>
+<code>{formatted_today_rev} so'm</code> ({len(today_confirmed)} ta zakaz)
+
+💎 <b>Jami Barcha Sotuvlar Tushumi:</b>
+<code>{formatted_total_rev} so'm</code> ({len(all_confirmed)} ta tasdiqlangan)
+
+─────────────────
+📊 <b>MODELLAR BO'YICHA SOTUV:</b>
+    """.strip()
+
+    if not model_counts:
+        text += "\nℹ️ <i>Hali tasdiqlangan sotuvlar mavjud emas.</i>"
+    else:
+        for m in model_counts:
+            p_code = m['product_code']
+            cnt = m['cnt']
+            prc = PRODUCT_PRICES.get(p_code, 1300000)
+            subtotal = cnt * prc
+            fmt_sub = f"{subtotal:,}".replace(",", " ")
+            text += f"\n• <b>{p_code}:</b> <code>{cnt} ta</code> ({fmt_sub} so'm)"
+
+    text += "\n\n⚡ <i>Moliya va sotuvlar hisobi 100% avtomatik yuritiladi.</i>"
+    return text
+
 def generate_today_report():
     conn = get_db()
     c = conn.cursor()
@@ -210,7 +261,7 @@ def generate_inventory_report():
 
 # ── 4. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
-    print("Starting Clean Real-Time CRM Bot Long-Polling Loop...")
+    print("Starting Financial Accountant CRM Bot Long-Polling Loop...")
     offset = 0
     while True:
         try:
@@ -271,22 +322,39 @@ def handle_update(u):
             return
 
         if text.startswith("/start") or text == "/menu":
-            send_message(chat_id, f"👋 <b>Salom, {chat_title}!</b>\n\nDesco.premium CRM & Ombor Boshqaruv Botiga xush kelibsiz! Kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, f"👋 <b>Salom, {chat_title}!</b>\n\nDesco.premium CRM & Hisobchi Botiga xush kelibsiz! Kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
 
-        elif text == "📊 Bugungi Hisobot" or text == "/report" or text == "📈 Barcha Statistika":
+        elif text == "📊 Bugungi Hisobot" or text == "/report":
             report_text = generate_today_report()
             send_message(chat_id, report_text, reply_markup=get_main_menu_keyboard())
+
+        elif text == "💰 Moliyaviy Hisobchi (Pul & Sotuv)":
+            fin_text = generate_financial_report()
+            send_message(chat_id, fin_text, reply_markup=get_main_menu_keyboard())
 
         elif text == "📦 Ombor Qoldig'i" or text == "/inventory":
             inv_text, kb = generate_inventory_report()
             send_message(chat_id, inv_text, reply_markup=kb)
 
-        elif text == "✏️ Haqiqiy Ombor Sonini Kiritish":
+        elif text == "✏️ Ombor Sonini Sozlash":
             show_inventory_editor(chat_id)
 
         elif text == "➕ Qo'lda Lead Qo'shish":
             USER_STATES[chat_id] = {"step": "waiting_manual_lead"}
             send_message(chat_id, "✍️ <b>Yangi real zakaz ma'lumotlarini kiriting:</b>\n\nFormat: <code>Ism Telefon Mahsulot_nomi</code>\nMisol: <code>Jasur +998901234567 6-Funksiyalik</code>", reply_markup=get_main_menu_keyboard())
+
+        elif text == "📥 Excel / CSV Hisobot Yuklash":
+            conn = get_db()
+            c = conn.cursor()
+            c.execute('SELECT * FROM leads')
+            rows = c.fetchall()
+            conn.close()
+
+            csv_text = "ID,Mijoz,Telefon,Mahsulot,Code,Plan,Status,Operator,Vaqt\n"
+            for r in rows:
+                csv_text += f"{r['id']},{r['name']},{r['phone']},{r['product']},{r['product_code']},{r['plan']},{r['status']},{r['confirmed_by']},{r['created_at']}\n"
+
+            send_message(chat_id, f"📊 <b>DESCO.PREMIUM — REAL SOTUVLAR CSV BALANSI:</b>\n\n<code>{csv_text}</code>", reply_markup=get_main_menu_keyboard())
 
         elif text == "📥 Oxirgi Leadlar":
             conn = get_db()
@@ -375,11 +443,11 @@ def handle_update(u):
 👨‍💼 <b>Qabul qildi:</b> {user_name}
 🕒 <b>Vaqt:</b> {datetime.now().strftime('%H:%M:%S')}
 
-🟢 <i>Ombordan 1 ta mahsulot avtomatik ayrildi!</i>
+🟢 <i>Ombordan 1 ta mahsulot avtomatik ayrildi va moliyaviy sotuv tushumi hisoblandi!</i>
                 """.strip()
 
                 edit_message(chat_id, msg_id, updated_text, reply_markup={"inline_keyboard": []})
-                tg_request("answerCallbackQuery", {"callback_query_id": cb_id, "text": "✅ Zakaz olindi va ombordan ayrildi!"})
+                tg_request("answerCallbackQuery", {"callback_query_id": cb_id, "text": "✅ Zakaz olindi, ombordan ayrildi va sotuvga yozildi!"})
             conn.close()
 
         elif data.startswith("canc_"):
