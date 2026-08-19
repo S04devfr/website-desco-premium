@@ -139,14 +139,14 @@ def get_all_chats():
 def get_main_menu_keyboard():
     return {
         "keyboard": [
-            [{"text": "📊 Bugungi Hisobot"}, {"text": "📦 Ombor Qoldig'i"}],
-            [{"text": "💰 Moliyaviy Hisobchi (Pul & Sotuv)"}, {"text": "✏️ Ombor Sonini Sozlash"}],
-            [{"text": "➕ Qo'lda Lead Qo'shish"}, {"text": "📥 Excel / CSV Hisobot Yuklash"}]
+            [{"text": "📊 Bugungi Real Leadlar & Hisobot"}, {"text": "📦 Ombor Qoldig'i (Baza)"}],
+            [{"text": "💰 Moliyaviy Hisobchi (Sof Sotuv & Tushum)"}, {"text": "✏️ Ombor Sonini Sozlash"}],
+            [{"text": "📥 Oxirgi Tushgan Leadlar"}, {"text": "📑 Excel / CSV Buxgalteriya Hujjati"}]
         ],
         "resize_keyboard": True
     }
 
-# ── 3. PROCESS NEW LEAD FROM LANDING PAGE OR API ──
+# ── 3. AUTOMATIC DESCO.CRM LEAD PROCESSOR ──
 def process_new_lead(lead_data):
     conn = get_db()
     c = conn.cursor()
@@ -167,15 +167,15 @@ def process_new_lead(lead_data):
     conn.close()
 
     msg_text = f"""
-🛍 <b>YANGI BUYURTMA — CRM LEAD #{lead_id}</b>
+🏢 <b>DESCO.CRM — YANGI REAL LEAD #{lead_id}</b>
 
-👤 <b>Mijoz:</b> {name}
+👤 <b>Mijoz Ismi:</b> {name}
 📞 <b>Telefon:</b> <code>{phone}</code>
-📦 <b>Mahsulot:</b> {product}
-💳 <b>To'lov rejasi:</b> {plan}
+📦 <b>Tanlangan Mahsulot:</b> {product}
+💳 <b>To'lov Rejasi:</b> {plan}
 🕒 <b>Vaqt:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M:%S')}
 
-⚡ <i>Statusni belgilash uchun tugmani bosing:</i>
+⚡ <i>Statusni tasdiqlash uchun pastdagi tugmani bosing:</i>
     """.strip()
 
     inline_kb = {
@@ -187,14 +187,13 @@ def process_new_lead(lead_data):
         ]
     }
 
-    # Broadcast lead to all registered admins / groups
     chats = get_all_chats()
     for cid in chats:
         send_message(cid, msg_text, reply_markup=inline_kb)
 
     return lead_id
 
-# ── 4. REPORTS GENERATION ──
+# ── 4. DESCO.CRM FINANCIAL ACCOUNTANT ENGINE ──
 def generate_financial_report():
     conn = get_db()
     c = conn.cursor()
@@ -216,17 +215,17 @@ def generate_financial_report():
     formatted_total_rev = f"{total_revenue:,}".replace(",", " ")
 
     text = f"""
-💰 <b>DESCO.PREMIUM — MOLIYAVIY HISOBCHI BALANSI</b>
-📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M')}
+🏛 <b>DESCO.CRM — MOLIYAVIY HISOBCHI BALANSI</b>
+📅 <b>Hisobot Vaqti:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M')}
 
 💵 <b>Bugungi Sof Sotuv Tushumi:</b>
-<code>{formatted_today_rev} so'm</code> ({len(today_confirmed)} ta zakaz)
+<code>{formatted_today_rev} so'm</code> ({len(today_confirmed)} ta tasdiqlangan zakaz)
 
 💎 <b>Jami Barcha Sotuvlar Tushumi:</b>
 <code>{formatted_total_rev} so'm</code> ({len(all_confirmed)} ta tasdiqlangan)
 
 ─────────────────
-📊 <b>MODELLAR BO'YICHA SOTUV:</b>
+📊 <b>MODELLAR BO'YICHA MOLIYAVIY BO'LINISH:</b>
     """.strip()
 
     if not model_counts:
@@ -240,7 +239,7 @@ def generate_financial_report():
             fmt_sub = f"{subtotal:,}".replace(",", " ")
             text += f"\n• <b>{p_code}:</b> <code>{cnt} ta</code> ({fmt_sub} so'm)"
 
-    text += "\n\n⚡ <i>Moliya va sotuvlar hisobi 100% avtomatik yuritiladi.</i>"
+    text += "\n\n⚡ <i>Moliya va sotuvlar hisobi DESCO.CRM tomonidan 100% avtomatik yuritiladi.</i>"
     return text
 
 def generate_today_report():
@@ -270,7 +269,7 @@ def generate_today_report():
     conv_rate = (confirmed_today / total_today * 100) if total_today > 0 else 0
 
     text = f"""
-📊 <b>DESCO.PREMIUM — REAL-TIME CRM HISOBOT</b>
+📊 <b>DESCO.CRM — REAL-TIME KUNLIK HISOBOT</b>
 📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M')}
 
 📥 <b>Bugungi Leadlar:</b> <code>{total_today} ta</code>
@@ -284,7 +283,7 @@ def generate_today_report():
 • Jami tushgan leadlar: <code>{total_all} ta</code>
 • Tasdiqlangan zakazlar: <code>{confirmed_all} ta</code>
 
-⚡ <i>Har bir tushgan buyurtma avtomatik hisoblanadi.</i>
+⚡ <i>Ayni daqiqadagi real ma'lumotlar bazasidan olindi.</i>
     """.strip()
 
     return text
@@ -296,12 +295,12 @@ def generate_inventory_report():
     rows = c.fetchall()
     conn.close()
 
-    text = "📦 <b>DESCO.PREMIUM — OMBOR QOLDIG'I (REAL-TIME)</b>\n\n"
+    text = "📦 <b>DESCO.CRM — OMBOR QOLDIG'I (REAL-TIME BAZA)</b>\n\n"
     for r in rows:
         status_icon = "🟢" if r['stock'] > 10 else ("🟡" if r['stock'] > 0 else "🔴")
         text += f"{status_icon} <b>{r['name']}:</b> <code>{r['stock']} ta</code>\n"
 
-    text += "\n⚡ <i>Ombordagi haqiqiy tovarlar sonini kiriting:</i>"
+    text += "\n⚡ <i>Ombordagi haqiqiy tovarlar sonini tahrirlash uchun pastdagi tugmani bosing:</i>"
 
     kb = {
         "inline_keyboard": [
@@ -311,7 +310,7 @@ def generate_inventory_report():
 
     return text, kb
 
-# ── 5. HTTP SERVER FOR LANDING PAGE WEBHOOK (CORS SUPPORTED) ──
+# ── 5. HTTP SERVER FOR LANDING PAGE WEBHOOK ──
 class CRMRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/api/lead':
@@ -343,12 +342,12 @@ class CRMRequestHandler(BaseHTTPRequestHandler):
 
 def run_http_server():
     server = HTTPServer(('0.0.0.0', 8999), CRMRequestHandler)
-    print("CRM HTTP Webhook Server running on port 8999...")
+    print("DESCO.CRM Webhook Server running on port 8999...")
     server.serve_forever()
 
 # ── 6. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
-    print("Starting Financial Accountant CRM Bot Long-Polling Loop...")
+    print("Starting DESCO.CRM Financial Accountant Bot Long-Polling Loop...")
     offset = 0
     while True:
         try:
@@ -374,24 +373,6 @@ def handle_update(u):
         text = msg.get("text", "")
 
         state = USER_STATES.get(chat_id)
-        if state and state.get("step") == "waiting_manual_lead":
-            del USER_STATES[chat_id]
-            parts = text.split()
-            name = parts[0] if len(parts) > 0 else "Offline Mijoz"
-            phone = parts[1] if len(parts) > 1 else "Telefon berilmadi"
-            product = " ".join(parts[2:]) if len(parts) > 2 else "3-Funksiyalik Oyoq Massajeri"
-
-            lead_id = process_new_lead({
-                "name": name,
-                "phone": phone,
-                "product": product,
-                "product_code": "3ta-gold",
-                "plan": "Naqd To'lov"
-            })
-
-            send_message(chat_id, f"✅ <b>Haqiqiy zakaz CRM bazaga saqlandi! (ID: #{lead_id})</b>", reply_markup=get_main_menu_keyboard())
-            return
-
         if state and state.get("step") == "waiting_stock_set":
             code = state.get("code")
             del USER_STATES[chat_id]
@@ -409,28 +390,24 @@ def handle_update(u):
             return
 
         if text.startswith("/start") or text == "/menu":
-            send_message(chat_id, f"👋 <b>Salom, {chat_title}!</b>\n\nDesco.premium CRM & Hisobchi Botiga xush kelibsiz! Kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, f"🏢 <b>DESCO.CRM — VIRTUAL HISOBCHI BOTI</b>\n\nSalom, {chat_title}! Tizimga xush kelibsiz. Pastdagi menyudan kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
 
-        elif text == "📊 Bugungi Hisobot" or text == "/report":
+        elif text == "📊 Bugungi Real Leadlar & Hisobot" or text == "/report":
             report_text = generate_today_report()
             send_message(chat_id, report_text, reply_markup=get_main_menu_keyboard())
 
-        elif text == "💰 Moliyaviy Hisobchi (Pul & Sotuv)":
+        elif text == "💰 Moliyaviy Hisobchi (Sof Sotuv & Tushum)":
             fin_text = generate_financial_report()
             send_message(chat_id, fin_text, reply_markup=get_main_menu_keyboard())
 
-        elif text == "📦 Ombor Qoldig'i" or text == "/inventory":
+        elif text == "📦 Ombor Qoldig'i (Baza)" or text == "/inventory":
             inv_text, kb = generate_inventory_report()
             send_message(chat_id, inv_text, reply_markup=kb)
 
         elif text == "✏️ Ombor Sonini Sozlash":
             show_inventory_editor(chat_id)
 
-        elif text == "➕ Qo'lda Lead Qo'shish":
-            USER_STATES[chat_id] = {"step": "waiting_manual_lead"}
-            send_message(chat_id, "✍️ <b>Yangi real zakaz ma'lumotlarini kiriting:</b>\n\nFormat: <code>Ism Telefon Mahsulot_nomi</code>\nMisol: <code>Jasur +998901234567 6-Funksiyalik</code>", reply_markup=get_main_menu_keyboard())
-
-        elif text == "📥 Excel / CSV Hisobot Yuklash":
+        elif text == "📑 Excel / CSV Buxgalteriya Hujjati":
             conn = get_db()
             c = conn.cursor()
             c.execute('SELECT * FROM leads')
@@ -441,9 +418,9 @@ def handle_update(u):
             for r in rows:
                 csv_text += f"{r['id']},{r['name']},{r['phone']},{r['product']},{r['product_code']},{r['plan']},{r['status']},{r['confirmed_by']},{r['created_at']}\n"
 
-            send_message(chat_id, f"📊 <b>DESCO.PREMIUM — REAL SOTUVLAR CSV BALANSI:</b>\n\n<code>{csv_text}</code>", reply_markup=get_main_menu_keyboard())
+            send_message(chat_id, f"📑 <b>DESCO.CRM — MOLIYAVIY SOTUVLAR CSV HUJJATI:</b>\n\n<code>{csv_text}</code>", reply_markup=get_main_menu_keyboard())
 
-        elif text == "📥 Oxirgi Leadlar":
+        elif text == "📥 Oxirgi Tushgan Leadlar":
             conn = get_db()
             c = conn.cursor()
             c.execute('SELECT * FROM leads ORDER BY id DESC LIMIT 5')
@@ -530,7 +507,7 @@ def handle_update(u):
 👨‍💼 <b>Qabul qildi:</b> {user_name}
 🕒 <b>Vaqt:</b> {datetime.now().strftime('%H:%M:%S')}
 
-🟢 <i>Ombordan 1 ta mahsulot avtomatik ayrildi va moliyaviy sotuv tushumi hisoblandi!</i>
+🟢 <i>DESCO.CRM — Ombordan 1 ta mahsulot avtomatik ayrildi va moliyaviy sotuvga hisoblandi!</i>
                 """.strip()
 
                 edit_message(chat_id, msg_id, updated_text, reply_markup={"inline_keyboard": []})
@@ -571,7 +548,7 @@ def show_inventory_editor(chat_id, message_id=None):
     rows = c.fetchall()
     conn.close()
 
-    text = "✏️ <b>HAQIQIY OMBOR QOLDIG'INI SIZ BELGILANG:</b>\n<i>Tugmalar orqali yoki aniq son kiritib o'zgartiring:</i>\n\n"
+    text = "✏️ <b>DESCO.CRM — HAQIQIY OMBOR QOLDIG'INI SIZ BELGILANG:</b>\n<i>Tugmalar orqali yoki aniq son kiritib o'zgartiring:</i>\n\n"
     keyboard = []
 
     for r in rows:
@@ -593,9 +570,7 @@ def show_inventory_editor(chat_id, message_id=None):
 if __name__ == '__main__':
     init_db()
 
-    # Start HTTP Webhook Server thread for site API
     http_thread = Thread(target=run_http_server, daemon=True)
     http_thread.start()
 
-    # Start Bot Polling loop
     bot_polling_loop()
