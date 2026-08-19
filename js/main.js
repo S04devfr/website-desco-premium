@@ -1,12 +1,11 @@
 /**
  * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
- * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Dual Telegram Dispatch (Bot & CRM)
+ * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Dual Direct Telegram API Dispatch
  */
 
 const TG_BOT_CONFIG = {
   botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
-  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k',
-  crmApiUrl: 'http://127.0.0.1:8999/api/lead'
+  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k'
 };
 
 // Global State
@@ -417,7 +416,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 8. DUAL TELEGRAM BOT & CRM WEBHOOK DISPATCH ── */
+/* ── 8. DUAL TELEGRAM BOT DIRECT API DISPATCH ── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -443,24 +442,6 @@ function showSuccessNotice(customerName) {
 }
 
 async function sendLeadToTelegramBot(lead) {
-  // 1. Post to local CRM Webhook Server
-  try {
-    fetch(TG_BOT_CONFIG.crmApiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: lead.name,
-        phone: lead.phone,
-        product: lead.product,
-        product_code: lead.product_code || '3ta-gold',
-        plan: lead.plan
-      })
-    }).catch(e => console.log('CRM API Local dispatch silent catch:', e));
-  } catch (e) {
-    console.log('CRM Local fetch catch:', e);
-  }
-
-  // 2. Post to standard Web Bot
   const message = `
 🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
 
@@ -473,25 +454,23 @@ async function sendLeadToTelegramBot(lead) {
 ⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
   `.trim();
 
-  try {
-    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`);
-    const updatesData = await updatesRes.json();
-    
-    const targetChatIds = new Set();
+  // Helper to dispatch message to all active chats of a bot token
+  const dispatchToBot = async (botToken) => {
+    try {
+      const updatesRes = await fetch(`https://api.telegram.org/bot${botToken}/getUpdates`);
+      const updatesData = await updatesRes.json();
+      
+      const targetChatIds = new Set();
+      if (updatesData.ok && Array.isArray(updatesData.result)) {
+        updatesData.result.forEach(u => {
+          if (u.message && u.message.chat && u.message.chat.id) targetChatIds.add(u.message.chat.id);
+          if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) targetChatIds.add(u.my_chat_member.chat.id);
+          if (u.callback_query && u.callback_query.message && u.callback_query.message.chat) targetChatIds.add(u.callback_query.message.chat.id);
+        });
+      }
 
-    if (updatesData.ok && Array.isArray(updatesData.result)) {
-      updatesData.result.forEach(u => {
-        if (u.message && u.message.chat && u.message.chat.id) {
-          targetChatIds.add(u.message.chat.id);
-        } else if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) {
-          targetChatIds.add(u.my_chat_member.chat.id);
-        }
-      });
-    }
-
-    if (targetChatIds.size > 0) {
       for (const chatId of targetChatIds) {
-        fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -499,12 +478,16 @@ async function sendLeadToTelegramBot(lead) {
             text: message,
             parse_mode: 'HTML'
           })
-        }).catch(err => console.error('Send error for chat:', chatId, err));
+        }).catch(err => console.error('Send error:', chatId, err));
       }
+    } catch (e) {
+      console.error('Bot dispatch error:', e);
     }
-  } catch (err) {
-    console.error('Telegram Bot Dispatch Error:', err);
-  }
+  };
+
+  // Dispatch to both bots
+  await dispatchToBot(TG_BOT_CONFIG.botToken);
+  await dispatchToBot(TG_BOT_CONFIG.crmBotToken);
 }
 
 function initForms() {

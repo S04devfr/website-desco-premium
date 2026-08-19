@@ -4,7 +4,6 @@ import json
 import sqlite3
 import urllib.request
 import urllib.parse
-from http.server import HTTPServer, BaseHTTPRequestHandler
 from threading import Thread
 import time
 from datetime import datetime
@@ -12,6 +11,9 @@ from datetime import datetime
 BOT_TOKEN = "8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k"
 API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}"
 DB_PATH = os.path.join(os.path.dirname(__file__), "crm.db")
+
+# User state storage for interactive inputs
+USER_STATES = {}
 
 # ── 1. DATABASE INITIALIZATION ──
 def get_db():
@@ -127,12 +129,21 @@ def get_all_chats():
     conn.close()
     return [r['chat_id'] for r in rows]
 
+# Persistent main menu keyboard
+def get_main_menu_keyboard():
+    return {
+        "keyboard": [
+            [{"text": "📊 Bugungi Hisobot"}, {"text": "📦 Ombor Qoldig'i"}],
+            [{"text": "📥 Oxirgi Leadlar"}, {"text": "✏️ Ombor Qoldig'ini Sozlash"}],
+            [{"text": "➕ Qo'lda Lead Qo'shish"}, {"text": "📈 Barcha Statistika"}]
+        ],
+        "resize_keyboard": True
+    }
+
 # ── 3. CRM REPORT & STATS COMPUTATION ──
 def generate_today_report():
     conn = get_db()
     c = conn.cursor()
-    
-    today_str = datetime.now().strftime('%Y-%m-%d')
     
     c.execute("SELECT COUNT(*) FROM leads WHERE date(created_at) = date('now')")
     total_today = c.fetchone()[0]
@@ -157,7 +168,7 @@ def generate_today_report():
     conv_rate = (confirmed_today / total_today * 100) if total_today > 0 else 0
 
     text = f"""
-📊 <b>DESCO.PREMIUM — KUNLIK CRM HISOBOT</b>
+📊 <b>DESCO.PREMIUM — REAL-TIME CRM HISOBOT</b>
 📅 <b>Sana:</b> {datetime.now().strftime('%d.%m.%Y | %H:%M')}
 
 📥 <b>Bugungi Leadlar:</b> <code>{total_today} ta</code>
@@ -167,11 +178,11 @@ def generate_today_report():
 📈 <b>Bugungi Konversiya:</b> <code>{conv_rate:.1f}%</code>
 
 ─────────────────
-📦 <b>JAMI BARCHA VAQT:</b>
-• Jami leadlar: <code>{total_all} ta</code>
+📦 <b>BARCHA VAQT DAVOMIDA:</b>
+• Jami tushgan leadlar: <code>{total_all} ta</code>
 • Tasdiqlangan zakazlar: <code>{confirmed_all} ta</code>
 
-⚡ <i>Real vaqt rejimida avtomatik yangilandi.</i>
+⚡ <i>Har bir yangi lead yoki ombor o'zgarishi real vaqtda bazaga yoziladi.</i>
     """.strip()
 
     return text
@@ -179,7 +190,7 @@ def generate_today_report():
 def generate_inventory_report():
     conn = get_db()
     c = conn.cursor()
-    c.execute('SELECT name, stock FROM inventory')
+    c.execute('SELECT code, name, stock FROM inventory')
     rows = c.fetchall()
     conn.close()
 
@@ -188,70 +199,19 @@ def generate_inventory_report():
         status_icon = "🟢" if r['stock'] > 10 else ("🟡" if r['stock'] > 0 else "🔴")
         text += f"{status_icon} <b>{r['name']}:</b> <code>{r['stock']} ta</code>\n"
 
-    text += "\n⚡ <i>Zakaz olganda ombor qoldig'i avtomatik ayriladi.</i>"
-    return text
+    text += "\n⚡ <i>Ombordagi tovarlar sonini tahrirlash uchun pastdagi tugmani bosing:</i>"
 
-# persistent main menu keyboard
-def get_main_menu_keyboard():
-    return {
-        "keyboard": [
-            [{"text": "📊 Bugungi Hisobot"}, {"text": "📦 Ombor Qoldig'i"}],
-            [{"text": "📥 Oxirgi Leadlar"}, {"text": "📈 Umumiy Statistika"}]
-        ],
-        "resize_keyboard": True
-    }
-
-# ── 4. LEAD CREATION & NOTIFICATION DISPATCH ──
-def process_new_lead(lead_data):
-    conn = get_db()
-    c = conn.cursor()
-    
-    name = lead_data.get('name', 'Noma\'lum')
-    phone = lead_data.get('phone', 'Noma\'lum')
-    product = lead_data.get('product', 'Desco Massajer')
-    product_code = lead_data.get('product_code', '3ta-gold')
-    plan = lead_data.get('plan', '12 oylik nasiya')
-
-    c.execute('''
-        INSERT INTO leads (name, phone, product, product_code, plan, status)
-        VALUES (?, ?, ?, ?, ?, 'NEW')
-    ''', (name, phone, product, product_code, plan))
-    
-    lead_id = c.lastrowid
-    conn.commit()
-    conn.close()
-
-    msg_text = f"""
-🛍 <b>YANGI LEAD (CRM ID: #{lead_id})</b>
-
-👤 <b>Mijoz:</b> {name}
-📞 <b>Telefon:</b> <code>{phone}</code>
-📦 <b>Mahsulot:</b> {product}
-💳 <b>To'lov rejasi:</b> {plan}
-🕒 <b>Vaqt:</b> {datetime.now().strftime('%H:%M:%S')}
-
-⚡ <i>Statusni o'zgartirish uchun pastdagi tugmani bosing:</i>
-    """.strip()
-
-    inline_kb = {
+    kb = {
         "inline_keyboard": [
-            [
-                {"text": "✅ Zakaz Olindi", "callback_data": f"conf_{lead_id}"},
-                {"text": "❌ O'tkaz (Rad)", "callback_data": f"canc_{lead_id}"}
-            ]
+            [{"text": "✏️ Ombor Soni Sozlash", "callback_data": "edit_inv_main"}]
         ]
     }
 
-    # Broadcast to all registered groups & admin chats
-    chats = get_all_chats()
-    for cid in chats:
-        send_message(cid, msg_text, reply_markup=inline_kb)
+    return text, kb
 
-    return lead_id
-
-# ── 5. BOT LONG-POLLING ENGINE ──
+# ── 4. BOT LONG-POLLING ENGINE ──
 def bot_polling_loop():
-    print("Starting CRM Bot Long-Polling Loop...")
+    print("Starting Interactive CRM Bot Long-Polling Loop...")
     offset = 0
     while True:
         try:
@@ -272,25 +232,48 @@ def handle_update(u):
         chat_title = chat.get("title") or chat.get("username") or chat.get("first_name") or "User"
         chat_type = chat.get("type", "private")
         
-        # Auto-register group or user
         register_chat(chat_id, chat_title, chat_type)
 
         text = msg.get("text", "")
 
-        if text.startswith("/start") or text == "/menu":
-            send_message(chat_id, f"👋 <b>Salom, {chat_title}!</b>\n\nDesco.premium CRM & Hisobot Botiga xush kelibsiz! Pastdagi menyudan kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
+        # Handle user text input state (e.g. manual lead creation)
+        state = USER_STATES.get(chat_id)
+        if state and state.get("step") == "waiting_manual_lead":
+            del USER_STATES[chat_id]
+            # Parse lead text (e.g. "Ali 990001122 3-Funksiyalik")
+            parts = text.split()
+            name = parts[0] if len(parts) > 0 else "Offline Mijoz"
+            phone = parts[1] if len(parts) > 1 else "Telefon berilmadi"
+            product = " ".join(parts[2:]) if len(parts) > 2 else "3-Funksiyalik Oyoq Massajeri"
 
-        elif text == "📊 Bugungi Hisobot" or text == "/report":
+            conn = get_db()
+            c = conn.cursor()
+            c.execute("INSERT INTO leads (name, phone, product, product_code, plan, status) VALUES (?, ?, ?, '3ta-gold', 'Naqd', 'CONFIRMED')", (name, phone, product))
+            lead_id = c.lastrowid
+            c.execute("UPDATE inventory SET stock = MAX(0, stock - 1) WHERE code = '3ta-gold'")
+            conn.commit()
+            conn.close()
+
+            send_message(chat_id, f"✅ <b>Qo'lda zakaz muvaffaqiyatli saqlandi! (ID: #{lead_id})</b>\n👤 Mijoz: {name}\n📞 Telefon: {phone}\n📦 Mahsulot: {product}\n🟢 Ombordan 1 ta mahsulot ayrildi.", reply_markup=get_main_menu_keyboard())
+            return
+
+        if text.startswith("/start") or text == "/menu":
+            send_message(chat_id, f"👋 <b>Salom, {chat_title}!</b>\n\nDesco.premium CRM & Ombor Boshqaruv Botiga xush kelibsiz! Kerakli bo'limni tanlang:", reply_markup=get_main_menu_keyboard())
+
+        elif text == "📊 Bugungi Hisobot" or text == "/report" or text == "📈 Barcha Statistika":
             report_text = generate_today_report()
             send_message(chat_id, report_text, reply_markup=get_main_menu_keyboard())
 
         elif text == "📦 Ombor Qoldig'i" or text == "/inventory":
-            inv_text = generate_inventory_report()
-            send_message(chat_id, inv_text, reply_markup=get_main_menu_keyboard())
+            inv_text, kb = generate_inventory_report()
+            send_message(chat_id, inv_text, reply_markup=kb)
 
-        elif text == "📈 Umumiy Statistika":
-            report_text = generate_today_report()
-            send_message(chat_id, report_text, reply_markup=get_main_menu_keyboard())
+        elif text == "✏️ Ombor Qoldig'ini Sozlash":
+            show_inventory_editor(chat_id)
+
+        elif text == "➕ Qo'lda Lead Qo'shish":
+            USER_STATES[chat_id] = {"step": "waiting_manual_lead"}
+            send_message(chat_id, "✍️ <b>Yangi zakaz ma'lumotlarini kiriting:</b>\n\nFormat: <code>Ism Telefon Mahsulot_nomi</code>\nMisol: <code>Jasur +998901234567 6-Funksiyalik</code>", reply_markup=get_main_menu_keyboard())
 
         elif text == "📥 Oxirgi Leadlar":
             conn = get_db()
@@ -324,7 +307,36 @@ def handle_update(u):
         data = cb.get("data", "")
         user_name = cb["from"].get("first_name", "Operator")
 
-        if data.startswith("conf_"):
+        if data == "edit_inv_main":
+            show_inventory_editor(chat_id, msg_id)
+
+        elif data.startswith("addst_"):
+            # Format: addst_3ta-gold_5
+            _, code, amt_str = data.split("_")
+            amt = int(amt_str)
+            conn = get_db()
+            c = conn.cursor()
+            c.execute("UPDATE inventory SET stock = MAX(0, stock + ?) WHERE code = ?", (amt, code))
+            conn.commit()
+            conn.close()
+
+            tg_request("answerCallbackQuery", {"callback_query_id": cb_id, "text": f"✅ Ombor qoldig'iga {amt} ta qo'shildi!"})
+            show_inventory_editor(chat_id, msg_id)
+
+        elif data.startswith("subst_"):
+            # Format: subst_3ta-gold_1
+            _, code, amt_str = data.split("_")
+            amt = int(amt_str)
+            conn = get_db()
+            c = conn.cursor()
+            c.execute("UPDATE inventory SET stock = MAX(0, stock - ?) WHERE code = ?", (amt, code))
+            conn.commit()
+            conn.close()
+
+            tg_request("answerCallbackQuery", {"callback_query_id": cb_id, "text": f"➖ Ombordan {amt} ta ayrildi!"})
+            show_inventory_editor(chat_id, msg_id)
+
+        elif data.startswith("conf_"):
             lead_id = data.split("_")[1]
             conn = get_db()
             c = conn.cursor()
@@ -333,7 +345,6 @@ def handle_update(u):
             
             if lead:
                 c.execute("UPDATE leads SET status = 'CONFIRMED', confirmed_by = ? WHERE id = ?", (user_name, lead_id))
-                # Decrement inventory stock
                 c.execute("UPDATE inventory SET stock = MAX(0, stock - 1) WHERE code = ?", (lead['product_code'],))
                 conn.commit()
 
@@ -381,48 +392,32 @@ def handle_update(u):
                 tg_request("answerCallbackQuery", {"callback_query_id": cb_id, "text": "❌ Lead bekor qilindi deb belgilandi."})
             conn.close()
 
-# ── 6. HTTP SERVER FOR LANDING PAGE WEBHOOK ──
-class CRMRequestHandler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        if self.path == '/api/lead':
-            content_length = int(self.headers.get('Content-Length', 0))
-            body = self.rfile.read(content_length)
-            try:
-                data = json.loads(body.decode('utf-8'))
-                lead_id = process_new_lead(data)
-                
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json')
-                self.send_header('Access-Control-Allow-Origin', '*')
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "ok", "lead_id": lead_id}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": str(e)}).encode('utf-8'))
-        else:
-            self.send_response(404)
-            self.end_headers()
+def show_inventory_editor(chat_id, message_id=None):
+    conn = get_db()
+    c = conn.cursor()
+    c.execute('SELECT code, name, stock FROM inventory')
+    rows = c.fetchall()
+    conn.close()
 
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
+    text = "✏️ <b>OMBOR QOLDIG'INI TAHRIRLASH:</b>\n<i>Tugmalarni bosib real sonini oshiring yoki kamaytiring:</i>\n\n"
+    keyboard = []
 
-def run_http_server():
-    server = HTTPServer(('0.0.0.0', 8999), CRMRequestHandler)
-    print("CRM HTTP Webhook Server running on port 8999...")
-    server.serve_forever()
+    for r in rows:
+        text += f"• <b>{r['name']}:</b> <code>{r['stock']} ta</code>\n"
+        keyboard.append([
+            {"text": f"➖ 1 ({r['code']})", "callback_data": f"subst_{r['code']}_1"},
+            {"text": f"➕ 5 ({r['code']})", "callback_data": f"addst_{r['code']}_5"},
+            {"text": f"➕ 10", "callback_data": f"addst_{r['code']}_10"}
+        ])
 
-# ── 7. MAIN ENTRYPOINT ──
+    reply_markup = {"inline_keyboard": keyboard}
+
+    if message_id:
+        edit_message(chat_id, message_id, text, reply_markup=reply_markup)
+    else:
+        send_message(chat_id, text, reply_markup=reply_markup)
+
+# ── 5. MAIN ENTRYPOINT ──
 if __name__ == '__main__':
     init_db()
-    
-    # Start HTTP Webhook thread
-    http_thread = Thread(target=run_http_server, daemon=True)
-    http_thread.start()
-
-    # Start Bot Polling loop
     bot_polling_loop()
