@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO PREMIUM — LEAD FRONTEND LOGIC & REAL MASSAGER WORKING SIMULATOR
+   DESCO PREMIUM — LEAD FRONTEND LOGIC & SENIOR MOBILE EVENT HANDLERS
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 let isMassageRunning = false;
@@ -15,22 +15,56 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── 1. Header Scroll Dynamics ──
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-  });
+    header.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
 
-  // ── 2. Mobile Menu Navigation ──
+  // ── 2. Senior Mobile Drawer Navigation ──
   const mobileToggle = document.getElementById('mobileToggle');
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+  const navOverlay = document.getElementById('navOverlay');
   const nav = document.getElementById('nav');
-  if (mobileToggle && nav) {
-    mobileToggle.addEventListener('click', () => {
-      mobileToggle.classList.toggle('active');
-      nav.classList.toggle('open');
-    });
 
+  function openMobileNav() {
+    if (nav && mobileToggle) {
+      mobileToggle.classList.add('active');
+      nav.classList.add('open');
+      if (navOverlay) navOverlay.classList.add('open');
+      document.body.classList.add('menu-open');
+    }
+  }
+
+  function closeMobileNav() {
+    if (nav && mobileToggle) {
+      mobileToggle.classList.remove('active');
+      nav.classList.remove('open');
+      if (navOverlay) navOverlay.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+  }
+
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (nav.classList.contains('open')) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
+    });
+  }
+
+  if (mobileCloseBtn) {
+    mobileCloseBtn.addEventListener('click', closeMobileNav);
+  }
+
+  if (navOverlay) {
+    navOverlay.addEventListener('click', closeMobileNav);
+  }
+
+  if (nav) {
     nav.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        nav.classList.remove('open');
+        closeMobileNav();
       });
     });
   }
@@ -38,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ── 3. Active Nav Link on Scroll ──
   const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY + 120;
+    const scrollY = window.scrollY + 140;
     sections.forEach(section => {
       const top = section.offsetTop;
       const height = section.offsetHeight;
@@ -51,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
-  });
+  }, { passive: true });
 
   // ── 4. Interactive Hero Model Switcher & 3D Tilt ──
   const heroSwitchBtns = document.querySelectorAll('.h-switch-btn');
@@ -74,21 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
           heroProductPic.src = newSrc;
           heroProductPic.style.opacity = '1';
           heroProductPic.style.transform = 'scale(1) translateY(0)';
-        }, 200);
+        }, 180);
       });
     });
   }
 
-  if (heroStage && productBox && window.innerWidth > 768) {
+  // Tilt only on Desktop
+  if (heroStage && productBox && window.innerWidth > 900) {
     heroStage.addEventListener('mousemove', (e) => {
       const rect = heroStage.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
 
-      const tiltX = (y / rect.height) * -16;
-      const tiltY = (x / rect.width) * 16;
+      const tiltX = (y / rect.height) * -14;
+      const tiltY = (x / rect.width) * 14;
 
-      productBox.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.04, 1.04, 1.04)`;
+      productBox.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03, 1.03, 1.03)`;
     });
 
     heroStage.addEventListener('mouseleave', () => {
@@ -136,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── 7. Phone Mask Formatter ──
+  // ── 7. Phone Mask Formatter (Touch & Mobile friendly) ──
   function setupPhoneMask(input) {
     if (!input) return;
     input.addEventListener('input', (e) => {
@@ -209,6 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Close modal on backdrop click
+  const modalBackdrop = document.getElementById('orderModal');
+  if (modalBackdrop) {
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        closeOrderModal();
+      }
+    });
+  }
+
 });
 
 // ── REAL PRODUCT LIVE MASSAGE SIMULATOR LOGIC ──
@@ -225,14 +270,14 @@ function selectDemoModel(model) {
     tabSilver.classList.remove('active');
     simImg.src = 'img/gold-product-trans.png';
     if (isMassageRunning) {
-      hudStatusText.textContent = '3-FUNKSIYALIK (TILLO RANG) JONLI ISHLAMOQDA';
+      hudStatusText.textContent = '3-FUNKSIYALIK JONLI ISHLAMOQDA';
     }
   } else {
     tabSilver.classList.add('active');
     tabGold.classList.remove('active');
     simImg.src = 'img/silver-product-trans.png';
     if (isMassageRunning) {
-      hudStatusText.textContent = '6-FUNKSIYALIK (SERIY) 3D JONLI ISHLAMOQDA';
+      hudStatusText.textContent = '6-FUNKSIYALIK 3D JONLI ISHLAMOQDA';
     }
   }
 }
@@ -255,10 +300,10 @@ function toggleLiveMassage() {
     toggleText.textContent = 'To\'xtatish';
     hudStatus.classList.add('active');
 
-    const modelName = currentDemoModel === 'gold' ? '3-FUNKSIYALIK (TILLO RANG)' : '6-FUNKSIYALIK (SERIY)';
-    hudStatusText.textContent = `${modelName} JONLI ISHLAMOQDA`;
+    const modelName = currentDemoModel === 'gold' ? '3-FUNKSIYALIK (TILLO)' : '6-FUNKSIYALIK (SERIY)';
+    hudStatusText.textContent = `${modelName} ISHLAMOQDA`;
 
-    // Dynamic Pressure Simulation (0 -> 45 -> 72 -> 35 kPa)
+    // Dynamic Pressure Simulation (0 -> 48 -> 72 -> 28 kPa)
     let pressureStep = 0;
     const pressures = ['48 kPa (Siqish)', '72 kPa (Maksimal)', '54 kPa (Uvalash)', '28 kPa (Bo\'shatish)'];
     clearInterval(pressureInterval);
@@ -295,7 +340,7 @@ function toggleLiveMassage() {
     toggleIcon.className = 'fas fa-play';
     toggleText.textContent = 'Massajni Ishga Tushirish';
     hudStatus.classList.remove('active');
-    hudStatusText.textContent = 'KUTISH REJIMI (Tugmani bosing)';
+    hudStatusText.textContent = 'KUTISH REJIMI';
     if (pressureVal) pressureVal.textContent = '0 kPa';
 
     clearInterval(massageTimerInterval);
@@ -332,7 +377,7 @@ function loadInteractiveDemo(model) {
   }
 }
 
-// ── Global Modal Open/Close ──
+// ── Global Modal Open/Close (Touch Friendly) ──
 function openOrderModal(productName, price) {
   const modal = document.getElementById('orderModal');
   const titleElem = document.getElementById('modalProductTitle');
@@ -344,10 +389,14 @@ function openOrderModal(productName, price) {
     hiddenName.value = productName;
     hiddenPrice.value = price;
     modal.classList.add('open');
+    document.body.classList.add('modal-open');
   }
 }
 
 function closeOrderModal() {
   const modal = document.getElementById('orderModal');
-  if (modal) modal.classList.remove('open');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
 }
