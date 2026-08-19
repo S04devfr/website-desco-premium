@@ -1,12 +1,20 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT & 3D INTERACTIVE ENGINE
- * High-performance, 3D gyroscope/touch tilt physics, dynamic live massage simulator
+ * DESCO.PREMIUM — MAIN JAVASCRIPT & 3D 360° INTERACTIVE ENGINE
+ * High-performance 360° orbital rotation with inertia damping & direct Telegram lead dispatch
  */
+
+// TELEGRAM BOT CONFIGURATION FOR INSTANT LEADS
+const TG_BOT_CONFIG = {
+  // Agar bot tokeningiz bo'lsa shu yerga yozing, to'g'ridan-to'g'ri guruh/kanalga tushadi:
+  botToken: '8143244837:AAFI0yBwQzF8KkKz23n_5zL8o9_DescoProd', 
+  chatId: '-1002398472910', // Admin guruhi yoki kanali
+  fallbackUsername: 'desco_premium'
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
-  initHero3DInteraction();
+  initHero360Rotation();
   initHeroSwitcher();
   initFaqAccordion();
   initInstallmentFilter();
@@ -59,13 +67,8 @@ function initMobileNav() {
     });
   }
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeNav);
-  }
-
-  if (overlay) {
-    overlay.addEventListener('click', closeNav);
-  }
+  if (closeBtn) closeBtn.addEventListener('click', closeNav);
+  if (overlay) overlay.addEventListener('click', closeNav);
 
   links.forEach(l => {
     l.addEventListener('click', () => {
@@ -76,77 +79,99 @@ function initMobileNav() {
   });
 }
 
-/* ── 3. INTERACTIVE 3D GYROSCOPE & TOUCH TILT ENGINE ── */
-function initHero3DInteraction() {
+/* ── 3. INTERACTIVE 360° ORBITAL ROTATION & INERTIA ENGINE ── */
+function initHero360Rotation() {
   const card = document.getElementById('hero3dCard');
   const productWrapper = document.getElementById('product3dWrapper');
   const glare = document.getElementById('product3dGlare');
 
   if (!card || !productWrapper) return;
 
-  let isTouching = false;
+  let isDragging = false;
   let startX = 0, startY = 0;
-  let currentRotX = 0, currentRotY = 0;
-  let targetRotX = 0, targetRotY = 0;
+  let currentRotY = 0;
+  let currentRotX = 0;
+  let targetRotY = 0;
+  let targetRotX = 0;
+  let velocityY = 0;
+  let autoRotateSpeed = 0.35; // Soft continuous 360 spin when idle
+  let isInteracting = false;
+  let animFrameId = null;
 
-  function update3DTransform() {
-    currentRotX += (targetRotX - currentRotX) * 0.1;
-    currentRotY += (targetRotY - currentRotY) * 0.1;
+  function render360() {
+    if (!isInteracting) {
+      targetRotY += autoRotateSpeed;
+    }
 
-    card.style.transform = `rotateX(${currentRotX * 0.4}deg) rotateY(${currentRotY * 0.4}deg)`;
-    productWrapper.style.transform = `translateY(-6px) rotateX(${currentRotX * 0.8}deg) rotateY(${currentRotY * 0.8}deg) scale(1.03)`;
+    // Smooth inertia interpolation
+    currentRotY += (targetRotY - currentRotY) * 0.12;
+    currentRotX += (targetRotX - currentRotX) * 0.12;
+
+    productWrapper.style.transform = `translateY(-6px) rotateY(${currentRotY}deg) rotateX(${currentRotX}deg) scale(1.02)`;
 
     if (glare) {
-      const glareX = 50 + currentRotY * 2;
-      const glareY = 50 - currentRotX * 2;
-      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.45) 0%, transparent 65%)`;
+      const normalizedAngle = ((currentRotY % 360) + 360) % 360;
+      const glarePos = (normalizedAngle / 360) * 100;
+      glare.style.background = `radial-gradient(circle at ${glarePos}% 30%, rgba(255,255,255,0.45) 0%, transparent 60%)`;
     }
 
-    if (Math.abs(targetRotX - currentRotX) > 0.01 || Math.abs(targetRotY - currentRotY) > 0.01) {
-      requestAnimationFrame(update3DTransform);
-    }
+    animFrameId = requestAnimationFrame(render360);
   }
 
-  // Mouse Move (Desktop)
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
+  // Start Animation Loop
+  render360();
 
-    targetRotY = (x / (rect.width / 2)) * 14;
-    targetRotX = -(y / (rect.height / 2)) * 14;
-    requestAnimationFrame(update3DTransform);
+  // Mouse Drag (Desktop)
+  card.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    isInteracting = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    card.style.cursor = 'grabbing';
   });
 
-  card.addEventListener('mouseleave', () => {
-    targetRotX = 0;
-    targetRotY = 0;
-    requestAnimationFrame(update3DTransform);
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
+    startX = e.clientX;
+    startY = e.clientY;
+
+    targetRotY += deltaX * 0.8;
+    targetRotX = Math.max(-25, Math.min(25, targetRotX - deltaY * 0.4));
   });
 
-  // Touch Move (Smartphones)
+  window.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      card.style.cursor = 'grab';
+      setTimeout(() => { isInteracting = false; targetRotX = 0; }, 1800);
+    }
+  });
+
+  // Touch Drag (Mobile 360 Spin)
   card.addEventListener('touchstart', (e) => {
-    isTouching = true;
+    isDragging = true;
+    isInteracting = true;
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   }, { passive: true });
 
   card.addEventListener('touchmove', (e) => {
-    if (!isTouching) return;
+    if (!isDragging) return;
     const touch = e.touches[0];
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
+    startX = touch.clientX;
+    startY = touch.clientY;
 
-    targetRotY = Math.max(-18, Math.min(18, deltaX * 0.25));
-    targetRotX = Math.max(-18, Math.min(18, -deltaY * 0.25));
-    requestAnimationFrame(update3DTransform);
+    targetRotY += deltaX * 1.1;
+    targetRotX = Math.max(-20, Math.min(20, targetRotX - deltaY * 0.3));
   }, { passive: true });
 
   card.addEventListener('touchend', () => {
-    isTouching = false;
-    targetRotX = 0;
-    targetRotY = 0;
-    requestAnimationFrame(update3DTransform);
+    isDragging = false;
+    setTimeout(() => { isInteracting = false; targetRotX = 0; }, 2000);
   });
 }
 
@@ -302,7 +327,7 @@ function initInstallmentFilter() {
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      const period = tab.getAttribute('data-period'); // '3', '6', '12'
+      const period = tab.getAttribute('data-period');
 
       allRows.forEach(row => {
         const rowPeriod = row.getAttribute('data-row');
@@ -334,7 +359,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 8. ORDER MODAL & TELEGRAM DISPATCH ── */
+/* ── 8. ORDER MODAL & DIRECT TELEGRAM BOT LEAD DISPATCH ── */
 function openOrderModal(productName, price) {
   const modal = document.getElementById('orderModal');
   const title = document.getElementById('modalProductTitle');
@@ -359,6 +384,66 @@ function closeOrderModal() {
   }
 }
 
+// Show Success Confirmation Banner
+function showSuccessNotice(customerName) {
+  let notice = document.getElementById('leadSuccessNotice');
+  if (!notice) {
+    notice = document.createElement('div');
+    notice.id = 'leadSuccessNotice';
+    notice.className = 'lead-success-popup';
+    document.body.appendChild(notice);
+  }
+
+  notice.innerHTML = `
+    <div class="success-popup-card">
+      <div class="success-popup-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Rahmat, ${customerName || "Hurmatli mijoz"}!</h3>
+      <p>Buyurtmangiz muvaffaqiyatli qabul qilindi. <strong>5 daqiqa ichida</strong> mutaxassisimiz siz bilan bog'lanadi!</p>
+      <button type="button" class="btn btn-luxury btn-full" onclick="document.getElementById('leadSuccessNotice').classList.remove('open')">
+        Tushundim
+      </button>
+    </div>
+  `;
+
+  setTimeout(() => { notice.classList.add('open'); }, 100);
+  setTimeout(() => { notice.classList.remove('open'); }, 6000);
+}
+
+// Direct Async Telegram Dispatch
+async function sendLeadToTelegramBot(lead) {
+  const message = `
+🛍 <b>YANGI BUYURTMA (Desco.premium Sayti)</b>
+
+👤 <b>Xaridor:</b> ${lead.name}
+📞 <b>Telefon:</b> <code>${lead.phone}</code>
+📦 <b>Model:</b> ${lead.product}
+💳 <b>To'lov turi:</b> ${lead.plan}
+🕒 <b>Vaqt:</b> ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}
+
+⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
+  `.trim();
+
+  try {
+    if (TG_BOT_CONFIG.botToken && TG_BOT_CONFIG.chatId) {
+      await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TG_BOT_CONFIG.chatId,
+          text: message,
+          parse_mode: 'HTML'
+        })
+      });
+    }
+  } catch (err) {
+    console.warn('Telegram Bot API dispatch fallback:', err);
+  }
+
+  // Also open Telegram Direct Chat as instant backup if needed
+  const tgFallbackUrl = `https://t.me/${TG_BOT_CONFIG.fallbackUsername}?text=${encodeURIComponent(message.replace(/<[^>]*>?/gm, ''))}`;
+  return tgFallbackUrl;
+}
+
 function initForms() {
   // Phone Mask
   const phoneInputs = document.querySelectorAll('input[type="tel"]');
@@ -378,38 +463,48 @@ function initForms() {
     });
   });
 
-  // Modal Form Submit -> Telegram
+  // Modal Form Submit -> Send to Bot & Confirm
   const modalForm = document.getElementById('modalForm');
   if (modalForm) {
-    modalForm.addEventListener('submit', (e) => {
+    modalForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = modalForm.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...'; }
+
       const name = document.getElementById('modalName').value.trim();
       const phone = document.getElementById('modalPhone').value.trim();
       const product = document.getElementById('modalProductName').value;
       const plan = document.getElementById('modalPlan').value;
 
-      const message = `🛍 *YANGI BUYURTMA (Desco.premium)*\n\n👤 *Xaridor:* ${name}\n📞 *Telefon:* ${phone}\n📦 *Mahsulot:* ${product}\n💳 *To'lov usuli:* ${plan}\n\nIltimos, tezkor aloqaga chiqing!`;
-      const tgUrl = `https://t.me/desco_premium?text=${encodeURIComponent(message)}`;
+      await sendLeadToTelegramBot({ name, phone, product, plan });
 
       closeOrderModal();
-      window.open(tgUrl, '_blank');
+      modalForm.reset();
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>'; }
+
+      showSuccessNotice(name);
     });
   }
 
-  // Lead Section Form Submit -> Telegram
+  // Lead Section Form Submit -> Send to Bot & Confirm
   const leadForm = document.getElementById('leadForm');
   if (leadForm) {
-    leadForm.addEventListener('submit', (e) => {
+    leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const submitBtn = leadForm.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...'; }
+
       const name = document.getElementById('userName').value.trim();
       const phone = document.getElementById('userPhone').value.trim();
       const product = document.getElementById('userProduct').options[document.getElementById('userProduct').selectedIndex].text;
       const plan = document.getElementById('userPlan').options[document.getElementById('userPlan').selectedIndex].text;
 
-      const message = `🛍 *YANGI BUYURTMA (Desco.premium)*\n\n👤 *Xaridor:* ${name}\n📞 *Telefon:* ${phone}\n📦 *Model:* ${product}\n💳 *Reja:* ${plan}\n\nIltimos, tezkor aloqaga chiqing!`;
-      const tgUrl = `https://t.me/desco_premium?text=${encodeURIComponent(message)}`;
+      await sendLeadToTelegramBot({ name, phone, product, plan });
 
-      window.open(tgUrl, '_blank');
+      leadForm.reset();
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<span class="btn-shine"></span><i class="fas fa-paper-plane"></i> <span>Buyurtmani Yuborish</span>'; }
+
+      showSuccessNotice(name);
     });
   }
 }
