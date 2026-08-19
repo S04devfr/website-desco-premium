@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const telegramMsg = `✨ Yangi Buyurtma (Desco Landing) ✨%0A%0A👤 Ism: ${encodeURIComponent(name)}%0A📞 Tel: ${encodeURIComponent(phone)}%0A📦 Mahsulot: ${encodeURIComponent(product)}%0A💳 To'lov Rejasi: ${encodeURIComponent(plan)}`;
 
-      window.open(`https://t.me/Desco_premium_bot?start=${telegramMsg}`, '_blank');
+      window.open(`https://t.me/desco_premium?text=${telegramMsg}`, '_blank');
 
       const submitBtn = leadForm.querySelector('.btn-submit');
       const origText = submitBtn.innerHTML;
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const telegramMsg = `👑 Yangi Tezkor Buyurtma 👑%0A%0A👤 Ism: ${encodeURIComponent(name)}%0A📞 Tel: ${encodeURIComponent(phone)}%0A📦 Mahsulot: ${encodeURIComponent(product)} (Naqd: ${encodeURIComponent(price)} so'm)%0A💳 Reja: ${encodeURIComponent(plan)}`;
 
-      window.open(`https://t.me/Desco_premium_bot?start=${telegramMsg}`, '_blank');
+      window.open(`https://t.me/desco_premium?text=${telegramMsg}`, '_blank');
 
       closeOrderModal();
     });
