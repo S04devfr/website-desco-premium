@@ -1,6 +1,6 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT & EXPANDABLE NASIYA SHOWCASE
- * Integrated Nasiya Pricing Card Toggle, ROG Swipe Carousel & Telegram Lead Dispatch
+ * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
+ * Single Hero Visual Card with Model Switcher, Color Swatches, ROG Swipe Carousel, Expandable Nasiya Card & Telegram Lead Dispatch
  */
 
 const TG_BOT_CONFIG = {
@@ -9,7 +9,7 @@ const TG_BOT_CONFIG = {
 };
 
 // Global State
-let activeModelKey = 'gold'; // 'gold' (3-func) or 'silver' (6-func)
+let activeModelKey = 'gold'; // 'gold' (3-func), 'silver' (6-func), 'gift' (To'plam)
 let currentColorIndex = 0;
 let activeNasiyaPlanMonths = '12';
 
@@ -24,6 +24,9 @@ const MODEL_COLOR_DATA = {
     { name: "Seriy (Silver Edition)", img: "img/color-6-silver.png" },
     { name: "Qora (Obsidian Black)", img: "img/color-6-black.png" },
     { name: "Tillo (Champagne Gold)", img: "img/color-6-gold.png" }
+  ],
+  gift: [
+    { name: "Qora Premium Qutida", img: "img/gift-product-trans.png" }
   ]
 };
 
@@ -33,6 +36,7 @@ const PRICING_DATA = {
     p3: "563,000 so'm/oy",
     p6: "303,000 so'm/oy",
     p12: "163,000 so'm/oy",
+    badgePrice: "Oyiga 163,000 so'mdan (12 oy nasiya)",
     cash: "1,300,000 so'm",
     code: "3ta-gold"
   },
@@ -41,15 +45,24 @@ const PRICING_DATA = {
     p3: "780,000 so'm/oy",
     p6: "420,000 so'm/oy",
     p12: "225,000 so'm/oy",
+    badgePrice: "Oyiga 225,000 so'mdan (12 oy nasiya)",
     cash: "1,800,000 so'm",
     code: "6ta-silver"
+  },
+  gift: {
+    title: "Desco.premium 5-in-1 Hadiya To'plami",
+    p3: "1,516,000 so'm/oy",
+    p6: "816,000 so'm/oy",
+    p12: "437,000 so'm/oy",
+    badgePrice: "Oyiga 437,000 so'mdan (12 oy nasiya)",
+    cash: "3,500,000 so'm",
+    code: "gift-set"
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
-  initHeroSwitcher();
   initRogCarousel();
   initFaqAccordion();
   initForms();
@@ -114,38 +127,7 @@ function initMobileNav() {
   });
 }
 
-/* ── 3. HERO MODEL SWITCHER ── */
-function initHeroSwitcher() {
-  const switchBtns = document.querySelectorAll('.h-switch-btn');
-  const heroPic = document.getElementById('heroProductPic');
-  const badgeText = document.getElementById('heroLiveBadgeText');
-
-  switchBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      switchBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const imgPath = btn.getAttribute('data-img');
-      const priceText = btn.getAttribute('data-price');
-
-      if (badgeText && priceText) {
-        badgeText.textContent = priceText;
-      }
-
-      if (heroPic) {
-        heroPic.style.opacity = '0';
-        heroPic.style.transform = 'scale(0.92) translateY(8px)';
-        setTimeout(() => {
-          heroPic.src = imgPath;
-          heroPic.style.opacity = '1';
-          heroPic.style.transform = 'scale(1) translateY(0)';
-        }, 220);
-      }
-    });
-  });
-}
-
-/* ── 4. EXPANDABLE NASIYA PRICING CARD TOGGLE ── */
+/* ── 3. EXPANDABLE NASIYA PRICING CARD TOGGLE ── */
 function toggleNasiyaCard() {
   const card = document.getElementById('expandableNasiyaCard');
   const toggleBtn = document.getElementById('btnNasiyaToggle');
@@ -179,12 +161,14 @@ function updateNasiyaCardUI() {
 
   const titleEl = document.getElementById('nasiyaModelTitle');
   const colorTagEl = document.getElementById('nasiyaModelColorTag');
+  const badgeText = document.getElementById('heroLiveBadgeText');
   const val3 = document.getElementById('nasiyaVal3');
   const val6 = document.getElementById('nasiyaVal6');
   const val12 = document.getElementById('nasiyaVal12');
   const cashVal = document.getElementById('nasiyaCashVal');
 
   if (titleEl) titleEl.textContent = p.title;
+  if (badgeText) badgeText.textContent = p.badgePrice;
   if (colorTagEl && cData) colorTagEl.innerHTML = `<i class="fas fa-palette gold-icon"></i> Tanlangan rang: ${cData.name}`;
   
   if (val3) val3.innerHTML = `${p.p3.split(' ')[0]} <small>so'm/oy</small>`;
@@ -193,7 +177,7 @@ function updateNasiyaCardUI() {
   if (cashVal) cashVal.textContent = p.cash;
 }
 
-/* ── 5. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
+/* ── 4. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
 function initRogCarousel() {
   const container = document.getElementById('rogCarouselContainer');
   if (!container) return;
@@ -228,19 +212,29 @@ function selectDemoModel(model) {
 
   const tabGold = document.getElementById('demoTabGold');
   const tabSilver = document.getElementById('demoTabSilver');
+  const tabGift = document.getElementById('demoTabGift');
+
   const swatches3 = document.getElementById('swatches3Func');
   const swatches6 = document.getElementById('swatches6Func');
+  const swatchesGift = document.getElementById('swatchesGift');
+
+  [tabGold, tabSilver, tabGift].forEach(t => t?.classList.remove('active'));
 
   if (model === 'gold') {
-    tabGold.classList.add('active');
-    tabSilver.classList.remove('active');
+    tabGold?.classList.add('active');
     swatches3.style.display = 'flex';
     swatches6.style.display = 'none';
-  } else {
-    tabSilver.classList.add('active');
-    tabGold.classList.remove('active');
+    swatchesGift.style.display = 'none';
+  } else if (model === 'silver') {
+    tabSilver?.classList.add('active');
     swatches3.style.display = 'none';
     swatches6.style.display = 'flex';
+    swatchesGift.style.display = 'none';
+  } else {
+    tabGift?.classList.add('active');
+    swatches3.style.display = 'none';
+    swatches6.style.display = 'none';
+    swatchesGift.style.display = 'flex';
   }
 
   updateCarouselUI();
@@ -269,9 +263,10 @@ function updateCarouselUI() {
   const currentItem = colors[currentColorIndex];
   const simImg = document.getElementById('simRealImg');
   
-  const swatchesGroup = activeModelKey === 'gold' ? document.getElementById('swatches3Func') : document.getElementById('swatches6Func');
+  let swatchesGroup = document.getElementById('swatches3Func');
+  if (activeModelKey === 'silver') swatchesGroup = document.getElementById('swatches6Func');
 
-  if (swatchesGroup) {
+  if (swatchesGroup && activeModelKey !== 'gift') {
     const btns = swatchesGroup.querySelectorAll('.swatch-btn');
     btns.forEach((b, idx) => {
       if (idx === currentColorIndex) {
@@ -294,89 +289,26 @@ function updateCarouselUI() {
   }
 }
 
-/* ── 6. LIVE MASSAGE SIMULATOR ENGINE ── */
+/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
 let isSimulatorRunning = false;
 let simulatorTimerInterval = null;
 let simulatorPressureInterval = null;
-let currentSeconds = 900;
 
 function toggleLiveMassage() {
   const arena = document.getElementById('demoStageArena');
-  const toggleBtn = document.getElementById('btnLiveToggle');
-  const toggleText = document.getElementById('toggleText');
-  const toggleIcon = document.getElementById('toggleIcon');
-  const hudStatus = document.getElementById('hudStatus');
-  const hudStatusText = document.getElementById('hudStatusText');
-  const pressureVal = document.getElementById('pressureVal');
-  const timerVal = document.getElementById('timerVal');
-  const modeVal = document.getElementById('modeVal');
-
-  const phase1 = document.getElementById('phase1');
-  const phase2 = document.getElementById('phase2');
-  const phase3 = document.getElementById('phase3');
 
   isSimulatorRunning = !isSimulatorRunning;
 
   if (isSimulatorRunning) {
     arena.classList.add('running');
-    toggleBtn.classList.add('running');
-    toggleText.textContent = "Massajni To'xtatish";
-    toggleIcon.className = "fas fa-stop";
-    hudStatus.classList.add('active');
-    hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
-    if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
-
-    let pStep = 0;
-    const pressures = [38, 54, 68, 82, 60, 32, 48, 75, 86, 64, 35];
-    simulatorPressureInterval = setInterval(() => {
-      pStep = (pStep + 1) % pressures.length;
-      if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
-
-      if (pStep < 4) {
-        phase1.classList.add('active');
-        phase2.classList.remove('active');
-        phase3.classList.remove('active');
-      } else if (pStep < 8) {
-        phase1.classList.remove('active');
-        phase2.classList.add('active');
-        phase3.classList.remove('active');
-      } else {
-        phase1.classList.remove('active');
-        phase2.classList.remove('active');
-        phase3.classList.add('active');
-      }
-    }, 1200);
-
-    simulatorTimerInterval = setInterval(() => {
-      if (currentSeconds > 0) {
-        currentSeconds--;
-        const m = Math.floor(currentSeconds / 60);
-        const s = currentSeconds % 60;
-        if (timerVal) timerVal.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-      }
-    }, 1000);
-
   } else {
     arena.classList.remove('running');
-    toggleBtn.classList.remove('running');
-    toggleText.textContent = "Massajni Ishga Tushirish";
-    toggleIcon.className = "fas fa-play";
-    hudStatus.classList.remove('active');
-    hudStatusText.textContent = "KUTISH REJIMI";
-    if (pressureVal) pressureVal.textContent = "0 kPa";
-    if (modeVal) modeVal.textContent = "Avtomatik Massaj";
-
     clearInterval(simulatorPressureInterval);
     clearInterval(simulatorTimerInterval);
-    currentSeconds = 900;
-    if (timerVal) timerVal.textContent = "15:00";
-    phase1.classList.add('active');
-    phase2.classList.remove('active');
-    phase3.classList.remove('active');
   }
 }
 
-/* ── 7. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
+/* ── 6. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -406,7 +338,7 @@ function scrollToContactWithPrefill() {
   }
 }
 
-/* ── 8. FAQ ACCORDION ── */
+/* ── 7. FAQ ACCORDION ── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -421,7 +353,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 9. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
+/* ── 8. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   DESCO.PREMIUM — MODERN TECH-LUXURY DESIGN SYSTEM & EXPANDABLE NASIYA SHOWCASE
+   DESCO.PREMIUM — MODERN TECH-LUXURY UNIFIED HERO SHOWCASE SYSTEM
    Typography: 'Outfit' (Headlines) & 'Plus Jakarta Sans' (Body)
    Palette: Creamy Soft White (#FBFBFA), Obsidian (#1A1A1A), Champagne Gold (#C59B27)
    ═══════════════════════════════════════════════════════════════════════════════ */
@@ -174,20 +174,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
   border-color: transparent;
   box-shadow: var(--shadow-gold);
   color: #FFFFFF;
-}
-
-.btn-dark-luxury {
-  background: var(--obsidian-deep);
-  color: #FFFFFF;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-dark-luxury:hover {
-  background: #2D2D2D;
-  transform: translateY(-2px);
-  color: var(--gold-light);
-  border-color: var(--gold-primary);
 }
 
 .btn-glass {
@@ -432,7 +418,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   2. HERO SECTION
+   2. HERO SECTION & UNIFIED SHOWCASE CARD
    ═══════════════════════════════════════════════════════════════════════════════ */
 .hero {
   position: relative;
@@ -455,9 +441,9 @@ h1, h2, h3, h4, .brand-name, .section-title {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -579,7 +565,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   font-weight: 600;
 }
 
-/* Studio Hero Card */
+/* Studio Hero Unified Showcase Card */
 .hero-visual-wrapper {
   position: relative;
   width: 100%;
@@ -590,35 +576,35 @@ h1, h2, h3, h4, .brand-name, .section-title {
   position: relative;
   background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
   border-radius: var(--radius-xl);
-  padding: 24px 20px 28px;
-  border: 1.5px solid rgba(197, 155, 39, 0.28);
-  box-shadow: 0 25px 60px rgba(26, 26, 26, 0.08), 0 0 35px rgba(197, 155, 39, 0.08);
+  padding: 20px 18px 24px;
+  border: 1.5px solid rgba(197, 155, 39, 0.32);
+  box-shadow: 0 25px 60px rgba(26, 26, 26, 0.08), 0 0 40px rgba(197, 155, 39, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   overflow: hidden;
 }
 
 .hero-ambient-pedestal-glow {
   position: absolute;
-  bottom: 18%;
+  top: 40%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: 240px;
   height: 240px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(197, 155, 39, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(197, 155, 39, 0.22) 0%, transparent 70%);
   filter: blur(35px);
   pointer-events: none;
 }
 
+/* Model Switcher Tabs */
 .hero-model-switcher-wrap {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   z-index: 10;
 }
 
@@ -661,207 +647,32 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 .h-switch-btn.active i { color: var(--gold-light); }
 
-.hero-studio-podium {
-  position: relative;
+/* Color Swatches Subbar in Card */
+.hero-swatches-subbar {
   width: 100%;
-  height: 270px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 5;
-}
-
-.studio-product-levitate {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: studioLevitate 4.5s ease-in-out infinite;
-}
-
-@keyframes studioLevitate {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.hero-studio-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.14));
-  mix-blend-mode: multiply;
-  transition: opacity 0.28s ease, transform 0.28s ease;
-}
-
-.studio-ambient-shadow {
-  position: absolute;
-  bottom: 8px;
-  width: 65%;
-  height: 20px;
-  background: radial-gradient(ellipse at center, rgba(26, 26, 26, 0.25) 0%, transparent 75%);
-  border-radius: 50%;
-  filter: blur(6px);
-}
-
-.hero-live-badge {
-  position: relative;
+  margin-bottom: 10px;
   z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #FFFFFF;
-  border: 1.5px solid var(--border-gold);
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--obsidian);
-  box-shadow: var(--shadow-sm);
-  margin-top: 10px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════════
-   3. SHOWCASE & EXPANDABLE NASIYA PRICING CARD
-   ═══════════════════════════════════════════════════════════════════════════════ */
-.interactive-demo-section {
-  padding: 85px 0;
-  background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
-}
-
-.rog-showcase-wrapper {
-  background: #FFFFFF;
-  border-radius: var(--radius-xl);
-  border: 1.5px solid rgba(197, 155, 39, 0.35);
-  box-shadow: 0 25px 70px rgba(26, 26, 26, 0.1), 0 0 50px rgba(197, 155, 39, 0.08);
-  overflow: hidden;
-  width: 100%;
-}
-
-.showcase-model-tabs-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: var(--cream-surface);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.showcase-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 24px;
-  background: transparent;
-  border: none;
-  border-right: 1px solid var(--border-subtle);
-  cursor: pointer;
-  text-align: left;
-  transition: var(--transition-fast);
-  user-select: none;
-}
-
-.showcase-tab-btn:last-child { border-right: none; }
-.showcase-tab-btn:hover { background: rgba(255,255,255,0.7); }
-
-.showcase-tab-btn.active {
-  background: var(--obsidian);
-  color: #FFFFFF;
-  box-shadow: inset 0 -3px 0 var(--gold-primary);
-}
-
-.s-tab-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(197, 155, 39, 0.15);
-  color: var(--gold-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.15rem;
-  flex-shrink: 0;
-}
-
-.showcase-tab-btn.active .s-tab-icon {
-  background: rgba(197, 155, 39, 0.25);
-  color: var(--gold-light);
-}
-
-.s-tab-info { flex: 1; }
-.s-tab-info strong {
-  display: block;
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--obsidian);
-  line-height: 1.2;
-}
-.showcase-tab-btn.active .s-tab-info strong { color: #FFFFFF; }
-
-.s-tab-info span {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-}
-.showcase-tab-btn.active .s-tab-info span { color: var(--gold-light); }
-
-.s-tab-price {
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: var(--gold-dark);
-  background: rgba(197, 155, 39, 0.12);
-  padding: 6px 12px;
-  border-radius: 100px;
-}
-.showcase-tab-btn.active .s-tab-price {
-  background: rgba(255,255,255,0.12);
-  color: #FFFFFF;
-  border: 1px solid rgba(197, 155, 39, 0.4);
-}
-
-/* Subbar: Swatches & Large Nasiya Toggle */
-.showcase-options-subbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
-  background: #FFFFFF;
-  border-bottom: 1px solid var(--border-subtle);
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.color-picker-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.color-picker-label {
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: var(--obsidian);
-  font-family: 'Outfit', sans-serif;
 }
 
 .color-swatches-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .swatch-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px 5px 6px;
+  gap: 5px;
+  padding: 4px 10px 4px 5px;
   border-radius: 100px;
   border: 1.5px solid var(--border-subtle);
-  background: var(--cream-bg);
+  background: #FFFFFF;
   cursor: pointer;
   font-family: 'Outfit', sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text-main);
   transition: var(--transition-fast);
@@ -877,8 +688,8 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 .swatch-circle {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid rgba(0,0,0,0.15);
   display: block;
@@ -889,195 +700,17 @@ h1, h2, h3, h4, .brand-name, .section-title {
 .swatch-black { background: #111111; }
 .swatch-red { background: linear-gradient(135deg, #EF4444, #B91C1C); }
 
-/* Prominent Large Nasiya Toggle Button */
-.btn-nasiya-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 22px;
-  background: var(--obsidian);
-  color: #FFFFFF;
-  border: 1.5px solid var(--border-gold);
+.gift-pack-tag {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--gold-dark);
+  background: rgba(197, 155, 39, 0.1);
+  padding: 4px 12px;
   border-radius: 100px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  box-shadow: var(--shadow-sm);
-  user-select: none;
+  border: 1px solid var(--border-gold);
 }
 
-.btn-nasiya-toggle:hover {
-  background: var(--gold-primary);
-  color: #FFFFFF;
-  border-color: transparent;
-  box-shadow: var(--shadow-gold);
-  transform: translateY(-2px);
-}
-
-.toggle-arrow-icon {
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
-}
-
-.btn-nasiya-toggle.active .toggle-arrow-icon {
-  transform: rotate(180deg);
-}
-
-/* Expandable Nasiya Card Container */
-.expandable-nasiya-card {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, padding 0.35s ease;
-  background: linear-gradient(180deg, rgba(197, 155, 39, 0.08) 0%, #FFFFFF 100%);
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.expandable-nasiya-card.open {
-  max-height: 600px;
-  opacity: 1;
-}
-
-.nasiya-card-inner {
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.nasiya-header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.nasiya-card-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--obsidian);
-}
-
-.nasiya-card-sub {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--gold-dark);
-  display: block;
-  margin-top: 2px;
-}
-
-.nasiya-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-  border-radius: 100px;
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
-/* 3-Column Installment Options Box */
-.nasiya-pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.nasiya-plan-box {
-  background: #FFFFFF;
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  box-shadow: var(--shadow-sm);
-}
-
-.nasiya-plan-box:hover {
-  border-color: var(--gold-primary);
-  transform: translateY(-2px);
-}
-
-.nasiya-plan-box.featured-plan {
-  border-color: var(--gold-primary);
-  background: linear-gradient(135deg, rgba(197, 155, 39, 0.14), rgba(255, 255, 255, 0.95));
-}
-
-.nasiya-plan-box.active {
-  border-color: var(--obsidian);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-}
-
-.plan-period {
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--obsidian);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.plan-val {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 900;
-  color: var(--obsidian);
-}
-
-.plan-val small {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-light);
-}
-
-.plan-val.highlight {
-  font-size: 1.35rem;
-  color: var(--gold-dark);
-}
-
-.plan-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-.gold-badge-sm {
-  color: var(--gold-dark);
-  font-weight: 800;
-}
-
-.nasiya-footer-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(26, 26, 26, 0.12);
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.cash-price-info span {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  display: block;
-}
-
-.cash-price-info strong {
-  font-size: 1.15rem;
-  font-weight: 900;
-  color: var(--obsidian);
-  font-family: 'Outfit', sans-serif;
-}
-
-/* Carousel Stage & Simulator */
+/* ROG Carousel Container inside Card */
 .rog-carousel-container {
   position: relative;
   display: flex;
@@ -1085,11 +718,12 @@ h1, h2, h3, h4, .brand-name, .section-title {
   justify-content: space-between;
   width: 100%;
   touch-action: pan-y;
+  margin-bottom: 12px;
 }
 
 .carousel-nav-btn {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 1.5px solid var(--border-subtle);
@@ -1097,7 +731,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   z-index: 10;
@@ -1111,91 +745,52 @@ h1, h2, h3, h4, .brand-name, .section-title {
   border-color: var(--obsidian);
 }
 
-.simulator-device-viewport {
+.hero-studio-podium {
   position: relative;
+  width: 100%;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 360px;
-  margin-bottom: 12px;
+  z-index: 5;
   flex: 1;
 }
 
-.device-base-frame {
+.studio-product-levitate {
   position: relative;
-  max-width: 380px;
-  width: 100%;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: studioLevitate 4.5s ease-in-out infinite;
 }
 
-.sim-real-img {
-  width: 100%;
-  height: auto;
-  display: block;
+@keyframes studioLevitate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-studio-img {
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.12));
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.14));
   mix-blend-mode: multiply;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.swipe-hint-bar {
-  text-align: center;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--text-light);
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-/* Arena & Simulator HUD */
-.demo-stage-arena {
-  padding: 22px 28px 32px;
-  background: radial-gradient(circle at center, #FFFFFF 0%, #F5F4EE 100%);
-}
-
-.simulator-hud-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 18px;
-  background: rgba(26, 26, 26, 0.94);
-  backdrop-filter: blur(12px);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-gold);
-  color: #FFFFFF;
-  margin-bottom: 22px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.hud-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.hud-dot {
-  width: 8px;
-  height: 8px;
+.studio-ambient-shadow {
+  position: absolute;
+  bottom: 4px;
+  width: 65%;
+  height: 18px;
+  background: radial-gradient(ellipse at center, rgba(26, 26, 26, 0.25) 0%, transparent 75%);
   border-radius: 50%;
-  background: #E5E7EB;
+  filter: blur(6px);
 }
 
-.status-live.active .hud-dot {
-  background: #10B981;
-  box-shadow: 0 0 10px #10B981;
-  animation: pulseGreen 1s infinite;
-}
-
-.status-live.active strong { color: #34D399; }
-.hud-item.pressure span { color: #38bdf8; font-weight: 800; font-family: monospace; font-size: 0.88rem; }
-.hud-item.mode-live span { color: var(--gold-light); font-weight: 800; }
-.hud-item.timer span { color: #A7F3D0; font-family: monospace; font-size: 0.92rem; }
-
+/* Massage Simulation Overlays */
 .massage-chamber-overlay {
   position: absolute;
   top: 10%;
@@ -1211,7 +806,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 .left-chamber { left: 20%; }
 .right-chamber { right: 20%; }
 
-.demo-stage-arena.running .massage-chamber-overlay { opacity: 1; }
+.hero-studio-podium.running .massage-chamber-overlay { opacity: 1; }
 
 .inserted-leg-silhouette {
   position: absolute;
@@ -1290,7 +885,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
   width: 86%;
   height: 28%;
   display: flex;
-  justify-content: space-around;
+  justify-space: around;
   align-items: center;
   z-index: 5;
 }
@@ -1335,164 +930,199 @@ h1, h2, h3, h4, .brand-name, .section-title {
   100% { transform: translateY(0) scale(0.9); opacity: 0.7; }
 }
 
-.compression-force-badge {
-  position: absolute;
-  bottom: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(26, 26, 26, 0.94);
-  color: #38bdf8;
-  font-size: 0.62rem;
-  font-weight: 800;
-  padding: 3px 10px;
+/* Prominent NASIYA TOGGLE BUTTON inside Hero Visual Card */
+.btn-nasiya-toggle-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  background: #FFFFFF;
+  color: var(--obsidian);
+  border: 1.5px solid var(--border-gold);
   border-radius: 100px;
-  white-space: nowrap;
-  border: 1px solid rgba(56, 189, 248, 0.4);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+  user-select: none;
+}
+
+.btn-nasiya-toggle-hero:hover {
+  background: var(--obsidian);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.toggle-arrow-icon {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-nasiya-toggle-hero.active .toggle-arrow-icon {
+  transform: rotate(180deg);
+}
+
+/* Expandable Nasiya Pricing Card inside Hero Visual Card */
+.expandable-nasiya-card {
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  z-index: 10;
+}
+
+.expandable-nasiya-card.open {
+  max-height: 600px;
+  opacity: 1;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.nasiya-card-inner {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nasiya-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nasiya-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--obsidian);
+}
+
+.nasiya-card-sub {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  display: block;
+}
+
+.nasiya-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.nasiya-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.nasiya-plan-box {
+  background: var(--cream-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.nasiya-plan-box:hover {
+  border-color: var(--gold-primary);
+}
+
+.nasiya-plan-box.featured-plan {
+  border-color: var(--gold-primary);
+  background: rgba(197, 155, 39, 0.12);
+}
+
+.nasiya-plan-box.active {
+  border-color: var(--obsidian);
+  background: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.plan-period {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--obsidian);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.panel-glow-indicator {
-  position: absolute;
-  top: 3%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 40px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.demo-stage-arena.running .panel-glow-indicator { opacity: 1; }
-
-.panel-digital-glow {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.8) 0%, transparent 70%);
-}
-
-.panel-label {
-  position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--obsidian);
-  color: #38bdf8;
-  font-size: 0.62rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 100px;
-  white-space: nowrap;
-}
-
-.simulator-bottom-actions {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.btn-live-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
-  min-height: 48px;
-  border-radius: 100px;
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  color: #FFFFFF;
+.plan-val {
   font-family: 'Outfit', sans-serif;
   font-size: 0.95rem;
-  font-weight: 800;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
-  transition: var(--transition-fast);
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-}
-
-.btn-live-toggle:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.45);
-}
-
-.btn-live-toggle.running {
-  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
-}
-
-.play-btn-ripple {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-  animation: rippleFx 2s infinite;
-  pointer-events: none;
-}
-
-@keyframes rippleFx {
-  0% { transform: scale(0.8); opacity: 0.8; }
-  100% { transform: scale(1.6); opacity: 0; }
-}
-
-.massage-phases-tracker {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.phase-step {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: #FFFFFF;
-  border: 1.5px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  transition: var(--transition-fast);
-}
-
-.phase-step.active {
-  border-color: var(--gold-primary);
-  background: rgba(197, 155, 39, 0.06);
-  box-shadow: 0 4px 14px rgba(197, 155, 39, 0.15);
-}
-
-.phase-num {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--obsidian);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-weight: 900;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-}
-
-.phase-step.active .phase-num {
-  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-}
-
-.phase-info strong {
-  display: block;
-  font-size: 0.82rem;
-  font-weight: 800;
   color: var(--obsidian);
 }
 
-.phase-info span {
-  font-size: 0.7rem;
+.plan-val small {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.plan-val.highlight {
+  font-size: 1.02rem;
+  color: var(--gold-dark);
+}
+
+.plan-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
+.gold-badge-sm {
+  color: var(--gold-dark);
+  font-weight: 800;
+}
+
+.nasiya-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(26, 26, 26, 0.12);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cash-price-info span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.cash-price-info strong {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--obsidian);
+  font-family: 'Outfit', sans-serif;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════
-   4. NIMA UCHUN DESCO (BENEFITS)
+   3. NIMA UCHUN DESCO (BENEFITS)
    ═══════════════════════════════════════════════════════════════════════════════ */
 .why-section {
   padding: 85px 0;
@@ -1546,7 +1176,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   5. 5-IN-1 GIFT SET SHOWCASE
+   4. 5-IN-1 GIFT SET SHOWCASE
    ═══════════════════════════════════════════════════════════════════════════════ */
 .features-section {
   padding: 85px 0;
@@ -1657,7 +1287,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   6. FAQ SECTION
+   5. FAQ SECTION
    ═══════════════════════════════════════════════════════════════════════════════ */
 .faq-section {
   padding: 85px 0;
@@ -1745,7 +1375,7 @@ h1, h2, h3, h4, .brand-name, .section-title {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
-   7. CONTACT & FAST LEAD CAPTURE
+   6. CONTACT & FAST LEAD CAPTURE
    ═══════════════════════════════════════════════════════════════════════════════ */
 .contact-section {
   padding: 85px 0;
@@ -2096,7 +1726,6 @@ h1, h2, h3, h4, .brand-name, .section-title {
   .why-grid { grid-template-columns: 1fr; gap: 16px; }
   .gift-showcase-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: repeat(2, 1fr); }
-  .massage-phases-tracker { grid-template-columns: 1fr; }
   .nasiya-pricing-grid { grid-template-columns: 1fr; }
 }
 
@@ -2266,74 +1895,27 @@ h1, h2, h3, h4, .brand-name, .section-title {
   .trust-meta span { font-size: 0.58rem; }
 
   .hero-studio-card {
-    padding: 16px 12px 20px;
+    padding: 14px 10px 18px;
     border-radius: var(--radius-lg);
   }
 
   .hero-model-switcher { width: 100%; max-width: 100%; padding: 3px; }
   .h-switch-btn { padding: 6px 4px; font-size: 0.72rem; }
 
-  .hero-studio-podium { height: 220px; }
-  .studio-product-levitate { width: 190px; height: 190px; }
+  .hero-studio-podium { height: 210px; }
+  .studio-product-levitate { width: 180px; height: 180px; }
 
-  .hero-live-badge { font-size: 0.68rem; padding: 4px 10px; text-align: center; }
+  .btn-nasiya-toggle-hero { font-size: 0.76rem; padding: 8px 12px; }
 
-  /* Showcase Section Mobile */
-  .showcase-model-tabs-bar { grid-template-columns: 1fr; }
-  .showcase-tab-btn { padding: 12px 16px; border-right: none; border-bottom: 1px solid var(--border-subtle); }
-  .showcase-tab-btn:last-child { border-bottom: none; }
-  .s-tab-icon { width: 36px; height: 36px; font-size: 0.95rem; }
-  .s-tab-info strong { font-size: 0.92rem; }
-  .s-tab-info span { font-size: 0.68rem; }
-  .s-tab-price { font-size: 0.75rem; padding: 4px 8px; }
+  .nasiya-card-inner { padding: 12px 10px; }
+  .nasiya-card-title { font-size: 1.05rem; }
+  .nasiya-pricing-grid { grid-template-columns: 1fr; gap: 8px; }
 
-  .showcase-options-subbar {
-    padding: 12px 14px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .color-picker-box { width: 100%; justify-content: space-between; }
-  .color-swatches-group { flex-wrap: wrap; }
-  .swatch-btn { padding: 4px 10px 4px 5px; font-size: 0.72rem; }
-
-  .btn-nasiya-toggle { width: 100%; justify-content: center; font-size: 0.84rem; padding: 10px 16px; }
-
-  .nasiya-card-inner { padding: 16px 14px; }
-  .nasiya-card-title { font-size: 1.15rem; }
-  .nasiya-pricing-grid { grid-template-columns: 1fr; gap: 10px; }
-
-  .why-section, .interactive-demo-section, .features-section, .faq-section, .contact-section {
+  .why-section, .features-section, .faq-section, .contact-section {
     padding: 46px 0;
   }
 
   .section-heading { margin-bottom: 22px; }
-
-  .demo-stage-arena { padding: 12px 8px 18px; }
-
-  .simulator-hud-bar {
-    padding: 6px 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-bottom: 14px;
-  }
-
-  .hud-item { font-size: 0.72rem; }
-  .hud-item.status-live { grid-column: 1 / -1; }
-
-  .simulator-device-viewport { min-height: 230px; margin-bottom: 14px; }
-  .device-base-frame { max-width: 250px; }
-
-  .btn-live-toggle { width: 100%; justify-content: center; min-height: 46px; }
-
-  .compression-force-badge { bottom: -18px; font-size: 0.52rem; padding: 2px 5px; }
-
-  .massage-phases-tracker { gap: 8px; }
-  .phase-step { padding: 8px 10px; }
-  .phase-info strong { font-size: 0.78rem; }
-  .phase-info span { font-size: 0.68rem; }
 
   .gift-devices-grid { grid-template-columns: 1fr; gap: 8px; }
   .device-card { padding: 10px; }
