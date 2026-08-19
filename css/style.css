@@ -2204,3 +2204,111 @@ h1, h2, h3, h4, .brand-name, .section-title {
     right: 14px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TECHNICAL SPECIFICATIONS & HEALTH PASSPORT MATRIX
+   ═══════════════════════════════════════════════════════════════════════════════ */
+.specs-section {
+  padding: 85px 0;
+  background: var(--cream-bg);
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.specs-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-fast);
+}
+
+.specs-card:hover {
+  border-color: var(--gold-primary);
+  transform: translateY(-4px);
+}
+
+.featured-spec-card {
+  border-color: var(--gold-primary);
+  background: radial-gradient(circle at top right, rgba(197, 155, 39, 0.08) 0%, #FFFFFF 60%);
+  box-shadow: var(--shadow-luxury);
+}
+
+.specs-card-header {
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.spec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--obsidian);
+  background: var(--cream-surface);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+}
+
+.gold-badge {
+  background: var(--obsidian);
+  color: var(--gold-light);
+}
+
+.specs-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--obsidian);
+  margin-bottom: 6px;
+}
+
+.spec-price-tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--obsidian);
+}
+
+.spec-price-tag small {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.highlight-tag { color: var(--gold-dark); }
+
+.specs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.specs-list li {
+  font-size: 0.88rem;
+  color: var(--text-main);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.specs-list li i {
+  font-size: 0.95rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .specs-grid { grid-template-columns: 1fr; gap: 16px; }
+  .specs-card { padding: 22px 16px; }
+  .specs-section { padding: 42px 0; }
+}
