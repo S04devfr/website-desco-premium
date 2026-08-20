@@ -1,16 +1,16 @@
 /**
  * DESCO.PREMIUM — JAVASCRIPT
- * Mahsulotlar almashishi, Ranglar palitrasi, Touch Swipe, Nasiya kalkulyatori va Telegram Lead Integratsiyasi
+ * Real-Time Telegram Lead Dispatch, Touch Gestures, Smooth Mobile Phone Mask & Interactive UI
  */
 
+// ─── 1. TELEGRAM BOT CONFIGURATION ───
 const TG_BOT_CONFIG = {
-  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',    // @webdesco_bot (Asosiy Bot)
-  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k', // @crmhisobchi_bot (CRM Bot)
-  chatIds: ['6710023395'], // Asosiy qabul qiluvchi Admin / Guruh Chat ID
-  botUsername: 'webdesco_bot'
+  primaryToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',  // @webdesco_bot
+  backupToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k',   // @crmhisobchi_bot
+  chatIds: ['6710023395'] // Asosiy Admin / Guruh Chat ID
 };
 
-/* ─── 1. MAHSULOT RANG MA'LUMOTLARI (ASL RASMLAR) ─── */
+// ─── 2. PRODUCT COLOR ASSETS ───
 const COLORS_M3 = [
   { name: "Seriy (Metallic Silver)", img: "img/model3-silver.jpg" },
   { name: "Qora (Obsidian Black)", img: "img/model3-black.jpg" },
@@ -26,7 +26,7 @@ const COLORS_M6 = [
 let currentIndexM3 = 0;
 let currentIndexM6 = 0;
 
-/* ─── 2. COLOR SWITCHING & SLIDING (3-FUNKSIYALIK) ─── */
+// ─── 3. COLOR SWITCHING (3-FUNKSIYALIK) ───
 function changeColorM3(idx) {
   currentIndexM3 = (idx + COLORS_M3.length) % COLORS_M3.length;
   const item = COLORS_M3[currentIndexM3];
@@ -38,33 +38,26 @@ function changeColorM3(idx) {
   const dots = document.getElementById('dotsM3');
 
   if (row) {
-    const pills = row.querySelectorAll('.swatch-pill');
-    pills.forEach((p, i) => {
+    row.querySelectorAll('.swatch-pill').forEach((p, i) => {
       p.classList.toggle('active', i === currentIndexM3);
     });
   }
 
   if (dots) {
-    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
-    dotEls.forEach((d, i) => {
+    dots.querySelectorAll('.stage-dot-indicator').forEach((d, i) => {
       d.classList.toggle('active', i === currentIndexM3);
     });
   }
 
-  if (cap) {
-    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
-  }
-
-  if (pic) {
-    pic.src = item.img;
-  }
+  if (cap) cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  if (pic) pic.src = item.img;
 }
 
 function slideM3(dir) {
   changeColorM3(currentIndexM3 + dir);
 }
 
-/* ─── 3. COLOR SWITCHING & SLIDING (6-FUNKSIYALIK) ─── */
+// ─── 4. COLOR SWITCHING (6-FUNKSIYALIK) ───
 function changeColorM6(idx) {
   currentIndexM6 = (idx + COLORS_M6.length) % COLORS_M6.length;
   const item = COLORS_M6[currentIndexM6];
@@ -76,33 +69,26 @@ function changeColorM6(idx) {
   const dots = document.getElementById('dotsM6');
 
   if (row) {
-    const pills = row.querySelectorAll('.swatch-pill');
-    pills.forEach((p, i) => {
+    row.querySelectorAll('.swatch-pill').forEach((p, i) => {
       p.classList.toggle('active', i === currentIndexM6);
     });
   }
 
   if (dots) {
-    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
-    dotEls.forEach((d, i) => {
+    dots.querySelectorAll('.stage-dot-indicator').forEach((d, i) => {
       d.classList.toggle('active', i === currentIndexM6);
     });
   }
 
-  if (cap) {
-    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
-  }
-
-  if (pic) {
-    pic.src = item.img;
-  }
+  if (cap) cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  if (pic) pic.src = item.img;
 }
 
 function slideM6(dir) {
   changeColorM6(currentIndexM6 + dir);
 }
 
-/* ─── 4. TOUCH SWIPE & MOUSE DRAG GESTURES ─── */
+// ─── 5. TOUCH SWIPE & MOUSE GESTURES ───
 function addSwipeListener(elementId, callback) {
   const el = document.getElementById(elementId);
   if (!el) return;
@@ -110,24 +96,22 @@ function addSwipeListener(elementId, callback) {
   let startX = 0;
   let isDown = false;
 
-  // Touch events
   el.addEventListener('touchstart', (e) => {
-    startX = e.changedTouches[0].screenX;
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      startX = e.changedTouches[0].screenX;
+    }
   }, { passive: true });
 
   el.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].screenX;
-    const diff = endX - startX;
-    if (Math.abs(diff) > 30) {
-      if (diff < 0) {
-        callback(1); // Swipe left -> Next
-      } else {
-        callback(-1); // Swipe right -> Prev
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      const endX = e.changedTouches[0].screenX;
+      const diff = endX - startX;
+      if (Math.abs(diff) > 35) {
+        callback(diff < 0 ? 1 : -1);
       }
     }
   }, { passive: true });
 
-  // Mouse drag events (Desktop)
   el.addEventListener('mousedown', (e) => {
     isDown = true;
     startX = e.screenX;
@@ -136,14 +120,9 @@ function addSwipeListener(elementId, callback) {
   window.addEventListener('mouseup', (e) => {
     if (!isDown) return;
     isDown = false;
-    const endX = e.screenX;
-    const diff = endX - startX;
+    const diff = e.screenX - startX;
     if (Math.abs(diff) > 40) {
-      if (diff < 0) {
-        callback(1);
-      } else {
-        callback(-1);
-      }
+      callback(diff < 0 ? 1 : -1);
     }
   });
 }
@@ -153,7 +132,7 @@ function initTouchSwipe() {
   addSwipeListener('stageM6', slideM6);
 }
 
-/* ─── 5. NASIYA ACCORDION TOGGLE ─── */
+// ─── 6. NASIYA ACCORDION ───
 function toggleNasiyaAccordion(boxId, btnEl) {
   const box = document.getElementById(boxId);
   if (!box) return;
@@ -161,14 +140,14 @@ function toggleNasiyaAccordion(boxId, btnEl) {
   const isOpen = box.classList.contains('open');
   if (isOpen) {
     box.classList.remove('open');
-    btnEl?.classList.remove('active');
+    if (btnEl) btnEl.classList.remove('active');
   } else {
     box.classList.add('open');
-    btnEl?.classList.add('active');
+    if (btnEl) btnEl.classList.add('active');
   }
 }
 
-/* ─── 6. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
+// ─── 7. SCROLL TO FORM WITH AUTO-SELECT ───
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -182,11 +161,11 @@ function scrollToContact(productCode) {
     contactSec.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       if (userName) userName.focus();
-    }, 600);
+    }, 450);
   }
 }
 
-/* ─── 7. FAQ ACCORDION ─── */
+// ─── 8. FAQ ACCORDION ───
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -201,7 +180,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ─── 8. HEADER SCROLL & MOBILE NAV ─── */
+// ─── 9. HEADER & MOBILE NAVIGATION DRAWER ───
 function initHeader() {
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
@@ -247,7 +226,7 @@ function initMobileNav() {
   });
 }
 
-/* ─── 9. FORM & TELEGRAM LEAD DISPATCH ─── */
+// ─── 10. SUCCESS MODAL NOTIFICATION ───
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -268,10 +247,11 @@ function showSuccessNotice(customerName) {
     </div>
   `;
 
-  setTimeout(() => { notice.classList.add('open'); }, 50);
-  setTimeout(() => { notice.classList.remove('open'); }, 7000);
+  setTimeout(() => { notice.classList.add('open'); }, 40);
+  setTimeout(() => { notice.classList.remove('open'); }, 7500);
 }
 
+// ─── 11. ULTRA-RESILIENT TELEGRAM LEAD DISPATCH ───
 async function sendLeadToTelegramBot(lead) {
   const now = new Date();
   const dateStr = now.toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Tashkent' });
@@ -290,81 +270,129 @@ async function sendLeadToTelegramBot(lead) {
 ⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
   `.trim();
 
-  // Target chat IDs: configured admin IDs + any cached chats
-  const targetChatIds = new Set(TG_BOT_CONFIG.chatIds);
+  // Target chat IDs
+  const chatIds = [...TG_BOT_CONFIG.chatIds];
 
-  // Restore remembered chats
+  // Restore cached chat IDs from localStorage
   try {
     const saved = localStorage.getItem('desco_lead_chats');
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed)) parsed.forEach(id => targetChatIds.add(id));
+      if (Array.isArray(parsed)) {
+        parsed.forEach(id => {
+          if (!chatIds.includes(String(id))) chatIds.push(String(id));
+        });
+      }
     }
   } catch (e) {}
 
-  // Check getUpdates to discover any newly started chats
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`, { signal: controller.signal });
-    clearTimeout(timeoutId);
-    const updatesData = await updatesRes.json();
+  const botTokens = [TG_BOT_CONFIG.primaryToken, TG_BOT_CONFIG.backupToken].filter(Boolean);
+  const requests = [];
 
-    if (updatesData.ok && Array.isArray(updatesData.result)) {
-      updatesData.result.forEach(u => {
-        if (u.message && u.message.chat && u.message.chat.id) targetChatIds.add(u.message.chat.id);
-        if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) targetChatIds.add(u.my_chat_member.chat.id);
-      });
-      localStorage.setItem('desco_lead_chats', JSON.stringify(Array.from(targetChatIds)));
-    }
-  } catch (e) {}
+  const encodedText = encodeURIComponent(message);
 
-  // Dispatch to all configured Telegram bots
-  const botTokens = [TG_BOT_CONFIG.botToken, TG_BOT_CONFIG.crmBotToken].filter(Boolean);
-  const sendPromises = [];
+  for (const token of botTokens) {
+    for (const cid of chatIds) {
+      // 1. Direct GET fetch (No CORS preflight restrictions, works on iOS/Android/Chrome/Safari)
+      const getUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${cid}&text=${encodedText}&parse_mode=HTML`;
+      requests.push(
+        fetch(getUrl, { method: 'GET', mode: 'no-cors' }).catch(() => {})
+      );
 
-  for (const botToken of botTokens) {
-    for (const chatId of targetChatIds) {
-      const p = fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: 'HTML'
-        })
-      }).catch(err => console.error(`Telegram Bot Dispatch Error [${chatId}]:`, err));
-      sendPromises.push(p);
+      // 2. Direct POST fetch with JSON
+      requests.push(
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: cid,
+            text: message,
+            parse_mode: 'HTML'
+          })
+        }).catch(() => {})
+      );
+
+      // 3. Guaranteed Image beacon (immune to all fetch/CORS blocks)
+      try {
+        const beacon = new Image();
+        beacon.src = getUrl;
+      } catch (e) {}
     }
   }
 
-  // Also notify server backend if available
+  // 4. Server API Dispatch (if running locally/production)
   try {
-    fetch('/api/lead', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(lead)
-    }).catch(() => {});
+    requests.push(
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead)
+      }).catch(() => {})
+    );
   } catch (e) {}
 
-  await Promise.allSettled(sendPromises);
+  // Wait max 1.2s so user UI feels instant
+  await Promise.race([
+    Promise.allSettled(requests),
+    new Promise(resolve => setTimeout(resolve, 1200))
+  ]);
+
+  // Background check for newly started chat updates
+  fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.primaryToken}/getUpdates`)
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.ok && Array.isArray(data.result)) {
+        const discovered = new Set(chatIds);
+        data.result.forEach(u => {
+          if (u.message && u.message.chat && u.message.chat.id) discovered.add(String(u.message.chat.id));
+          if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) discovered.add(String(u.my_chat_member.chat.id));
+        });
+        localStorage.setItem('desco_lead_chats', JSON.stringify(Array.from(discovered)));
+      }
+    })
+    .catch(() => {});
+}
+
+// ─── 12. PHONE INPUT MASK (NATURAL & MOBILE FRIENDLY) ───
+function formatUzPhone(raw) {
+  let digits = raw.replace(/\D/g, '');
+  if (digits.startsWith('998')) {
+    digits = digits.substring(3);
+  }
+  digits = digits.substring(0, 9); // 9 digits after 998
+
+  if (digits.length === 0) return '';
+
+  let out = '+998 ';
+  if (digits.length > 0) out += '(' + digits.substring(0, 2);
+  if (digits.length >= 2) out += ') ';
+  if (digits.length > 2) out += digits.substring(2, 5);
+  if (digits.length >= 5) out += '-';
+  if (digits.length > 5) out += digits.substring(5, 7);
+  if (digits.length >= 7) out += '-';
+  if (digits.length > 7) out += digits.substring(7, 9);
+
+  return out;
 }
 
 function initForms() {
   const phoneInputs = document.querySelectorAll('input[type="tel"]');
   phoneInputs.forEach(inp => {
     inp.addEventListener('input', (e) => {
-      let v = e.target.value.replace(/\D/g, '');
-      if (!v.startsWith('998')) v = '998' + v;
-      if (v.length > 12) v = v.substring(0, 12);
-      
-      let formatted = '+998 ';
-      if (v.length > 3) formatted += '(' + v.substring(3, 5);
-      if (v.length >= 5) formatted += ') ' + v.substring(5, 8);
-      if (v.length >= 8) formatted += '-' + v.substring(8, 10);
-      if (v.length >= 10) formatted += '-' + v.substring(10, 12);
-
+      const formatted = formatUzPhone(e.target.value);
       e.target.value = formatted;
+    });
+
+    inp.addEventListener('focus', (e) => {
+      if (!e.target.value.trim()) {
+        e.target.value = '+998 ';
+      }
+    });
+
+    inp.addEventListener('blur', (e) => {
+      if (e.target.value.trim() === '+998 ' || e.target.value.trim() === '+998') {
+        e.target.value = '';
+      }
     });
   });
 
@@ -387,8 +415,8 @@ function initForms() {
 
       try {
         await sendLeadToTelegramBot({ name, phone, product, plan });
-      } catch (sendErr) {
-        console.error('Lead submission error:', sendErr);
+      } catch (err) {
+        console.error('Lead submission error:', err);
       }
 
       leadForm.reset();
@@ -402,7 +430,7 @@ function initForms() {
   }
 }
 
-// Global scope bindings
+// ─── 13. GLOBAL BINDINGS & INIT ───
 window.changeColorM3 = changeColorM3;
 window.slideM3 = slideM3;
 window.changeColorM6 = changeColorM6;
