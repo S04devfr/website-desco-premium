@@ -1,10 +1,12 @@
 /**
  * DESCO.PREMIUM — JAVASCRIPT
- * Ketma-ket mahsulotlar, Ranglar tanlash, Swipe, Nasiya kalkulyatori va Telegram bot
+ * Mahsulotlar almashishi, Ranglar palitrasi, Touch Swipe, Nasiya kalkulyatori va Telegram Lead Integratsiyasi
  */
 
 const TG_BOT_CONFIG = {
-  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
+  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',    // @webdesco_bot (Asosiy Bot)
+  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k', // @crmhisobchi_bot (CRM Bot)
+  chatIds: ['6710023395'], // Asosiy qabul qiluvchi Admin / Guruh Chat ID
   botUsername: 'webdesco_bot'
 };
 
@@ -245,7 +247,7 @@ function initMobileNav() {
   });
 }
 
-/* ─── 9. FORM & TELEGRAM DISPATCH ─── */
+/* ─── 9. FORM & TELEGRAM LEAD DISPATCH ─── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -266,55 +268,86 @@ function showSuccessNotice(customerName) {
     </div>
   `;
 
-  setTimeout(() => { notice.classList.add('open'); }, 100);
-  setTimeout(() => { notice.classList.remove('open'); }, 6500);
+  setTimeout(() => { notice.classList.add('open'); }, 50);
+  setTimeout(() => { notice.classList.remove('open'); }, 7000);
 }
 
 async function sendLeadToTelegramBot(lead) {
-  const message = `
-🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Tashkent' });
+  const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Tashkent' });
 
-👤 <b>Xaridor:</b> ${lead.name}
-📞 <b>Telefon:</b> <code>${lead.phone}</code>
-📦 <b>Model:</b> ${lead.product}
-💳 <b>To'lov turi:</b> ${lead.plan}
-🕒 <b>Vaqt:</b> ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}
+  const message = `
+🛍 <b>YANGI BUYURTMA — DESCO.PREMIUM LEAD</b>
+
+👤 <b>Mijoz:</b> ${lead.name || "Noma'lum"}
+📞 <b>Telefon:</b> <code>${lead.phone || "Kiritilmadi"}</code>
+📦 <b>Mahsulot:</b> ${lead.product || "Massajer"}
+💳 <b>To'lov turi:</b> ${lead.plan || "Nasiya"}
+🌐 <b>Manba:</b> Desco Landing Sayti
+🕒 <b>Vaqt:</b> ${dateStr} | ${timeStr}
 
 ⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
   `.trim();
 
+  // Target chat IDs: configured admin IDs + any cached chats
+  const targetChatIds = new Set(TG_BOT_CONFIG.chatIds);
+
+  // Restore remembered chats
   try {
-    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`);
+    const saved = localStorage.getItem('desco_lead_chats');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) parsed.forEach(id => targetChatIds.add(id));
+    }
+  } catch (e) {}
+
+  // Check getUpdates to discover any newly started chats
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`, { signal: controller.signal });
+    clearTimeout(timeoutId);
     const updatesData = await updatesRes.json();
-    
-    const targetChatIds = new Set();
 
     if (updatesData.ok && Array.isArray(updatesData.result)) {
       updatesData.result.forEach(u => {
-        if (u.message && u.message.chat && u.message.chat.id) {
-          targetChatIds.add(u.message.chat.id);
-        } else if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) {
-          targetChatIds.add(u.my_chat_member.chat.id);
-        }
+        if (u.message && u.message.chat && u.message.chat.id) targetChatIds.add(u.message.chat.id);
+        if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) targetChatIds.add(u.my_chat_member.chat.id);
       });
+      localStorage.setItem('desco_lead_chats', JSON.stringify(Array.from(targetChatIds)));
     }
+  } catch (e) {}
 
-    if (targetChatIds.size > 0) {
-      for (const chatId of targetChatIds) {
-        fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'HTML'
-          })
-        }).catch(err => console.error('Send error for chat:', chatId, err));
-      }
+  // Dispatch to all configured Telegram bots
+  const botTokens = [TG_BOT_CONFIG.botToken, TG_BOT_CONFIG.crmBotToken].filter(Boolean);
+  const sendPromises = [];
+
+  for (const botToken of botTokens) {
+    for (const chatId of targetChatIds) {
+      const p = fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML'
+        })
+      }).catch(err => console.error(`Telegram Bot Dispatch Error [${chatId}]:`, err));
+      sendPromises.push(p);
     }
-  } catch (err) {
-    console.error('Telegram Bot Dispatch Error:', err);
   }
+
+  // Also notify server backend if available
+  try {
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lead)
+    }).catch(() => {});
+  } catch (e) {}
+
+  await Promise.allSettled(sendPromises);
 }
 
 function initForms() {
@@ -340,18 +373,29 @@ function initForms() {
     leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = leadForm.querySelector('button[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...'; }
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Yuborilmoqda...</span>';
+      }
 
-      const name = document.getElementById('userName').value.trim();
-      const phone = document.getElementById('userPhone').value.trim();
+      const name = document.getElementById('userName')?.value?.trim() || '';
+      const phone = document.getElementById('userPhone')?.value?.trim() || '';
       const productSelect = document.getElementById('userProduct');
-      const product = productSelect.options[productSelect.selectedIndex].text;
-      const plan = document.getElementById('userPlan').options[document.getElementById('userPlan').selectedIndex].text;
+      const product = productSelect ? productSelect.options[productSelect.selectedIndex].text : '';
+      const planSelect = document.getElementById('userPlan');
+      const plan = planSelect ? planSelect.options[planSelect.selectedIndex].text : '';
 
-      await sendLeadToTelegramBot({ name, phone, product, plan });
+      try {
+        await sendLeadToTelegramBot({ name, phone, product, plan });
+      } catch (sendErr) {
+        console.error('Lead submission error:', sendErr);
+      }
 
       leadForm.reset();
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>'; }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>';
+      }
 
       showSuccessNotice(name);
     });
