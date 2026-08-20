@@ -1,6 +1,6 @@
 /**
- * DESCO.PREMIUM — MAIN JAVASCRIPT & UNIFIED HERO SHOWCASE
- * High-Definition Color Switching, Live Anatomical Leg Simulator, Compact Footer & Telegram Dispatch
+ * DESCO.PREMIUM — JAVASCRIPT
+ * Touch Swipe, Arrow Slider, Ranglar tanlash, Nasiya va Telegram bot
  */
 
 const TG_BOT_CONFIG = {
@@ -8,80 +8,43 @@ const TG_BOT_CONFIG = {
   botUsername: 'webdesco_bot'
 };
 
-// Global State
-let activeModelKey = 'gold'; // 'gold' (3-func), 'silver' (6-func), 'gift' (To'plam)
-let currentColorIndex = 0;
-let activeNasiyaPlanMonths = '12';
+/* ─── 1. MAHSULOT RANG MA'LUMOTLARI (ORIGINAL RASMLAR) ─── */
+const COLORS_M3 = [
+  { name: "Seriy (Metallic Silver)", img: "img/model3-silver.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model3-black.jpg" },
+  { name: "Tillo rang (Champagne Gold)", img: "img/model3-gold.jpg" }
+];
 
-const MODEL_COLOR_DATA = {
-  gold: [
-    { name: "Tillo rang (Champagne Gold)", img: "img/color-3-gold.png" },
-    { name: "Seriy (Metallic Silver)", img: "img/color-3-silver.png" },
-    { name: "Qora (Obsidian Black)", img: "img/color-3-black.png" },
-    { name: "Qizil (Ruby Red Edition)", img: "img/color-3-red.png" }
-  ],
-  silver: [
-    { name: "Seriy (Silver Edition)", img: "img/color-6-silver.png" },
-    { name: "Qora (Obsidian Black)", img: "img/color-6-black.png" },
-    { name: "Tillo (Champagne Gold)", img: "img/color-6-gold.png" }
-  ],
-  gift: [
-    { name: "Qora Premium Qutida", img: "img/gift-product-trans.png" }
-  ]
-};
+const COLORS_M6 = [
+  { name: "Tillo rang (Champagne Gold)", img: "img/model6-gold.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model6-black.jpg" },
+  { name: "Seriy (Silver Edition)", img: "img/model6-silver.jpg" }
+];
 
-const PRICING_DATA = {
-  gold: {
-    title: "3-Funksiyalik Oyoq Massajeri",
-    p3: "563,000 so'm/oy",
-    p6: "303,000 so'm/oy",
-    p12: "163,000 so'm/oy",
-    badgePrice: "Oyiga 163,000 so'mdan (12 oy nasiya)",
-    cash: "1,300,000 so'm",
-    code: "3ta-gold"
-  },
-  silver: {
-    title: "6-Funksiyalik Oyoq Massajeri",
-    p3: "780,000 so'm/oy",
-    p6: "420,000 so'm/oy",
-    p12: "225,000 so'm/oy",
-    badgePrice: "Oyiga 225,000 so'mdan (12 oy nasiya)",
-    cash: "1,800,000 so'm",
-    code: "6ta-silver"
-  },
-  gift: {
-    title: "Desco.premium 5-in-1 Hadiya To'plami",
-    p3: "1,516,000 so'm/oy",
-    p6: "816,000 so'm/oy",
-    p12: "437,000 so'm/oy",
-    badgePrice: "Oyiga 437,000 so'mdan (12 oy nasiya)",
-    cash: "3,500,000 so'm",
-    code: "gift-set"
-  }
-};
+let currentIndexM3 = 0;
+let currentIndexM6 = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
-  initRogCarousel();
   initFaqAccordion();
   initForms();
-  updateNasiyaCardUI();
+  initTouchSwipe();
 });
 
-/* ── 1. HEADER SCROLL EFFECT ── */
+/* ─── 2. HEADER SCROLL ─── */
 function initHeader() {
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      header.classList.add('scrolled');
+    if (window.scrollY > 20) {
+      header?.classList.add('scrolled');
     } else {
-      header.classList.remove('scrolled');
+      header?.classList.remove('scrolled');
     }
   }, { passive: true });
 }
 
-/* ── 2. BULLETPROOF MOBILE DRAWER NAVIGATION ── */
+/* ─── 3. MOBILE DRAWER NAV ─── */
 function initMobileNav() {
   const toggle = document.getElementById('mobileToggle');
   const nav = document.getElementById('nav');
@@ -91,30 +54,19 @@ function initMobileNav() {
 
   function openNav(e) {
     if (e) e.preventDefault();
-    nav.classList.add('open');
-    overlay.classList.add('open');
-    toggle.classList.add('active');
+    nav?.classList.add('open');
+    overlay?.classList.add('open');
     document.body.classList.add('menu-open');
   }
 
   function closeNav(e) {
     if (e) e.preventDefault();
-    nav.classList.remove('open');
-    overlay.classList.remove('open');
-    toggle.classList.remove('active');
+    nav?.classList.remove('open');
+    overlay?.classList.remove('open');
     document.body.classList.remove('menu-open');
   }
 
-  if (toggle) {
-    toggle.addEventListener('click', (e) => {
-      if (nav.classList.contains('open')) {
-        closeNav(e);
-      } else {
-        openNav(e);
-      }
-    });
-  }
-
+  if (toggle) toggle.addEventListener('click', openNav);
   if (closeBtn) closeBtn.addEventListener('click', closeNav);
   if (overlay) overlay.addEventListener('click', closeNav);
 
@@ -127,251 +79,127 @@ function initMobileNav() {
   });
 }
 
-/* ── 3. EXPANDABLE NASIYA PRICING CARD TOGGLE ── */
-function toggleNasiyaCard() {
-  const card = document.getElementById('expandableNasiyaCard');
-  const toggleBtn = document.getElementById('btnNasiyaToggle');
+/* ─── 4. COLOR SWITCHING & SLIDING ─── */
+function changeColorM3(idx) {
+  currentIndexM3 = idx;
+  const item = COLORS_M3[idx];
+  if (!item) return;
 
-  if (card && toggleBtn) {
-    const isOpen = card.classList.contains('open');
-    if (isOpen) {
-      card.classList.remove('open');
-      toggleBtn.classList.remove('active');
-    } else {
-      card.classList.add('open');
-      toggleBtn.classList.add('active');
-      updateNasiyaCardUI();
-    }
+  const pic = document.getElementById('picM3');
+  const cap = document.getElementById('colorCapM3');
+  const row = document.getElementById('swatchesRowM3');
+
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      if (i === idx) p.classList.add('active');
+      else p.classList.remove('active');
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.style.opacity = '0.5';
+    pic.style.transform = 'scale(0.97)';
+    setTimeout(() => {
+      pic.src = item.img;
+      pic.style.opacity = '1';
+      pic.style.transform = 'scale(1)';
+    }, 100);
   }
 }
 
-function selectNasiyaPlan(months) {
-  activeNasiyaPlanMonths = months;
-  const boxes = document.querySelectorAll('.nasiya-plan-box');
-  boxes.forEach(b => b.classList.remove('active'));
-
-  if (months === '3') boxes[0]?.classList.add('active');
-  if (months === '6') boxes[1]?.classList.add('active');
-  if (months === '12') boxes[2]?.classList.add('active');
+function slideM3(dir) {
+  let next = (currentIndexM3 + dir + COLORS_M3.length) % COLORS_M3.length;
+  changeColorM3(next);
 }
 
-function updateNasiyaCardUI() {
-  const p = PRICING_DATA[activeModelKey];
-  const cData = MODEL_COLOR_DATA[activeModelKey][currentColorIndex];
+function changeColorM6(idx) {
+  currentIndexM6 = idx;
+  const item = COLORS_M6[idx];
+  if (!item) return;
 
-  const titleEl = document.getElementById('nasiyaModelTitle');
-  const colorTagEl = document.getElementById('nasiyaModelColorTag');
-  const badgeText = document.getElementById('heroLiveBadgeText');
-  const val3 = document.getElementById('nasiyaVal3');
-  const val6 = document.getElementById('nasiyaVal6');
-  const val12 = document.getElementById('nasiyaVal12');
-  const cashVal = document.getElementById('nasiyaCashVal');
+  const pic = document.getElementById('picM6');
+  const cap = document.getElementById('colorCapM6');
+  const row = document.getElementById('swatchesRowM6');
 
-  if (titleEl) titleEl.textContent = p.title;
-  if (badgeText) badgeText.textContent = p.badgePrice;
-  if (colorTagEl && cData) colorTagEl.innerHTML = `<i class="fas fa-palette gold-icon"></i> Tanlangan rang: ${cData.name}`;
-  
-  if (val3) val3.innerHTML = `${p.p3.split(' ')[0]} <small>so'm/oy</small>`;
-  if (val6) val6.innerHTML = `${p.p6.split(' ')[0]} <small>so'm/oy</small>`;
-  if (val12) val12.innerHTML = `${p.p12.split(' ')[0]} <small>so'm/oy</small>`;
-  if (cashVal) cashVal.textContent = p.cash;
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      if (i === idx) p.classList.add('active');
+      else p.classList.remove('active');
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.style.opacity = '0.5';
+    pic.style.transform = 'scale(0.97)';
+    setTimeout(() => {
+      pic.src = item.img;
+      pic.style.opacity = '1';
+      pic.style.transform = 'scale(1)';
+    }, 100);
+  }
 }
 
-/* ── 4. ROG/APPLE STYLE SWIPEABLE COLOR CAROUSEL ── */
-function initRogCarousel() {
-  const container = document.getElementById('rogCarouselContainer');
-  if (!container) return;
+function slideM6(dir) {
+  let next = (currentIndexM6 + dir + COLORS_M6.length) % COLORS_M6.length;
+  changeColorM6(next);
+}
+
+/* ─── 5. TOUCH SWIPE (MOBILE & DESKTOP GESTURES) ─── */
+function initTouchSwipe() {
+  addSwipeListener('stageM3', slideM3);
+  addSwipeListener('stageM6', slideM6);
+}
+
+function addSwipeListener(elementId, callback) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
 
   let touchStartX = 0;
   let touchEndX = 0;
 
-  container.addEventListener('touchstart', (e) => {
+  el.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
   }, { passive: true });
 
-  container.addEventListener('touchend', (e) => {
+  el.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, { passive: true });
-
-  function handleSwipe() {
     const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) > 40) {
+    if (Math.abs(diff) > 35) {
       if (diff < 0) {
-        carouselSlide(1);
+        callback(1); // Swipe left -> Next
       } else {
-        carouselSlide(-1);
+        callback(-1); // Swipe right -> Prev
       }
     }
-  }
+  }, { passive: true });
 }
 
-function selectDemoModel(model) {
-  activeModelKey = model;
-  currentColorIndex = 0;
+/* ─── 6. NASIYA ACCORDION TOGGLE ─── */
+function toggleNasiyaAccordion(boxId, btnEl) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
 
-  const tabGold = document.getElementById('demoTabGold');
-  const tabSilver = document.getElementById('demoTabSilver');
-  const tabGift = document.getElementById('demoTabGift');
-
-  const swatches3 = document.getElementById('swatches3Func');
-  const swatches6 = document.getElementById('swatches6Func');
-  const swatchesGift = document.getElementById('swatchesGift');
-
-  [tabGold, tabSilver, tabGift].forEach(t => t?.classList.remove('active'));
-
-  if (model === 'gold') {
-    tabGold?.classList.add('active');
-    swatches3.style.display = 'flex';
-    swatches6.style.display = 'none';
-    swatchesGift.style.display = 'none';
-  } else if (model === 'silver') {
-    tabSilver?.classList.add('active');
-    swatches3.style.display = 'none';
-    swatches6.style.display = 'flex';
-    swatchesGift.style.display = 'none';
+  const isOpen = box.classList.contains('open');
+  if (isOpen) {
+    box.classList.remove('open');
+    btnEl?.classList.remove('active');
   } else {
-    tabGift?.classList.add('active');
-    swatches3.style.display = 'none';
-    swatches6.style.display = 'none';
-    swatchesGift.style.display = 'flex';
-  }
-
-  updateCarouselUI();
-  updateNasiyaCardUI();
-}
-
-function setCarouselColor(index) {
-  currentColorIndex = index;
-  updateCarouselUI();
-  updateNasiyaCardUI();
-}
-
-function carouselSlide(dir) {
-  const colors = MODEL_COLOR_DATA[activeModelKey];
-  if (!colors) return;
-  
-  currentColorIndex = (currentColorIndex + dir + colors.length) % colors.length;
-  updateCarouselUI();
-  updateNasiyaCardUI();
-}
-
-function updateCarouselUI() {
-  const colors = MODEL_COLOR_DATA[activeModelKey];
-  if (!colors || !colors[currentColorIndex]) return;
-
-  const currentItem = colors[currentColorIndex];
-  const simImg = document.getElementById('heroProductPic');
-  
-  let swatchesGroup = document.getElementById('swatches3Func');
-  if (activeModelKey === 'silver') swatchesGroup = document.getElementById('swatches6Func');
-
-  if (swatchesGroup && activeModelKey !== 'gift') {
-    const btns = swatchesGroup.querySelectorAll('.swatch-btn');
-    btns.forEach((b, idx) => {
-      if (idx === currentColorIndex) {
-        b.classList.add('active');
-      } else {
-        b.classList.remove('active');
-      }
-    });
-  }
-
-  if (simImg) {
-    simImg.style.opacity = '0.7';
-    simImg.style.transform = 'scale(0.97)';
-    
-    setTimeout(() => {
-      simImg.src = currentItem.img;
-      simImg.style.opacity = '1';
-      simImg.style.transform = 'scale(1)';
-    }, 120);
+    box.classList.add('open');
+    btnEl?.classList.add('active');
   }
 }
 
-/* ── 5. LIVE MASSAGE SIMULATOR ENGINE ── */
-let isSimulatorRunning = false;
-let simulatorTimerInterval = null;
-let simulatorPressureInterval = null;
-let currentSeconds = 900;
-
-function toggleLiveMassage() {
-  const arena = document.getElementById('demoStageArena');
-  const toggleBtn = document.getElementById('btnLiveToggle');
-  const toggleText = document.getElementById('toggleText');
-  const toggleIcon = document.getElementById('toggleIcon');
-  const hudStatus = document.getElementById('hudStatus');
-  const hudStatusText = document.getElementById('hudStatusText');
-  const pressureVal = document.getElementById('pressureVal');
-  const timerVal = document.getElementById('timerVal');
-  const modeVal = document.getElementById('modeVal');
-
-  const phase1 = document.getElementById('phase1');
-  const phase2 = document.getElementById('phase2');
-  const phase3 = document.getElementById('phase3');
-
-  isSimulatorRunning = !isSimulatorRunning;
-
-  if (isSimulatorRunning) {
-    if (arena) arena.classList.add('running');
-    if (toggleBtn) toggleBtn.classList.add('running');
-    if (toggleText) toggleText.textContent = "Massajni To'xtatish";
-    if (toggleIcon) toggleIcon.className = "fas fa-stop";
-    if (hudStatus) hudStatus.classList.add('active');
-    if (hudStatusText) hudStatusText.textContent = "MASSAJ JARAYONI FAOL";
-    if (modeVal) modeVal.textContent = "3D Airbag & Rolik";
-
-    let pStep = 0;
-    const pressures = [38, 54, 68, 82, 60, 32, 48, 75, 86, 64, 35];
-    simulatorPressureInterval = setInterval(() => {
-      pStep = (pStep + 1) % pressures.length;
-      if (pressureVal) pressureVal.textContent = pressures[pStep] + " kPa";
-
-      if (pStep < 4) {
-        phase1?.classList.add('active');
-        phase2?.classList.remove('active');
-        phase3?.classList.remove('active');
-      } else if (pStep < 8) {
-        phase1?.classList.remove('active');
-        phase2?.classList.add('active');
-        phase3?.classList.remove('active');
-      } else {
-        phase1?.classList.remove('active');
-        phase2?.classList.remove('active');
-        phase3?.classList.add('active');
-      }
-    }, 1200);
-
-    simulatorTimerInterval = setInterval(() => {
-      if (currentSeconds > 0) {
-        currentSeconds--;
-        const m = Math.floor(currentSeconds / 60);
-        const s = currentSeconds % 60;
-        if (timerVal) timerVal.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-      }
-    }, 1000);
-
-  } else {
-    if (arena) arena.classList.remove('running');
-    if (toggleBtn) toggleBtn.classList.remove('running');
-    if (toggleText) toggleText.textContent = "Massajni Ishga Tushirish";
-    if (toggleIcon) toggleIcon.className = "fas fa-play";
-    if (hudStatus) hudStatus.classList.remove('active');
-    if (hudStatusText) hudStatusText.textContent = "KUTISH REJIMI";
-    if (pressureVal) pressureVal.textContent = "0 kPa";
-    if (modeVal) modeVal.textContent = "Avtomatik Massaj";
-
-    clearInterval(simulatorPressureInterval);
-    clearInterval(simulatorTimerInterval);
-    currentSeconds = 900;
-    if (timerVal) timerVal.textContent = "15:00";
-    phase1?.classList.add('active');
-    phase2?.classList.remove('active');
-    phase3?.classList.remove('active');
-  }
-}
-
-/* ── 6. SMOOTH SCROLL TO CONTACT LEAD FORM WITH PREFILL ── */
+/* ─── 7. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -389,19 +217,7 @@ function scrollToContact(productCode) {
   }
 }
 
-function scrollToContactWithPrefill() {
-  const pData = PRICING_DATA[activeModelKey];
-  scrollToContact(pData ? pData.code : 'all');
-
-  const userPlan = document.getElementById('userPlan');
-  if (userPlan) {
-    if (activeNasiyaPlanMonths === '12') userPlan.value = '12-oy';
-    if (activeNasiyaPlanMonths === '6') userPlan.value = '6-oy';
-    if (activeNasiyaPlanMonths === '3') userPlan.value = '3-oy';
-  }
-}
-
-/* ── 7. FAQ ACCORDION ── */
+/* ─── 8. FAQ ACCORDION ─── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -416,7 +232,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ── 8. DIRECT TELEGRAM BOT LEAD DISPATCH ── */
+/* ─── 9. FORM & TELEGRAM DISPATCH ─── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -522,7 +338,7 @@ function initForms() {
       await sendLeadToTelegramBot({ name, phone, product, plan });
 
       leadForm.reset();
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<span class="btn-shine"></span><i class="fas fa-paper-plane"></i> <span>Buyurtmani Yuborish</span>'; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<span class="btn-shine"></span><i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>'; }
 
       showSuccessNotice(name);
     });
