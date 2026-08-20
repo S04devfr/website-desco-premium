@@ -1,18 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════════
-   DESCO.PREMIUM — YORQIN LUXURY VA MOBILGA TO'LIQ MOSLASHGAN DIZAYN
+   DESCO.PREMIUM — YORQIN LUXURY VA SODDA MOBIL MOSLASHGAN DIZAYN
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── 1. CSS VARIABLES & DESIGN TOKENS ─── */
+/* ─── 1. DESIGN TOKENS ─── */
 :root {
-  --bg-body: #F9F9FB;
+  --bg-body: #F8F9FA;
   --bg-card: #FFFFFF;
-  --bg-card-subtle: #F3F4F6;
+  --bg-subtle: #F3F4F6;
   --bg-hero: linear-gradient(180deg, #FFFFFF 0%, #F5F3EF 100%);
   
   --gold-primary: #C59A27;
   --gold-light: #DFB748;
   --gold-dark: #9A7416;
-  --gold-glow: rgba(197, 154, 39, 0.2);
   --gold-gradient: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #AA7C11 100%);
   --gold-bg-subtle: rgba(197, 154, 39, 0.08);
   
@@ -128,7 +127,6 @@ input, select {
   font-weight: 700;
   border-radius: var(--radius-full);
   position: relative;
-  overflow: hidden;
   transition: var(--tr-smooth);
 }
 
@@ -172,19 +170,7 @@ input, select {
 }
 
 .btn-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transform: skewX(-25deg);
-  animation: shine-loop 4s infinite;
-}
-
-@keyframes shine-loop {
-  0%, 60% { left: -100%; }
-  100% { left: 200%; }
+  display: none;
 }
 
 .luxury-pill {
@@ -208,7 +194,7 @@ input, select {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-card);
@@ -345,7 +331,7 @@ input, select {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: var(--bg-card-subtle);
+  background: var(--bg-subtle);
 }
 
 .mobile-toggle span {
@@ -587,7 +573,7 @@ input, select {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1.5px solid var(--border-card);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   color: var(--text-main);
@@ -636,7 +622,7 @@ input, select {
 /* Swatches Controls */
 .swatches-container {
   width: 100%;
-  background: var(--bg-card-subtle);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-md);
   padding: 12px 14px;
@@ -699,7 +685,6 @@ input, select {
 .swatch-gold { background: #D4AF37; }
 .swatch-silver { background: #C0C0C0; }
 .swatch-black { background: #1C1C1C; }
-.swatch-red { background: #9E1B32; }
 
 .selected-color-caption {
   font-size: 0.84rem;
@@ -1045,7 +1030,7 @@ input, select {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--bg-card-subtle);
+  background: var(--bg-subtle);
   color: var(--gold-dark);
   display: flex;
   align-items: center;
@@ -1498,7 +1483,7 @@ input, select {
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: var(--bg-card-subtle);
+    background: var(--bg-subtle);
     color: var(--text-main);
     display: flex;
     align-items: center;
