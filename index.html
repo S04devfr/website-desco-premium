@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Desco.premium — Professional Oyoq Massajerlari</title>
   <meta name="description" content="Desco.premium — Ota-onangiz va butun oilangiz salomatligi uchun professional oyoq massajerlari. 1 ta tugmada boshqaruv, 12 oylik 0% nasiya, uyingizgacha bepul yetkazib berish.">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#0E0F12">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
@@ -48,9 +48,8 @@
         
         <div class="nav-links-wrap">
           <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
-          <a href="#prod-3func" class="nav-link"><i class="fas fa-cubes mobile-nav-icon"></i> 3-Funksiyalik</a>
-          <a href="#prod-6func" class="nav-link"><i class="fas fa-gem mobile-nav-icon"></i> 6-Funksiyalik</a>
-          <a href="#prod-gift" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
+          <a href="#products" class="nav-link"><i class="fas fa-cubes mobile-nav-icon"></i> Modellar</a>
+          <a href="#gift-set-details" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> 5-tasi-1 To'plam</a>
           <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> Savol-Javob</a>
           <a href="#contact" class="nav-link"><i class="fas fa-phone mobile-nav-icon"></i> Buyurtma</a>
         </div>
@@ -83,10 +82,12 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
-  <section class="hero" id="hero">
-    <div class="container hero-container">
-      <div class="hero-center-box text-center">
+  <!-- ═══════════════════ 2. HERO SHOWCASE STUDIO ═══════════════════ -->
+  <section class="hero-studio-section" id="hero">
+    <div class="container hero-studio-container">
+      
+      <!-- Hero Copy Column -->
+      <div class="hero-copy-col">
         <div class="hero-brand-badge">
           <span class="badge-dot"></span>
           <span class="hero-badge-brand">DESCO.PREMIUM</span>
@@ -94,21 +95,20 @@
         </div>
 
         <h1 class="hero-title">
-          Ota-onangiz va Butun Oila Uchun<br>
+          Ota-onangiz va O'zingiz Uchun<br>
           <span class="gold-gradient">Shifobaxsh Oyoq Massajerlari</span>
         </h1>
 
         <p class="hero-desc">
-          Har oqshom 15 daqiqada oyoq, boldir va tovon og'riqlarini qoldiradi, uyquni yaxshilaydi. <strong>Boshqarish juda oddiy — bor-yo'g'i 1 ta tugma!</strong>
+          Har oqshom 15 daqiqada oyoq, boldir va tovon og'riqlaridan xalos bo'ling. Qon aylanishini yaxshilaydi, uyquni tiniqlashtiradi. <strong>Boshqarish o'ta sodda — 1 ta tugma bilan!</strong>
         </p>
 
         <div class="hero-cta-group">
-          <a href="#prod-3func" class="btn btn-luxury hero-primary-btn">
-            <span class="btn-shine"></span>
-            <i class="fas fa-cubes"></i>
-            <span>Mahsulotlarni Ko'rish</span>
+          <a href="#contact" class="btn btn-luxury btn-lg">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Buyurtma Berish</span>
           </a>
-          <a href="tel:+998900038060" class="btn btn-outline hero-secondary-btn">
+          <a href="tel:+998900038060" class="btn btn-outline btn-lg">
             <i class="fas fa-phone-alt gold-icon"></i>
             <span>+998 (90) 003-80-60</span>
           </a>
@@ -138,360 +138,341 @@
             </div>
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════ 3. KETMA-KET MAHSULOTLAR ═══════════════════ -->
-  <section class="products-sequence-section" id="products">
-    <div class="container">
-      
-      <!-- ─── 1-MAHSULOT: 3-FUNKSIYALIK (IXCHAM MODEL) ─── -->
-      <div class="product-item-card" id="prod-3func">
-        <div class="product-item-grid">
+      <!-- Hero Interactive Showcase Podium -->
+      <div class="hero-podium-col">
+        <div class="studio-card">
           
-          <!-- Product Visual & Swipeable Stage -->
-          <div class="product-visual-col">
-            <div class="product-badge">Ixcham Model</div>
+          <!-- Model Selector Tabs -->
+          <div class="model-nav-tabs">
+            <button class="model-tab-btn active" id="tabM6" onclick="selectStudioModel('m6')">
+              <i class="fas fa-crown"></i> 6-Funksiyalik (Katta)
+            </button>
+            <button class="model-tab-btn" id="tabM3" onclick="selectStudioModel('m3')">
+              <i class="fas fa-gem"></i> 3-Funksiyalik (Ixcham)
+            </button>
+            <button class="model-tab-btn" id="tabGift" onclick="selectStudioModel('gift')">
+              <i class="fas fa-gift"></i> 5-tasi-1 To'plam
+            </button>
+          </div>
+
+          <!-- Studio Viewport with Arrows & Touch Swipe -->
+          <div class="studio-viewport" id="studioViewport">
+            <button class="viewport-arrow prev" onclick="slideStudio(-1)" aria-label="Oldingi rang">
+              <i class="fas fa-chevron-left"></i>
+            </button>
             
-            <div class="product-stage swipe-stage" id="stageM3">
-              <button class="stage-nav-btn prev" onclick="slideM3(-1)" aria-label="Oldingi rang">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              
-              <div class="stage-img-wrap">
-                <img src="img/model3-silver.jpg" alt="3-Funksiyalik Massajer" class="product-main-pic" id="picM3" loading="eager">
-              </div>
-              
-              <button class="stage-nav-btn next" onclick="slideM3(1)" aria-label="Keyingi rang">
-                <i class="fas fa-chevron-right"></i>
-              </button>
+            <div class="viewport-img-wrap">
+              <img src="img/model6-gold.jpg" alt="Desco Massajer" class="studio-main-pic" id="studioPic" loading="eager">
             </div>
-            
-            <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
-            
-            <!-- Color Selector Bar (3 ta original rang) -->
-            <div class="swatches-container">
-              <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
-              <div class="swatches-row" id="swatchesRowM3">
-                <button class="swatch-pill active" onclick="changeColorM3(0)">
-                  <span class="swatch-dot swatch-silver"></span>
-                  <span>Seriy</span>
-                </button>
-                <button class="swatch-pill" onclick="changeColorM3(1)">
-                  <span class="swatch-dot swatch-black"></span>
-                  <span>Qora</span>
-                </button>
-                <button class="swatch-pill" onclick="changeColorM3(2)">
-                  <span class="swatch-dot swatch-gold"></span>
-                  <span>Tillo</span>
-                </button>
-              </div>
-              <div class="selected-color-caption" id="colorCapM3">Tanlangan rang: <strong>Seriy (Metallic Silver)</strong></div>
+
+            <button class="viewport-arrow next" onclick="slideStudio(1)" aria-label="Keyingi rang">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="studio-swipe-hint">
+            <i class="fas fa-arrows-left-right"></i> Rangni almashtirish uchun o'ng/chapga suring
+          </div>
+
+          <!-- Color Swatches Bar -->
+          <div class="studio-swatches-box" id="studioSwatchesBox">
+            <div class="swatches-label"><i class="fas fa-palette gold-icon"></i> Mavjud ranglar:</div>
+            <div class="swatches-pills-row" id="studioSwatchesRow">
+              <!-- Dynamically rendered by JS -->
+            </div>
+            <div class="current-color-tag" id="studioColorCaption">Tanlangan rang: <strong>Tillo rang (Champagne Gold)</strong></div>
+          </div>
+
+          <!-- Studio Pricing & Nasiya Bar -->
+          <div class="studio-price-bar">
+            <div class="studio-price-left">
+              <span class="studio-price-sub">Bir martalik naqd narxi:</span>
+              <strong class="studio-price-main" id="studioCashPrice">1,800,000 <small>so'm</small></strong>
+            </div>
+            <div class="studio-price-right">
+              <span class="studio-nasiya-sub">12 oylik nasiya bilan:</span>
+              <strong class="studio-nasiya-main" id="studioMonthlyPrice">225,000 so'm/oy</strong>
             </div>
           </div>
 
-          <!-- Product Info & Pricing & Nasiya -->
-          <div class="product-info-col">
-            <h2 class="product-title">3-Funksiyalik Oyoq Massajeri</h2>
-            <p class="product-tagline">Ixcham, qulay va har kungi charchoqni olish uchun a'lo tanlov.</p>
+          <!-- Studio Action -->
+          <div class="studio-actions-row">
+            <button onclick="orderCurrentStudioModel()" class="btn btn-luxury btn-full">
+              <i class="fas fa-shopping-bag"></i>
+              <span id="studioOrderBtnText">Ushbu 6-Funksiyalikni Buyurtma Qilish</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 3. MODELLAR TANLOVI (3 TA KARTA) ═══════════════════ -->
+  <section class="products-section" id="products">
+    <div class="container">
+      
+      <div class="section-heading text-center">
+        <span class="luxury-pill">Modellar Tanlovi</span>
+        <h2 class="section-title">
+          Ehtiyojingizga Mos Keluvchi<br>
+          <span class="gold-gradient">Desco Massajer Modellari</span>
+        </h2>
+        <p class="section-subtitle">O'zingiz yoki yaqinlaringiz uchun eng qulay modelni tanlang</p>
+      </div>
+
+      <div class="models-grid">
+        
+        <!-- 1. 3-Funksiyalik (Ixcham Model) -->
+        <div class="model-card">
+          <div class="m-card-badge">Ixcham Model</div>
+          <div class="m-card-img-box">
+            <img src="img/model3-silver.jpg" alt="3-Funksiyalik Massajer" class="m-card-pic">
+          </div>
+          <div class="m-card-body">
+            <h3 class="m-card-title">3-Funksiyalik Massajer</h3>
+            <p class="m-card-desc">Har kungi charchoqni olish, yengil va ixcham model.</p>
             
-            <div class="product-price-highlight">
-              <div class="price-cash-wrap">
-                <span class="price-label">Bir martalik naqd narxi:</span>
-                <strong class="price-amount">1,300,000 <small>so'm</small></strong>
-              </div>
-              <div class="price-monthly-badge">
-                <span>12 oylik nasiya bilan:</span>
-                <strong>163,000 so'm/oy</strong>
-              </div>
+            <div class="m-card-price-box">
+              <div class="m-cash-price">1,300,000 <small>so'm</small></div>
+              <div class="m-monthly-price">163,000 so'm/oy (12 oy)</div>
             </div>
 
-            <!-- Quick Specs -->
-            <div class="product-specs-list">
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>3D Havo Yostiqchalari:</strong> Boldir va kaftni mayin siqib qon aylantiradi</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Rolikli Akupunktur:</strong> Tovon va kaft osti biologik nuqtalarini uvalaydi</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Shifobaxsh Isitish:</strong> Sovuq qotgan oyoqlarni ilitib, og'riqni qoldiradi</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>1 Tugmada Boshqaruv:</strong> Rozetkaga ulab, 1 ta tugma bilan ishga tushadi</div>
-            </div>
+            <ul class="m-card-specs">
+              <li><i class="fas fa-check gold-icon"></i> 3D Havo yostiqchalari (kaft va tovon)</li>
+              <li><i class="fas fa-check gold-icon"></i> Rolikli akupunktur massaji</li>
+              <li><i class="fas fa-check gold-icon"></i> Shifobaxsh isitish funksiyasi</li>
+              <li><i class="fas fa-check gold-icon"></i> 3 xil rang (Seriy, Qora, Tillo)</li>
+            </ul>
 
-            <!-- Nasiya Pricing Accordion Trigger -->
+            <!-- Nasiya Dropdown -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxM3', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
+                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
-
               <div class="nasiya-accordion-content" id="nasiyaBoxM3">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">563,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">303,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
+                    <span class="plan-head">12 Oyga</span>
                     <strong class="plan-cost gold-text">163,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="product-actions-group">
-              <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-lg">
-                <span class="btn-shine"></span>
-                <i class="fas fa-shopping-bag"></i>
-                <span>3-Funksiyalikni Buyurtma Qilish</span>
-              </button>
-              <a href="tel:+998900038060" class="btn btn-outline">
-                <i class="fas fa-phone-alt gold-icon"></i>
-                <span>Qo'ng'iroq Qilish</span>
-              </a>
-            </div>
-
+            <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-full">
+              <i class="fas fa-shopping-bag"></i> 3-Funksiyalikni Tanlash
+            </button>
           </div>
-
         </div>
-      </div>
 
-      <!-- ─── 2-MAHSULOT: 6-FUNKSIYALIK (KATTA MODEL - FLAGSHIP) ─── -->
-      <div class="product-item-card featured-product-card" id="prod-6func">
-        <div class="product-item-grid">
-          
-          <!-- Product Visual & Swipeable Stage -->
-          <div class="product-visual-col">
-            <div class="product-badge featured-badge-top"><i class="fas fa-crown"></i> Katta Model — Eng Ko'p Tanlanadigan</div>
-            
-            <div class="product-stage swipe-stage" id="stageM6">
-              <button class="stage-nav-btn prev" onclick="slideM6(-1)" aria-label="Oldingi rang">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              
-              <div class="stage-img-wrap">
-                <img src="img/model6-gold.jpg" alt="6-Funksiyalik Katta Massajer" class="product-main-pic" id="picM6" loading="eager">
-              </div>
-              
-              <button class="stage-nav-btn next" onclick="slideM6(1)" aria-label="Keyingi rang">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
-            
-            <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
-            
-            <!-- Color Selector Bar (3 ta original rang: Tillo, Qora, Seriy) -->
-            <div class="swatches-container">
-              <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
-              <div class="swatches-row" id="swatchesRowM6">
-                <button class="swatch-pill active" onclick="changeColorM6(0)">
-                  <span class="swatch-dot swatch-gold"></span>
-                  <span>Tillo</span>
-                </button>
-                <button class="swatch-pill" onclick="changeColorM6(1)">
-                  <span class="swatch-dot swatch-black"></span>
-                  <span>Qora</span>
-                </button>
-                <button class="swatch-pill" onclick="changeColorM6(2)">
-                  <span class="swatch-dot swatch-silver"></span>
-                  <span>Seriy</span>
-                </button>
-              </div>
-              <div class="selected-color-caption" id="colorCapM6">Tanlangan rang: <strong>Tillo rang (Champagne Gold)</strong></div>
-            </div>
+        <!-- 2. 6-Funksiyalik (Katta Model - Flagman) -->
+        <div class="model-card featured-model-card">
+          <div class="m-card-badge featured-badge"><i class="fas fa-crown"></i> Eng Ko'p Tanlanadigan</div>
+          <div class="m-card-img-box">
+            <img src="img/model6-gold.jpg" alt="6-Funksiyalik Katta Massajer" class="m-card-pic">
           </div>
-
-          <!-- Product Info & Pricing & Nasiya -->
-          <div class="product-info-col">
-            <div class="featured-model-tag"><i class="fas fa-star gold-icon"></i> Professional Flagman Model</div>
-            <h2 class="product-title">6-Funksiyalik Oyoq Massajeri (Katta Model)</h2>
-            <p class="product-tagline">Boldirni yuqorigacha to'liq qamrab oluvchi, chuqur akupunktur va kuchaytirilgan havo bosimi.</p>
+          <div class="m-card-body">
+            <div class="featured-top-label"><i class="fas fa-star gold-icon"></i> Professional Flagman</div>
+            <h3 class="m-card-title">6-Funksiyalik (Katta Model)</h3>
+            <p class="m-card-desc">Boldirni to'liq qamrab oluvchi, chuqur akupunktur va kuchaytirilgan havo bosimi.</p>
             
-            <div class="product-price-highlight featured-price-box">
-              <div class="price-cash-wrap">
-                <span class="price-label">Bir martalik naqd narxi:</span>
-                <strong class="price-amount gold-text">1,800,000 <small>so'm</small></strong>
-              </div>
-              <div class="price-monthly-badge gold-bg-badge">
-                <span>12 oylik nasiya bilan:</span>
-                <strong>225,000 so'm/oy</strong>
-              </div>
+            <div class="m-card-price-box gold-price-box">
+              <div class="m-cash-price gold-text">1,800,000 <small>so'm</small></div>
+              <div class="m-monthly-price">225,000 so'm/oy (12 oy)</div>
             </div>
 
-            <!-- Quick Specs -->
-            <div class="product-specs-list">
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Katta Qamrov:</strong> Boldir mushaklarini yuqorigacha to'liq siqib, dimlanishni yo'qotadi</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>6 Xil Massaj Rejimi:</strong> Mayin uvalashdan tortib kuchli chuqur massajgacha</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>60+ Akupunktur Nuqtalari:</strong> Tungi uyquni yaxshilab, asabni tinchlantiradi</div>
-              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Qulay Sensor Panel:</strong> Katta yoshdagi insonlar uchun o'ta oson boshqaruv</div>
-            </div>
+            <ul class="m-card-specs">
+              <li><i class="fas fa-check gold-icon"></i> Boldirni yuqorigacha to'liq qamrab oladi</li>
+              <li><i class="fas fa-check gold-icon"></i> 6 xil avtomatik professional rejim</li>
+              <li><i class="fas fa-check gold-icon"></i> 60+ Akupunktur nuqtalariga chuqur ta'sir</li>
+              <li><i class="fas fa-check gold-icon"></i> 3 xil rang (Tillo, Qora, Seriy)</li>
+            </ul>
 
-            <!-- Nasiya Pricing Accordion Trigger -->
+            <!-- Nasiya Dropdown -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn active" onclick="toggleNasiyaAccordion('nasiyaBoxM6', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
+                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
-
               <div class="nasiya-accordion-content open" id="nasiyaBoxM6">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">780,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">420,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
+                    <span class="plan-head">12 Oyga</span>
                     <strong class="plan-cost gold-text">225,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="product-actions-group">
-              <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-lg">
-                <span class="btn-shine"></span>
-                <i class="fas fa-shopping-bag"></i>
-                <span>6-Funksiyalikni Buyurtma Qilish</span>
-              </button>
-              <a href="tel:+998900038060" class="btn btn-outline">
-                <i class="fas fa-phone-alt gold-icon"></i>
-                <span>Qo'ng'iroq Qilish</span>
-              </a>
-            </div>
-
+            <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-full">
+              <i class="fas fa-shopping-bag"></i> 6-Funksiyalikni Tanlash
+            </button>
           </div>
-
         </div>
-      </div>
 
-      <!-- ─── 3-MAHSULOT: 5-TASI-1 HADIYA TO'PLAMI ─── -->
-      <div class="product-item-card" id="prod-gift">
-        <div class="product-item-grid">
-          
-          <!-- Product Visual -->
-          <div class="product-visual-col">
-            <div class="product-badge gift-badge-top"><i class="fas fa-gift"></i> Butun Tana Uchun Majmua</div>
-            <div class="product-stage">
-              <div class="stage-img-wrap">
-                <img src="img/gift-product-trans.png" alt="Desco.premium Hadiya To'plami" class="product-main-pic" loading="eager">
-              </div>
-            </div>
-            <div class="gift-box-quote">"Ota-onangiz duosini oling — butun oila uchun sog'lik va orom tuhfasi!"</div>
+        <!-- 3. 5-tasi-1 Desco.premium Hadiya To'plami -->
+        <div class="model-card">
+          <div class="m-card-badge gift-badge"><i class="fas fa-gift"></i> Butun Oila Uchun</div>
+          <div class="m-card-img-box">
+            <img src="img/gift-product-trans.png" alt="5-tasi-1 To'plam" class="m-card-pic">
           </div>
-
-          <!-- Product Info & 5 Devices List -->
-          <div class="product-info-col">
-            <h2 class="product-title">5-tasi-1 Desco.premium Hadiya To'plami</h2>
-            <p class="product-tagline">1 ta qutida 5 ta to'liq professional massaj qurilmasi (Tizza, Bo'yin, Ko'z, Bel, Bosh).</p>
+          <div class="m-card-body">
+            <h3 class="m-card-title">5-tasi-1 Hadiya To'plami</h3>
+            <p class="m-card-desc">1 ta qutida butun tana uchun 5 ta to'liq professional massajer.</p>
             
-            <div class="product-price-highlight">
-              <div class="price-cash-wrap">
-                <span class="price-label">Bir martalik naqd narxi:</span>
-                <strong class="price-amount">3,500,000 <small>so'm</small></strong>
-              </div>
-              <div class="price-monthly-badge">
-                <span>12 oylik nasiya bilan:</span>
-                <strong>437,000 so'm/oy</strong>
-              </div>
+            <div class="m-card-price-box">
+              <div class="m-cash-price">3,500,000 <small>so'm</small></div>
+              <div class="m-monthly-price">437,000 so'm/oy (12 oy)</div>
             </div>
 
-            <!-- 5 Included Devices -->
-            <div class="gift-mini-devices-grid">
-              <div class="mini-device-item">
-                <i class="fas fa-shoe-prints gold-icon"></i>
-                <div><strong>1. Tizza massajori</strong><span>Sensor panel va 3D havo massaji</span></div>
-              </div>
-              <div class="mini-device-item">
-                <i class="fas fa-head-side-couch gold-icon"></i>
-                <div><strong>2. Bo'yin Massajeri (U-simon)</strong><span>Bo'yin va yelka qotishini yozadi</span></div>
-              </div>
-              <div class="mini-device-item">
-                <i class="fas fa-eye gold-icon"></i>
-                <div><strong>3. Ko'z Massajeri</strong><span>Bosh og'rig'i va charchoqni oladi</span></div>
-              </div>
-              <div class="mini-device-item">
-                <i class="fas fa-user-shield gold-icon"></i>
-                <div><strong>4. Bel va Tana Massajeri</strong><span>Umurtqa va bel mushaklariga</span></div>
-              </div>
-              <div class="mini-device-item full-mini-dev">
-                <i class="fas fa-bullseye gold-icon"></i>
-                <div><strong>5. Bosh massajori</strong><span>Bosh og'rig'i va charchoqni oladi</span></div>
-              </div>
-            </div>
+            <ul class="m-card-specs">
+              <li><i class="fas fa-check gold-icon"></i> 1. Tizza massajori</li>
+              <li><i class="fas fa-check gold-icon"></i> 2. Bo'yin massajeri (U-simon)</li>
+              <li><i class="fas fa-check gold-icon"></i> 3. Ko'z massajeri</li>
+              <li><i class="fas fa-check gold-icon"></i> 4. Bel va tana massajeri</li>
+              <li><i class="fas fa-check gold-icon"></i> 5. Bosh massajori</li>
+            </ul>
 
-            <!-- Nasiya Pricing Accordion Trigger -->
+            <!-- Nasiya Dropdown -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxGift', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy va kelishilgan holda)</span>
+                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
-
               <div class="nasiya-accordion-content" id="nasiyaBoxGift">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">1,516,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">816,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
+                    <span class="plan-head">12 Oyga</span>
                     <strong class="plan-cost gold-text">437,000 <small>so'm/oy</small></strong>
-                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="product-actions-group">
-              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg">
-                <span class="btn-shine"></span>
+            <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-full">
+              <i class="fas fa-gift"></i> To'plamni Tanlash
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ 4. 5-TASI-1 HADIYA TO'PLAMI TAFSILOTLARI ═══════════════════ -->
+  <section class="gift-details-section" id="gift-set-details">
+    <div class="container">
+      <div class="gift-details-card">
+        <div class="gift-details-grid">
+          
+          <div class="gift-col-visual">
+            <span class="luxury-pill"><i class="fas fa-gift"></i> Premium Hadiya</span>
+            <h2 class="gift-title">5-tasi-1 Desco.premium Hadiya To'plami</h2>
+            <p class="gift-desc">Ota-onangiz duosini oling — 1 ta katta qutida butun oila salomatligi uchun to'liq majmua!</p>
+            <div class="gift-big-img-wrap">
+              <img src="img/gift-product-trans.png" alt="5 ta massajer to'plami" class="gift-big-pic">
+            </div>
+          </div>
+
+          <div class="gift-col-devices">
+            <div class="mini-devices-grid">
+              
+              <div class="device-card">
+                <div class="dev-icon"><i class="fas fa-shoe-prints"></i></div>
+                <div class="dev-info">
+                  <h4>1. Tizza Massajori</h4>
+                  <p>Sensor boshqaruv va 3D havo bosimi bilan tizza va boldirni uvalaydi.</p>
+                </div>
+              </div>
+
+              <div class="device-card">
+                <div class="dev-icon"><i class="fas fa-head-side-couch"></i></div>
+                <div class="dev-info">
+                  <h4>2. Bo'yin Massajeri (U-simon)</h4>
+                  <p>Bo'yin, yelka qotishini yozadi, bosh og'rig'ini yo'qotadi.</p>
+                </div>
+              </div>
+
+              <div class="device-card">
+                <div class="dev-icon"><i class="fas fa-eye"></i></div>
+                <div class="dev-info">
+                  <h4>3. Ko'z Massajeri</h4>
+                  <p>Ko'z toliqishi, qizarishi va peshona bosimini yumshatadi.</p>
+                </div>
+              </div>
+
+              <div class="device-card">
+                <div class="dev-icon"><i class="fas fa-user-shield"></i></div>
+                <div class="dev-info">
+                  <h4>4. Bel va Tana Massajeri</h4>
+                  <p>Umurtqa va bel mushaklaridagi og'riqlarni ilitib bosadi.</p>
+                </div>
+              </div>
+
+              <div class="device-card full-dev">
+                <div class="dev-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="dev-info">
+                  <h4>5. Bosh Massajori</h4>
+                  <p>Bosh og'rig'i va asabiy charchoqni bir zumda yengillashtiradi.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="gift-cta-wrap">
+              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg btn-full">
                 <i class="fas fa-gift"></i>
-                <span>To'plamni Buyurtma Qilish</span>
+                <span>5-tasi-1 Hadiya To'plamini Buyurtma Qilish</span>
               </button>
-              <a href="tel:+998900038060" class="btn btn-outline">
-                <i class="fas fa-phone-alt gold-icon"></i>
-                <span>Qo'ng'iroq Qilish</span>
-              </a>
             </div>
 
           </div>
 
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════ 4. FAQ (SAVOL-JAVOB) ═══════════════════ -->
+  <!-- ═══════════════════ 5. FAQ (SAVOL-JAVOB) ═══════════════════ -->
   <section class="faq-section" id="faq">
     <div class="container">
       <div class="section-heading text-center">
@@ -548,7 +529,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. SIMPLE QUICK ORDER & CONTACT ═══════════════════ -->
+  <!-- ═══════════════════ 6. BUYURTMA VA ALOQA ═══════════════════ -->
   <section class="contact-section" id="contact">
     <div class="container">
       <div class="lead-wrapper">
@@ -627,7 +608,6 @@
             </div>
 
             <button type="submit" class="btn btn-luxury btn-full btn-submit">
-              <span class="btn-shine"></span>
               <i class="fas fa-paper-plane"></i>
               <span>Buyurtmani Tasdiqlash</span>
             </button>
@@ -639,7 +619,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 6. CLEAN FOOTER ═══════════════════ -->
+  <!-- ═══════════════════ 7. FOOTER ═══════════════════ -->
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand-col">
@@ -660,9 +640,9 @@
       <div class="footer-col">
         <h4 class="f-col-title">Mahsulotlar</h4>
         <ul class="f-links">
-          <li><a href="#prod-3func">3-Funksiyalik Massajer</a></li>
-          <li><a href="#prod-6func">6-Funksiyalik Massajer</a></li>
-          <li><a href="#prod-gift">5-tasi-1 Hadiya To'plami</a></li>
+          <li><a href="#products">3-Funksiyalik Massajer</a></li>
+          <li><a href="#products">6-Funksiyalik Massajer</a></li>
+          <li><a href="#gift-set-details">5-tasi-1 Hadiya To'plami</a></li>
         </ul>
       </div>
 

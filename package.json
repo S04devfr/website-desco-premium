@@ -1,0 +1,12 @@
+{
+  "name": "website-desco-premium",
+  "version": "2.0.0",
+  "description": "Desco.premium — Professional Oyoq Massajerlari Landing Page",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["desco", "massage", "landing"],
+  "author": "Desco",
+  "license": "ISC"
+}
