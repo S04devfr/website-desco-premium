@@ -24,15 +24,182 @@ const COLORS_M6 = [
 let currentIndexM3 = 0;
 let currentIndexM6 = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-  initHeader();
-  initMobileNav();
-  initFaqAccordion();
-  initForms();
-  initTouchSwipe();
-});
+/* ─── 2. COLOR SWITCHING & SLIDING (3-FUNKSIYALIK) ─── */
+function changeColorM3(idx) {
+  currentIndexM3 = (idx + COLORS_M3.length) % COLORS_M3.length;
+  const item = COLORS_M3[currentIndexM3];
+  if (!item) return;
 
-/* ─── 2. HEADER SCROLL ─── */
+  const pic = document.getElementById('picM3');
+  const cap = document.getElementById('colorCapM3');
+  const row = document.getElementById('swatchesRowM3');
+  const dots = document.getElementById('dotsM3');
+
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      p.classList.toggle('active', i === currentIndexM3);
+    });
+  }
+
+  if (dots) {
+    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
+    dotEls.forEach((d, i) => {
+      d.classList.toggle('active', i === currentIndexM3);
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.src = item.img;
+  }
+}
+
+function slideM3(dir) {
+  changeColorM3(currentIndexM3 + dir);
+}
+
+/* ─── 3. COLOR SWITCHING & SLIDING (6-FUNKSIYALIK) ─── */
+function changeColorM6(idx) {
+  currentIndexM6 = (idx + COLORS_M6.length) % COLORS_M6.length;
+  const item = COLORS_M6[currentIndexM6];
+  if (!item) return;
+
+  const pic = document.getElementById('picM6');
+  const cap = document.getElementById('colorCapM6');
+  const row = document.getElementById('swatchesRowM6');
+  const dots = document.getElementById('dotsM6');
+
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      p.classList.toggle('active', i === currentIndexM6);
+    });
+  }
+
+  if (dots) {
+    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
+    dotEls.forEach((d, i) => {
+      d.classList.toggle('active', i === currentIndexM6);
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.src = item.img;
+  }
+}
+
+function slideM6(dir) {
+  changeColorM6(currentIndexM6 + dir);
+}
+
+/* ─── 4. TOUCH SWIPE & MOUSE DRAG GESTURES ─── */
+function addSwipeListener(elementId, callback) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  let startX = 0;
+  let isDown = false;
+
+  // Touch events
+  el.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  el.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].screenX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > 30) {
+      if (diff < 0) {
+        callback(1); // Swipe left -> Next
+      } else {
+        callback(-1); // Swipe right -> Prev
+      }
+    }
+  }, { passive: true });
+
+  // Mouse drag events (Desktop)
+  el.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.screenX;
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (!isDown) return;
+    isDown = false;
+    const endX = e.screenX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        callback(1);
+      } else {
+        callback(-1);
+      }
+    }
+  });
+}
+
+function initTouchSwipe() {
+  addSwipeListener('stageM3', slideM3);
+  addSwipeListener('stageM6', slideM6);
+}
+
+/* ─── 5. NASIYA ACCORDION TOGGLE ─── */
+function toggleNasiyaAccordion(boxId, btnEl) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const isOpen = box.classList.contains('open');
+  if (isOpen) {
+    box.classList.remove('open');
+    btnEl?.classList.remove('active');
+  } else {
+    box.classList.add('open');
+    btnEl?.classList.add('active');
+  }
+}
+
+/* ─── 6. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
+function scrollToContact(productCode) {
+  const contactSec = document.getElementById('contact');
+  const userProduct = document.getElementById('userProduct');
+  const userName = document.getElementById('userName');
+
+  if (userProduct && productCode) {
+    userProduct.value = productCode;
+  }
+
+  if (contactSec) {
+    contactSec.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if (userName) userName.focus();
+    }, 600);
+  }
+}
+
+/* ─── 7. FAQ ACCORDION ─── */
+function initFaqAccordion() {
+  const cards = document.querySelectorAll('.faq-card');
+  cards.forEach(card => {
+    const btn = card.querySelector('.faq-header-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const isOpen = card.classList.contains('active');
+        cards.forEach(c => c.classList.remove('active'));
+        if (!isOpen) card.classList.add('active');
+      });
+    }
+  });
+}
+
+/* ─── 8. HEADER SCROLL & MOBILE NAV ─── */
 function initHeader() {
   const header = document.getElementById('header');
   window.addEventListener('scroll', () => {
@@ -44,7 +211,6 @@ function initHeader() {
   }, { passive: true });
 }
 
-/* ─── 3. MOBILE DRAWER NAV ─── */
 function initMobileNav() {
   const toggle = document.getElementById('mobileToggle');
   const nav = document.getElementById('nav');
@@ -79,161 +245,7 @@ function initMobileNav() {
   });
 }
 
-/* ─── 4. COLOR SWITCHING & SLIDING (3-FUNKSIYALIK) ─── */
-function changeColorM3(idx) {
-  currentIndexM3 = idx;
-  const item = COLORS_M3[idx];
-  if (!item) return;
-
-  const pic = document.getElementById('picM3');
-  const cap = document.getElementById('colorCapM3');
-  const row = document.getElementById('swatchesRowM3');
-
-  if (row) {
-    const pills = row.querySelectorAll('.swatch-pill');
-    pills.forEach((p, i) => {
-      if (i === idx) p.classList.add('active');
-      else p.classList.remove('active');
-    });
-  }
-
-  if (cap) {
-    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
-  }
-
-  if (pic) {
-    pic.style.opacity = '0.5';
-    pic.style.transform = 'scale(0.97)';
-    setTimeout(() => {
-      pic.src = item.img;
-      pic.style.opacity = '1';
-      pic.style.transform = 'scale(1)';
-    }, 80);
-  }
-}
-
-function slideM3(dir) {
-  let next = (currentIndexM3 + dir + COLORS_M3.length) % COLORS_M3.length;
-  changeColorM3(next);
-}
-
-/* ─── 5. COLOR SWITCHING & SLIDING (6-FUNKSIYALIK) ─── */
-function changeColorM6(idx) {
-  currentIndexM6 = idx;
-  const item = COLORS_M6[idx];
-  if (!item) return;
-
-  const pic = document.getElementById('picM6');
-  const cap = document.getElementById('colorCapM6');
-  const row = document.getElementById('swatchesRowM6');
-
-  if (row) {
-    const pills = row.querySelectorAll('.swatch-pill');
-    pills.forEach((p, i) => {
-      if (i === idx) p.classList.add('active');
-      else p.classList.remove('active');
-    });
-  }
-
-  if (cap) {
-    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
-  }
-
-  if (pic) {
-    pic.style.opacity = '0.5';
-    pic.style.transform = 'scale(0.97)';
-    setTimeout(() => {
-      pic.src = item.img;
-      pic.style.opacity = '1';
-      pic.style.transform = 'scale(1)';
-    }, 80);
-  }
-}
-
-function slideM6(dir) {
-  let next = (currentIndexM6 + dir + COLORS_M6.length) % COLORS_M6.length;
-  changeColorM6(next);
-}
-
-/* ─── 6. TOUCH SWIPE GESTURES ─── */
-function initTouchSwipe() {
-  addSwipeListener('stageM3', slideM3);
-  addSwipeListener('stageM6', slideM6);
-}
-
-function addSwipeListener(elementId, callback) {
-  const el = document.getElementById(elementId);
-  if (!el) return;
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  el.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-
-  el.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchEndX - touchStartX;
-    if (Math.abs(diff) > 35) {
-      if (diff < 0) {
-        callback(1); // Swipe left -> Next
-      } else {
-        callback(-1); // Swipe right -> Prev
-      }
-    }
-  }, { passive: true });
-}
-
-/* ─── 7. NASIYA ACCORDION TOGGLE ─── */
-function toggleNasiyaAccordion(boxId, btnEl) {
-  const box = document.getElementById(boxId);
-  if (!box) return;
-
-  const isOpen = box.classList.contains('open');
-  if (isOpen) {
-    box.classList.remove('open');
-    btnEl?.classList.remove('active');
-  } else {
-    box.classList.add('open');
-    btnEl?.classList.add('active');
-  }
-}
-
-/* ─── 8. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
-function scrollToContact(productCode) {
-  const contactSec = document.getElementById('contact');
-  const userProduct = document.getElementById('userProduct');
-  const userName = document.getElementById('userName');
-
-  if (userProduct && productCode) {
-    userProduct.value = productCode;
-  }
-
-  if (contactSec) {
-    contactSec.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-      if (userName) userName.focus();
-    }, 600);
-  }
-}
-
-/* ─── 9. FAQ ACCORDION ─── */
-function initFaqAccordion() {
-  const cards = document.querySelectorAll('.faq-card');
-  cards.forEach(card => {
-    const btn = card.querySelector('.faq-header-btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const isOpen = card.classList.contains('active');
-        cards.forEach(c => c.classList.remove('active'));
-        if (!isOpen) card.classList.add('active');
-      });
-    }
-  });
-}
-
-/* ─── 10. FORM & TELEGRAM DISPATCH ─── */
+/* ─── 9. FORM & TELEGRAM DISPATCH ─── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {
@@ -345,3 +357,19 @@ function initForms() {
     });
   }
 }
+
+// Global scope bindings
+window.changeColorM3 = changeColorM3;
+window.slideM3 = slideM3;
+window.changeColorM6 = changeColorM6;
+window.slideM6 = slideM6;
+window.toggleNasiyaAccordion = toggleNasiyaAccordion;
+window.scrollToContact = scrollToContact;
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHeader();
+  initMobileNav();
+  initFaqAccordion();
+  initForms();
+  initTouchSwipe();
+});

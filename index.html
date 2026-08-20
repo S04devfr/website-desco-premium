@@ -19,7 +19,7 @@
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Embedded Critical Stylesheet (Prevents unstyled flash on Railway / CDNs) -->
+  <!-- Embedded Stylesheet -->
   <style>
 /* ═══════════════════════════════════════════════════════════════════
    DESCO.PREMIUM — YORQIN LUXURY VA SODDA TUSHUNARLI DIZAYN
@@ -568,6 +568,11 @@ input, select {
   position: relative;
   user-select: none;
   touch-action: pan-y;
+  cursor: grab;
+}
+
+.product-stage:active {
+  cursor: grabbing;
 }
 
 .stage-img-wrap {
@@ -586,7 +591,7 @@ input, select {
   height: auto;
   object-fit: contain;
   border-radius: 8px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
   pointer-events: none;
 }
 
@@ -622,6 +627,28 @@ input, select {
 
 .stage-nav-btn.next {
   right: 6px;
+}
+
+.stage-indicators-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stage-dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-card);
+  transition: var(--tr-fast);
+}
+
+.stage-dot-indicator.active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--gold-primary);
 }
 
 .swipe-hint-text {
@@ -1801,7 +1828,7 @@ input, select {
             <div class="product-badge">Ixcham Model</div>
             
             <div class="product-stage swipe-stage" id="stageM3">
-              <button class="stage-nav-btn prev" onclick="slideM3(-1)" aria-label="Oldingi rang">
+              <button class="stage-nav-btn prev" onclick="slideM3(-1)" aria-label="Oldingi rang" type="button">
                 <i class="fas fa-chevron-left"></i>
               </button>
               
@@ -1809,9 +1836,16 @@ input, select {
                 <img src="img/model3-silver.jpg" alt="3-Funksiyalik Massajer" class="product-main-pic" id="picM3" loading="eager">
               </div>
               
-              <button class="stage-nav-btn next" onclick="slideM3(1)" aria-label="Keyingi rang">
+              <button class="stage-nav-btn next" onclick="slideM3(1)" aria-label="Keyingi rang" type="button">
                 <i class="fas fa-chevron-right"></i>
               </button>
+            </div>
+            
+            <!-- Indicators Dots -->
+            <div class="stage-indicators-row" id="dotsM3">
+              <span class="stage-dot-indicator active"></span>
+              <span class="stage-dot-indicator"></span>
+              <span class="stage-dot-indicator"></span>
             </div>
             
             <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
@@ -1820,15 +1854,15 @@ input, select {
             <div class="swatches-container">
               <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
               <div class="swatches-row" id="swatchesRowM3">
-                <button class="swatch-pill active" onclick="changeColorM3(0)">
+                <button class="swatch-pill active" onclick="changeColorM3(0)" type="button">
                   <span class="swatch-dot swatch-silver"></span>
                   <span>Seriy</span>
                 </button>
-                <button class="swatch-pill" onclick="changeColorM3(1)">
+                <button class="swatch-pill" onclick="changeColorM3(1)" type="button">
                   <span class="swatch-dot swatch-black"></span>
                   <span>Qora</span>
                 </button>
-                <button class="swatch-pill" onclick="changeColorM3(2)">
+                <button class="swatch-pill" onclick="changeColorM3(2)" type="button">
                   <span class="swatch-dot swatch-gold"></span>
                   <span>Tillo</span>
                 </button>
@@ -1863,7 +1897,7 @@ input, select {
 
             <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
-              <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxM3', this)">
+              <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxM3', this)" type="button">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
                   <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
@@ -1894,7 +1928,7 @@ input, select {
 
             <!-- Action Buttons -->
             <div class="product-actions-group">
-              <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-lg">
+              <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-lg" type="button">
                 <i class="fas fa-shopping-bag"></i>
                 <span>3-Funksiyalikni Buyurtma Qilish</span>
               </button>
@@ -1918,7 +1952,7 @@ input, select {
             <div class="product-badge featured-badge-top"><i class="fas fa-crown"></i> Katta Model — Eng Ko'p Tanlanadigan</div>
             
             <div class="product-stage swipe-stage" id="stageM6">
-              <button class="stage-nav-btn prev" onclick="slideM6(-1)" aria-label="Oldingi rang">
+              <button class="stage-nav-btn prev" onclick="slideM6(-1)" aria-label="Oldingi rang" type="button">
                 <i class="fas fa-chevron-left"></i>
               </button>
               
@@ -1926,9 +1960,16 @@ input, select {
                 <img src="img/model6-gold.jpg" alt="6-Funksiyalik Katta Massajer" class="product-main-pic" id="picM6" loading="eager">
               </div>
               
-              <button class="stage-nav-btn next" onclick="slideM6(1)" aria-label="Keyingi rang">
+              <button class="stage-nav-btn next" onclick="slideM6(1)" aria-label="Keyingi rang" type="button">
                 <i class="fas fa-chevron-right"></i>
               </button>
+            </div>
+
+            <!-- Indicators Dots -->
+            <div class="stage-indicators-row" id="dotsM6">
+              <span class="stage-dot-indicator active"></span>
+              <span class="stage-dot-indicator"></span>
+              <span class="stage-dot-indicator"></span>
             </div>
             
             <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
@@ -1937,15 +1978,15 @@ input, select {
             <div class="swatches-container">
               <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
               <div class="swatches-row" id="swatchesRowM6">
-                <button class="swatch-pill active" onclick="changeColorM6(0)">
+                <button class="swatch-pill active" onclick="changeColorM6(0)" type="button">
                   <span class="swatch-dot swatch-gold"></span>
                   <span>Tillo</span>
                 </button>
-                <button class="swatch-pill" onclick="changeColorM6(1)">
+                <button class="swatch-pill" onclick="changeColorM6(1)" type="button">
                   <span class="swatch-dot swatch-black"></span>
                   <span>Qora</span>
                 </button>
-                <button class="swatch-pill" onclick="changeColorM6(2)">
+                <button class="swatch-pill" onclick="changeColorM6(2)" type="button">
                   <span class="swatch-dot swatch-silver"></span>
                   <span>Seriy</span>
                 </button>
@@ -1981,7 +2022,7 @@ input, select {
 
             <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
-              <button class="nasiya-accordion-btn active" onclick="toggleNasiyaAccordion('nasiyaBoxM6', this)">
+              <button class="nasiya-accordion-btn active" onclick="toggleNasiyaAccordion('nasiyaBoxM6', this)" type="button">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
                   <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
@@ -2012,7 +2053,7 @@ input, select {
 
             <!-- Action Buttons -->
             <div class="product-actions-group">
-              <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-lg">
+              <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-lg" type="button">
                 <i class="fas fa-shopping-bag"></i>
                 <span>6-Funksiyalikni Buyurtma Qilish</span>
               </button>
@@ -2084,7 +2125,7 @@ input, select {
 
             <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
-              <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxGift', this)">
+              <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxGift', this)" type="button">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
                   <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy va kelishilgan holda)</span>
@@ -2115,7 +2156,7 @@ input, select {
 
             <!-- Action Buttons -->
             <div class="product-actions-group">
-              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg">
+              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg" type="button">
                 <i class="fas fa-gift"></i>
                 <span>To'plamni Buyurtma Qilish</span>
               </button>
@@ -2147,7 +2188,7 @@ input, select {
       <div class="faq-accordion-box">
         
         <div class="faq-card active">
-          <button class="faq-header-btn">
+          <button class="faq-header-btn" type="button">
             <span class="faq-q-text">1. Ota-onam o'zlari mustaqil ishlata oladilarmi?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
@@ -2157,7 +2198,7 @@ input, select {
         </div>
 
         <div class="faq-card">
-          <button class="faq-header-btn">
+          <button class="faq-header-btn" type="button">
             <span class="faq-q-text">2. Nasiyaga olish uchun qanday hujjatlar kerak?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
@@ -2167,7 +2208,7 @@ input, select {
         </div>
 
         <div class="faq-card">
-          <button class="faq-header-btn">
+          <button class="faq-header-btn" type="button">
             <span class="faq-q-text">3. Kafolat beriladimi va buzilib qolsa nima bo'ladi?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
@@ -2177,7 +2218,7 @@ input, select {
         </div>
 
         <div class="faq-card">
-          <button class="faq-header-btn">
+          <button class="faq-header-btn" type="button">
             <span class="faq-q-text">4. Yetkazib berish qanday bo'ladi? Pulni qachon to'laymiz?</span>
             <div class="faq-icon-wrap"><i class="fas fa-chevron-down"></i></div>
           </button>
@@ -2345,7 +2386,385 @@ input, select {
     </a>
   </div>
 
-  <!-- Main JavaScript -->
+  <!-- Embedded & External JavaScript -->
+  <script>
+/**
+ * DESCO.PREMIUM — JAVASCRIPT
+ * Ketma-ket mahsulotlar, Ranglar tanlash, Swipe, Nasiya kalkulyatori va Telegram bot
+ */
+
+const TG_BOT_CONFIG = {
+  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
+  botUsername: 'webdesco_bot'
+};
+
+/* ─── 1. MAHSULOT RANG MA'LUMOTLARI (ASL RASMLAR) ─── */
+const COLORS_M3 = [
+  { name: "Seriy (Metallic Silver)", img: "img/model3-silver.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model3-black.jpg" },
+  { name: "Tillo rang (Champagne Gold)", img: "img/model3-gold.jpg" }
+];
+
+const COLORS_M6 = [
+  { name: "Tillo rang (Champagne Gold)", img: "img/model6-gold.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model6-black.jpg" },
+  { name: "Seriy (Silver Edition)", img: "img/model6-silver.jpg" }
+];
+
+let currentIndexM3 = 0;
+let currentIndexM6 = 0;
+
+/* ─── 2. COLOR SWITCHING & SLIDING (3-FUNKSIYALIK) ─── */
+function changeColorM3(idx) {
+  currentIndexM3 = (idx + COLORS_M3.length) % COLORS_M3.length;
+  const item = COLORS_M3[currentIndexM3];
+  if (!item) return;
+
+  const pic = document.getElementById('picM3');
+  const cap = document.getElementById('colorCapM3');
+  const row = document.getElementById('swatchesRowM3');
+  const dots = document.getElementById('dotsM3');
+
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      p.classList.toggle('active', i === currentIndexM3);
+    });
+  }
+
+  if (dots) {
+    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
+    dotEls.forEach((d, i) => {
+      d.classList.toggle('active', i === currentIndexM3);
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.src = item.img;
+  }
+}
+
+function slideM3(dir) {
+  changeColorM3(currentIndexM3 + dir);
+}
+
+/* ─── 3. COLOR SWITCHING & SLIDING (6-FUNKSIYALIK) ─── */
+function changeColorM6(idx) {
+  currentIndexM6 = (idx + COLORS_M6.length) % COLORS_M6.length;
+  const item = COLORS_M6[currentIndexM6];
+  if (!item) return;
+
+  const pic = document.getElementById('picM6');
+  const cap = document.getElementById('colorCapM6');
+  const row = document.getElementById('swatchesRowM6');
+  const dots = document.getElementById('dotsM6');
+
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      p.classList.toggle('active', i === currentIndexM6);
+    });
+  }
+
+  if (dots) {
+    const dotEls = dots.querySelectorAll('.stage-dot-indicator');
+    dotEls.forEach((d, i) => {
+      d.classList.toggle('active', i === currentIndexM6);
+    });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.src = item.img;
+  }
+}
+
+function slideM6(dir) {
+  changeColorM6(currentIndexM6 + dir);
+}
+
+/* ─── 4. TOUCH SWIPE & MOUSE DRAG GESTURES ─── */
+function addSwipeListener(elementId, callback) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  let startX = 0;
+  let isDown = false;
+
+  // Touch events
+  el.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  el.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].screenX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > 30) {
+      if (diff < 0) {
+        callback(1); // Swipe left -> Next
+      } else {
+        callback(-1); // Swipe right -> Prev
+      }
+    }
+  }, { passive: true });
+
+  // Mouse drag events (Desktop)
+  el.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.screenX;
+  });
+
+  window.addEventListener('mouseup', (e) => {
+    if (!isDown) return;
+    isDown = false;
+    const endX = e.screenX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > 40) {
+      if (diff < 0) {
+        callback(1);
+      } else {
+        callback(-1);
+      }
+    }
+  });
+}
+
+function initTouchSwipe() {
+  addSwipeListener('stageM3', slideM3);
+  addSwipeListener('stageM6', slideM6);
+}
+
+/* ─── 5. NASIYA ACCORDION TOGGLE ─── */
+function toggleNasiyaAccordion(boxId, btnEl) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const isOpen = box.classList.contains('open');
+  if (isOpen) {
+    box.classList.remove('open');
+    btnEl?.classList.remove('active');
+  } else {
+    box.classList.add('open');
+    btnEl?.classList.add('active');
+  }
+}
+
+/* ─── 6. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
+function scrollToContact(productCode) {
+  const contactSec = document.getElementById('contact');
+  const userProduct = document.getElementById('userProduct');
+  const userName = document.getElementById('userName');
+
+  if (userProduct && productCode) {
+    userProduct.value = productCode;
+  }
+
+  if (contactSec) {
+    contactSec.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if (userName) userName.focus();
+    }, 600);
+  }
+}
+
+/* ─── 7. FAQ ACCORDION ─── */
+function initFaqAccordion() {
+  const cards = document.querySelectorAll('.faq-card');
+  cards.forEach(card => {
+    const btn = card.querySelector('.faq-header-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const isOpen = card.classList.contains('active');
+        cards.forEach(c => c.classList.remove('active'));
+        if (!isOpen) card.classList.add('active');
+      });
+    }
+  });
+}
+
+/* ─── 8. HEADER SCROLL & MOBILE NAV ─── */
+function initHeader() {
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }, { passive: true });
+}
+
+function initMobileNav() {
+  const toggle = document.getElementById('mobileToggle');
+  const nav = document.getElementById('nav');
+  const overlay = document.getElementById('navOverlay');
+  const closeBtn = document.getElementById('mobileCloseBtn');
+  const links = document.querySelectorAll('.nav-link');
+
+  function openNav(e) {
+    if (e) e.preventDefault();
+    nav?.classList.add('open');
+    overlay?.classList.add('open');
+    document.body.classList.add('menu-open');
+  }
+
+  function closeNav(e) {
+    if (e) e.preventDefault();
+    nav?.classList.remove('open');
+    overlay?.classList.remove('open');
+    document.body.classList.remove('menu-open');
+  }
+
+  if (toggle) toggle.addEventListener('click', openNav);
+  if (closeBtn) closeBtn.addEventListener('click', closeNav);
+  if (overlay) overlay.addEventListener('click', closeNav);
+
+  links.forEach(l => {
+    l.addEventListener('click', () => {
+      closeNav();
+      links.forEach(x => x.classList.remove('active'));
+      l.classList.add('active');
+    });
+  });
+}
+
+/* ─── 9. FORM & TELEGRAM DISPATCH ─── */
+function showSuccessNotice(customerName) {
+  let notice = document.getElementById('leadSuccessNotice');
+  if (!notice) {
+    notice = document.createElement('div');
+    notice.id = 'leadSuccessNotice';
+    notice.className = 'lead-success-popup';
+    document.body.appendChild(notice);
+  }
+
+  notice.innerHTML = `
+    <div class="success-popup-card">
+      <div class="success-popup-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Rahmat, ${customerName || "Hurmatli mijoz"}!</h3>
+      <p>Buyurtmangiz muvaffaqiyatli qabul qilindi. <strong>5 daqiqa ichida</strong> mutaxassisimiz siz bilan bog'lanadi!</p>
+      <button type="button" class="btn btn-luxury btn-full" onclick="document.getElementById('leadSuccessNotice').classList.remove('open')">
+        Tushundim
+      </button>
+    </div>
+  `;
+
+  setTimeout(() => { notice.classList.add('open'); }, 100);
+  setTimeout(() => { notice.classList.remove('open'); }, 6500);
+}
+
+async function sendLeadToTelegramBot(lead) {
+  const message = `
+🛍 <b>YANGI BUYURTMA (Desco.premium)</b>
+
+👤 <b>Xaridor:</b> ${lead.name}
+📞 <b>Telefon:</b> <code>${lead.phone}</code>
+📦 <b>Model:</b> ${lead.product}
+💳 <b>To'lov turi:</b> ${lead.plan}
+🕒 <b>Vaqt:</b> ${new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' })}
+
+⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
+  `.trim();
+
+  try {
+    const updatesRes = await fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/getUpdates`);
+    const updatesData = await updatesRes.json();
+    
+    const targetChatIds = new Set();
+
+    if (updatesData.ok && Array.isArray(updatesData.result)) {
+      updatesData.result.forEach(u => {
+        if (u.message && u.message.chat && u.message.chat.id) {
+          targetChatIds.add(u.message.chat.id);
+        } else if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) {
+          targetChatIds.add(u.my_chat_member.chat.id);
+        }
+      });
+    }
+
+    if (targetChatIds.size > 0) {
+      for (const chatId of targetChatIds) {
+        fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: 'HTML'
+          })
+        }).catch(err => console.error('Send error for chat:', chatId, err));
+      }
+    }
+  } catch (err) {
+    console.error('Telegram Bot Dispatch Error:', err);
+  }
+}
+
+function initForms() {
+  const phoneInputs = document.querySelectorAll('input[type="tel"]');
+  phoneInputs.forEach(inp => {
+    inp.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (!v.startsWith('998')) v = '998' + v;
+      if (v.length > 12) v = v.substring(0, 12);
+      
+      let formatted = '+998 ';
+      if (v.length > 3) formatted += '(' + v.substring(3, 5);
+      if (v.length >= 5) formatted += ') ' + v.substring(5, 8);
+      if (v.length >= 8) formatted += '-' + v.substring(8, 10);
+      if (v.length >= 10) formatted += '-' + v.substring(10, 12);
+
+      e.target.value = formatted;
+    });
+  });
+
+  const leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = leadForm.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...'; }
+
+      const name = document.getElementById('userName').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const productSelect = document.getElementById('userProduct');
+      const product = productSelect.options[productSelect.selectedIndex].text;
+      const plan = document.getElementById('userPlan').options[document.getElementById('userPlan').selectedIndex].text;
+
+      await sendLeadToTelegramBot({ name, phone, product, plan });
+
+      leadForm.reset();
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> <span>Buyurtmani Tasdiqlash</span>'; }
+
+      showSuccessNotice(name);
+    });
+  }
+}
+
+// Global scope bindings
+window.changeColorM3 = changeColorM3;
+window.slideM3 = slideM3;
+window.changeColorM6 = changeColorM6;
+window.slideM6 = slideM6;
+window.toggleNasiyaAccordion = toggleNasiyaAccordion;
+window.scrollToContact = scrollToContact;
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHeader();
+  initMobileNav();
+  initFaqAccordion();
+  initForms();
+  initTouchSwipe();
+});
+
+  </script>
   <script src="js/main.js"></script>
 </body>
 </html>

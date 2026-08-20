@@ -545,6 +545,11 @@ input, select {
   position: relative;
   user-select: none;
   touch-action: pan-y;
+  cursor: grab;
+}
+
+.product-stage:active {
+  cursor: grabbing;
 }
 
 .stage-img-wrap {
@@ -563,7 +568,7 @@ input, select {
   height: auto;
   object-fit: contain;
   border-radius: 8px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
   pointer-events: none;
 }
 
@@ -599,6 +604,28 @@ input, select {
 
 .stage-nav-btn.next {
   right: 6px;
+}
+
+.stage-indicators-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stage-dot-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-card);
+  transition: var(--tr-fast);
+}
+
+.stage-dot-indicator.active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--gold-primary);
 }
 
 .swipe-hint-text {
