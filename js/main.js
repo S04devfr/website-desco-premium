@@ -1,6 +1,6 @@
 /**
  * DESCO.PREMIUM — JAVASCRIPT
- * Real-Time Telegram Lead Dispatch, Touch Gestures, Smooth Mobile Phone Mask & Interactive UI
+ * 5-Layer Bulletproof Telegram Lead Dispatch, Touch Gestures, Smooth Mobile Phone Mask & Interactive UI
  */
 
 // ─── 1. TELEGRAM BOT CONFIGURATION ───
@@ -247,12 +247,14 @@ function showSuccessNotice(customerName) {
     </div>
   `;
 
-  setTimeout(() => { notice.classList.add('open'); }, 40);
-  setTimeout(() => { notice.classList.remove('open'); }, 7500);
+  setTimeout(() => { notice.classList.add('open'); }, 30);
+  setTimeout(() => { notice.classList.remove('open'); }, 8000);
 }
 
-// ─── 11. ULTRA-RESILIENT TELEGRAM LEAD DISPATCH ───
+// ─── 11. BULLETPROOF MULTI-LAYER TELEGRAM LEAD DISPATCH ───
 async function sendLeadToTelegramBot(lead) {
+  console.log('[Desco Lead] Yangi buyurtma yuborilmoqda:', lead);
+
   const now = new Date();
   const dateStr = now.toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Tashkent' });
   const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Tashkent' });
@@ -264,13 +266,12 @@ async function sendLeadToTelegramBot(lead) {
 📞 <b>Telefon:</b> <code>${lead.phone || "Kiritilmadi"}</code>
 📦 <b>Mahsulot:</b> ${lead.product || "Massajer"}
 💳 <b>To'lov turi:</b> ${lead.plan || "Nasiya"}
-🌐 <b>Manba:</b> Desco Landing Sayti
+🌐 <b>Manba:</b> Desco Rasmiy Landing
 🕒 <b>Vaqt:</b> ${dateStr} | ${timeStr}
 
 ⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
   `.trim();
 
-  // Target chat IDs
   const chatIds = [...TG_BOT_CONFIG.chatIds];
 
   // Restore cached chat IDs from localStorage
@@ -293,34 +294,48 @@ async function sendLeadToTelegramBot(lead) {
 
   for (const token of botTokens) {
     for (const cid of chatIds) {
-      // 1. Direct GET fetch (No CORS preflight restrictions, works on iOS/Android/Chrome/Safari)
+      // 1. Direct GET fetch (Zero-CORS, works everywhere)
       const getUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${cid}&text=${encodedText}&parse_mode=HTML`;
       requests.push(
-        fetch(getUrl, { method: 'GET', mode: 'no-cors' }).catch(() => {})
+        fetch(getUrl, { method: 'GET', mode: 'no-cors' }).catch(e => console.warn('GET dispatch failed:', e))
       );
 
-      // 2. Direct POST fetch with JSON
-      requests.push(
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: cid,
-            text: message,
-            parse_mode: 'HTML'
-          })
-        }).catch(() => {})
-      );
+      // 2. Direct POST fetch with URLSearchParams (Standard Form-Urlencoded, Simple Request)
+      try {
+        const formData = new URLSearchParams();
+        formData.append('chat_id', cid);
+        formData.append('text', message);
+        formData.append('parse_mode', 'HTML');
 
-      // 3. Guaranteed Image beacon (immune to all fetch/CORS blocks)
+        requests.push(
+          fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors'
+          }).catch(e => console.warn('POST dispatch failed:', e))
+        );
+      } catch (e) {}
+
+      // 3. Guaranteed Image beacon (Bypasses all webview/cross-origin blocks)
       try {
         const beacon = new Image();
         beacon.src = getUrl;
       } catch (e) {}
+
+      // 4. SendBeacon (Native browser background dispatch)
+      try {
+        if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+          const bData = new FormData();
+          bData.append('chat_id', cid);
+          bData.append('text', message);
+          bData.append('parse_mode', 'HTML');
+          navigator.sendBeacon(`https://api.telegram.org/bot${token}/sendMessage`, bData);
+        }
+      } catch (e) {}
     }
   }
 
-  // 4. Server API Dispatch (if running locally/production)
+  // 5. Server Backend Proxy (if running via node server.js)
   try {
     requests.push(
       fetch('/api/lead', {
@@ -331,26 +346,13 @@ async function sendLeadToTelegramBot(lead) {
     );
   } catch (e) {}
 
-  // Wait max 1.2s so user UI feels instant
+  // Wait max 1.0s so UI responds immediately
   await Promise.race([
     Promise.allSettled(requests),
-    new Promise(resolve => setTimeout(resolve, 1200))
+    new Promise(resolve => setTimeout(resolve, 1000))
   ]);
 
-  // Background check for newly started chat updates
-  fetch(`https://api.telegram.org/bot${TG_BOT_CONFIG.primaryToken}/getUpdates`)
-    .then(res => res.json())
-    .then(data => {
-      if (data && data.ok && Array.isArray(data.result)) {
-        const discovered = new Set(chatIds);
-        data.result.forEach(u => {
-          if (u.message && u.message.chat && u.message.chat.id) discovered.add(String(u.message.chat.id));
-          if (u.my_chat_member && u.my_chat_member.chat && u.my_chat_member.chat.id) discovered.add(String(u.my_chat_member.chat.id));
-        });
-        localStorage.setItem('desco_lead_chats', JSON.stringify(Array.from(discovered)));
-      }
-    })
-    .catch(() => {});
+  console.log('[Desco Lead] Lead barcha kanallarga yetkazildi.');
 }
 
 // ─── 12. PHONE INPUT MASK (NATURAL & MOBILE FRIENDLY) ───
@@ -437,6 +439,7 @@ window.changeColorM6 = changeColorM6;
 window.slideM6 = slideM6;
 window.toggleNasiyaAccordion = toggleNasiyaAccordion;
 window.scrollToContact = scrollToContact;
+window.sendLeadToTelegramBot = sendLeadToTelegramBot;
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();

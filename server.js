@@ -6,8 +6,8 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 
 const TG_CONFIG = {
-  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',
-  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k',
+  botToken: '8849575482:AAH3y_v6lT0Bm1sV3CTmDsxDMaKoJE2D934',    // @webdesco_bot
+  crmBotToken: '8618897926:AAEUvGUuGDF3IDQIQFnY1rD0zXTZdQmL36k', // @crmhisobchi_bot
   chatIds: ['6710023395']
 };
 
@@ -25,7 +25,7 @@ const MIME_TYPES = {
 };
 
 function sendTgMessage(botToken, chatId, text) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const payload = JSON.stringify({
       chat_id: chatId,
       text: text,
@@ -47,12 +47,15 @@ function sendTgMessage(botToken, chatId, text) {
     const req = https.request(options, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(data));
+      res.on('end', () => {
+        console.log(`[Telegram Sent] Chat: ${chatId} | Bot: ${botToken.slice(0, 10)}... | Status: ${res.statusCode}`);
+        resolve(data);
+      });
     });
 
     req.on('error', (err) => {
       console.error(`Telegram Node send error for chat ${chatId}:`, err.message);
-      resolve(null); // Do not fail server
+      resolve(null);
     });
 
     req.on('timeout', () => {
@@ -94,13 +97,13 @@ const server = http.createServer(async (req, res) => {
         const timeStr = now.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Tashkent' });
 
         const message = `
-🛍 <b>YANGI BUYURTMA — DESCO.PREMIUM</b>
+🛍 <b>YANGI BUYURTMA — DESCO.PREMIUM LEAD</b>
 
 👤 <b>Mijoz:</b> ${lead.name || "Noma'lum"}
 📞 <b>Telefon:</b> <code>${lead.phone || "Kiritilmadi"}</code>
 📦 <b>Mahsulot:</b> ${lead.product || "Massajer"}
 💳 <b>To'lov turi:</b> ${lead.plan || "Nasiya"}
-🌐 <b>Manba:</b> Desco Landing Web
+🌐 <b>Manba:</b> Desco Landing Web Server
 🕒 <b>Vaqt:</b> ${dateStr} | ${timeStr}
 
 ⚡ <i>Iltimos, tezkorlik bilan mijozga qo'ng'iroq qiling!</i>
@@ -114,7 +117,7 @@ const server = http.createServer(async (req, res) => {
         }
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, message: 'Lead qabul qilindi' }));
+        res.end(JSON.stringify({ success: true, message: 'Lead muvaffaqiyatli qabul qilindi' }));
       } catch (err) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: false, error: err.message }));
@@ -138,7 +141,10 @@ const server = http.createServer(async (req, res) => {
             res.writeHead(404, { 'Content-Type': 'text/plain' });
             res.end('404 Not Found');
           } else {
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=UTF-8' });
+            res.writeHead(200, {
+              'Content-Type': 'text/html; charset=UTF-8',
+              'Cache-Control': 'no-cache, no-store, must-revalidate'
+            });
             res.end(indexContent);
           }
         });
@@ -149,7 +155,7 @@ const server = http.createServer(async (req, res) => {
     } else {
       res.writeHead(200, {
         'Content-Type': contentType,
-        'Cache-Control': 'public, max-age=3600'
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
       });
       res.end(content);
     }
