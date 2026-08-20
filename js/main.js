@@ -1,6 +1,6 @@
 /**
  * DESCO.PREMIUM — JAVASCRIPT
- * Hero Studio Showcase, Model Switcher, Touch Swipe, Ranglar tanlash, Nasiya va Telegram bot
+ * Ketma-ket mahsulotlar, Ranglar tanlash, Swipe, Nasiya kalkulyatori va Telegram bot
  */
 
 const TG_BOT_CONFIG = {
@@ -8,53 +8,27 @@ const TG_BOT_CONFIG = {
   botUsername: 'webdesco_bot'
 };
 
-/* ─── 1. MODELLAR VA RANG MA'LUMOTLARI ─── */
-const STUDIO_DATA = {
-  m6: {
-    code: '6ta-silver',
-    title: '6-Funksiyalik Oyoq Massajeri (Katta Model)',
-    cashPrice: '1,800,000',
-    monthlyPrice: '225,000 so'm/oy',
-    orderBtnText: 'Ushbu 6-Funksiyalikni Buyurtma Qilish',
-    colors: [
-      { name: "Tillo rang (Champagne Gold)", img: "img/model6-gold.jpg", dotClass: "swatch-gold" },
-      { name: "Qora (Obsidian Black)", img: "img/model6-black.jpg", dotClass: "swatch-black" },
-      { name: "Seriy (Silver Edition)", img: "img/model6-silver.jpg", dotClass: "swatch-silver" }
-    ]
-  },
-  m3: {
-    code: '3ta-gold',
-    title: '3-Funksiyalik Oyoq Massajeri (Ixcham Model)',
-    cashPrice: '1,300,000',
-    monthlyPrice: '163,000 so'm/oy',
-    orderBtnText: 'Ushbu 3-Funksiyalikni Buyurtma Qilish',
-    colors: [
-      { name: "Seriy (Metallic Silver)", img: "img/model3-silver.jpg", dotClass: "swatch-silver" },
-      { name: "Qora (Obsidian Black)", img: "img/model3-black.jpg", dotClass: "swatch-black" },
-      { name: "Tillo rang (Champagne Gold)", img: "img/model3-gold.jpg", dotClass: "swatch-gold" }
-    ]
-  },
-  gift: {
-    code: 'gift-set',
-    title: '5-tasi-1 Desco.premium Hadiya To'plami',
-    cashPrice: '3,500,000',
-    monthlyPrice: '437,000 so'm/oy',
-    orderBtnText: 'Ushbu Hadiya To'plamini Buyurtma Qilish',
-    colors: [
-      { name: "5-in-1 Maxsus To'plam Qutisi", img: "img/gift-product-trans.png", dotClass: "swatch-gold" }
-    ]
-  }
-};
+/* ─── 1. MAHSULOT RANG MA'LUMOTLARI (ASL RASMLAR) ─── */
+const COLORS_M3 = [
+  { name: "Seriy (Metallic Silver)", img: "img/model3-silver.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model3-black.jpg" },
+  { name: "Tillo rang (Champagne Gold)", img: "img/model3-gold.jpg" }
+];
 
-let currentModelKey = 'm6';
-let currentColorIndex = 0;
+const COLORS_M6 = [
+  { name: "Tillo rang (Champagne Gold)", img: "img/model6-gold.jpg" },
+  { name: "Qora (Obsidian Black)", img: "img/model6-black.jpg" },
+  { name: "Seriy (Silver Edition)", img: "img/model6-silver.jpg" }
+];
+
+let currentIndexM3 = 0;
+let currentIndexM6 = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
   initFaqAccordion();
   initForms();
-  initStudio();
   initTouchSwipe();
 });
 
@@ -105,87 +79,90 @@ function initMobileNav() {
   });
 }
 
-/* ─── 4. STUDIO INTERACTION ─── */
-function initStudio() {
-  renderStudioUI();
-}
+/* ─── 4. COLOR SWITCHING & SLIDING (3-FUNKSIYALIK) ─── */
+function changeColorM3(idx) {
+  currentIndexM3 = idx;
+  const item = COLORS_M3[idx];
+  if (!item) return;
 
-function selectStudioModel(key) {
-  if (!STUDIO_DATA[key]) return;
-  currentModelKey = key;
-  currentColorIndex = 0;
+  const pic = document.getElementById('picM3');
+  const cap = document.getElementById('colorCapM3');
+  const row = document.getElementById('swatchesRowM3');
 
-  // Tabs
-  document.getElementById('tabM6')?.classList.toggle('active', key === 'm6');
-  document.getElementById('tabM3')?.classList.toggle('active', key === 'm3');
-  document.getElementById('tabGift')?.classList.toggle('active', key === 'gift');
+  if (row) {
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      if (i === idx) p.classList.add('active');
+      else p.classList.remove('active');
+    });
+  }
 
-  renderStudioUI();
-}
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
 
-function renderStudioUI() {
-  const data = STUDIO_DATA[currentModelKey];
-  const color = data.colors[currentColorIndex] || data.colors[0];
-
-  // Image
-  const pic = document.getElementById('studioPic');
   if (pic) {
     pic.style.opacity = '0.5';
     pic.style.transform = 'scale(0.97)';
     setTimeout(() => {
-      pic.src = color.img;
+      pic.src = item.img;
       pic.style.opacity = '1';
       pic.style.transform = 'scale(1)';
     }, 80);
   }
+}
 
-  // Prices & CTA
-  const cashEl = document.getElementById('studioCashPrice');
-  const monthlyEl = document.getElementById('studioMonthlyPrice');
-  const btnTextEl = document.getElementById('studioOrderBtnText');
-  const capEl = document.getElementById('studioColorCaption');
+function slideM3(dir) {
+  let next = (currentIndexM3 + dir + COLORS_M3.length) % COLORS_M3.length;
+  changeColorM3(next);
+}
 
-  if (cashEl) cashEl.innerHTML = `${data.cashPrice} <small>so'm</small>`;
-  if (monthlyEl) monthlyEl.innerText = data.monthlyPrice;
-  if (btnTextEl) btnTextEl.innerText = data.orderBtnText;
-  if (capEl) capEl.innerHTML = `Tanlangan rang: <strong>${color.name}</strong>`;
+/* ─── 5. COLOR SWITCHING & SLIDING (6-FUNKSIYALIK) ─── */
+function changeColorM6(idx) {
+  currentIndexM6 = idx;
+  const item = COLORS_M6[idx];
+  if (!item) return;
 
-  // Swatches
-  const row = document.getElementById('studioSwatchesRow');
+  const pic = document.getElementById('picM6');
+  const cap = document.getElementById('colorCapM6');
+  const row = document.getElementById('swatchesRowM6');
+
   if (row) {
-    row.innerHTML = '';
-    data.colors.forEach((c, idx) => {
-      const btn = document.createElement('button');
-      btn.className = `swatch-pill ${idx === currentColorIndex ? 'active' : ''}`;
-      btn.innerHTML = `<span class="swatch-dot ${c.dotClass}"></span><span>${c.name.split(' ')[0]}</span>`;
-      btn.onclick = () => selectStudioColor(idx);
-      row.appendChild(btn);
+    const pills = row.querySelectorAll('.swatch-pill');
+    pills.forEach((p, i) => {
+      if (i === idx) p.classList.add('active');
+      else p.classList.remove('active');
     });
+  }
+
+  if (cap) {
+    cap.innerHTML = `Tanlangan rang: <strong>${item.name}</strong>`;
+  }
+
+  if (pic) {
+    pic.style.opacity = '0.5';
+    pic.style.transform = 'scale(0.97)';
+    setTimeout(() => {
+      pic.src = item.img;
+      pic.style.opacity = '1';
+      pic.style.transform = 'scale(1)';
+    }, 80);
   }
 }
 
-function selectStudioColor(idx) {
-  const data = STUDIO_DATA[currentModelKey];
-  if (!data.colors[idx]) return;
-  currentColorIndex = idx;
-  renderStudioUI();
+function slideM6(dir) {
+  let next = (currentIndexM6 + dir + COLORS_M6.length) % COLORS_M6.length;
+  changeColorM6(next);
 }
 
-function slideStudio(dir) {
-  const data = STUDIO_DATA[currentModelKey];
-  const len = data.colors.length;
-  currentColorIndex = (currentColorIndex + dir + len) % len;
-  renderStudioUI();
-}
-
-function orderCurrentStudioModel() {
-  const data = STUDIO_DATA[currentModelKey];
-  scrollToContact(data.code);
-}
-
-/* ─── 5. TOUCH SWIPE (MOBILE & DESKTOP GESTURES) ─── */
+/* ─── 6. TOUCH SWIPE GESTURES ─── */
 function initTouchSwipe() {
-  const el = document.getElementById('studioViewport');
+  addSwipeListener('stageM3', slideM3);
+  addSwipeListener('stageM6', slideM6);
+}
+
+function addSwipeListener(elementId, callback) {
+  const el = document.getElementById(elementId);
   if (!el) return;
 
   let touchStartX = 0;
@@ -200,15 +177,15 @@ function initTouchSwipe() {
     const diff = touchEndX - touchStartX;
     if (Math.abs(diff) > 35) {
       if (diff < 0) {
-        slideStudio(1); // Swipe left -> Next
+        callback(1); // Swipe left -> Next
       } else {
-        slideStudio(-1); // Swipe right -> Prev
+        callback(-1); // Swipe right -> Prev
       }
     }
   }, { passive: true });
 }
 
-/* ─── 6. NASIYA ACCORDION TOGGLE ─── */
+/* ─── 7. NASIYA ACCORDION TOGGLE ─── */
 function toggleNasiyaAccordion(boxId, btnEl) {
   const box = document.getElementById(boxId);
   if (!box) return;
@@ -223,7 +200,7 @@ function toggleNasiyaAccordion(boxId, btnEl) {
   }
 }
 
-/* ─── 7. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
+/* ─── 8. SCROLL TO FORM WITH PRODUCT SELECTION ─── */
 function scrollToContact(productCode) {
   const contactSec = document.getElementById('contact');
   const userProduct = document.getElementById('userProduct');
@@ -241,7 +218,7 @@ function scrollToContact(productCode) {
   }
 }
 
-/* ─── 8. FAQ ACCORDION ─── */
+/* ─── 9. FAQ ACCORDION ─── */
 function initFaqAccordion() {
   const cards = document.querySelectorAll('.faq-card');
   cards.forEach(card => {
@@ -256,7 +233,7 @@ function initFaqAccordion() {
   });
 }
 
-/* ─── 9. FORM & TELEGRAM DISPATCH ─── */
+/* ─── 10. FORM & TELEGRAM DISPATCH ─── */
 function showSuccessNotice(customerName) {
   let notice = document.getElementById('leadSuccessNotice');
   if (!notice) {

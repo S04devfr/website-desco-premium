@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <title>Desco.premium — Professional Oyoq Massajerlari</title>
   <meta name="description" content="Desco.premium — Ota-onangiz va butun oilangiz salomatligi uchun professional oyoq massajerlari. 1 ta tugmada boshqaruv, 12 oylik 0% nasiya, uyingizgacha bepul yetkazib berish.">
-  <meta name="theme-color" content="#0E0F12">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
@@ -16,8 +16,1654 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Stylesheet -->
+  <!-- External Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Embedded Critical Stylesheet (Prevents unstyled flash on Railway / CDNs) -->
+  <style>
+/* ═══════════════════════════════════════════════════════════════════
+   DESCO.PREMIUM — YORQIN LUXURY VA SODDA TUSHUNARLI DIZAYN
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── 1. CSS VARIABLES ─── */
+:root {
+  --bg-body: #F8F9FA;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F3F4F6;
+  --bg-hero: linear-gradient(180deg, #FFFFFF 0%, #F5F3EF 100%);
+  
+  --gold-primary: #C59A27;
+  --gold-light: #DFB748;
+  --gold-dark: #9A7416;
+  --gold-gradient: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #AA7C11 100%);
+  --gold-bg-subtle: rgba(197, 154, 39, 0.08);
+  
+  --text-main: #111827;
+  --text-muted: #4B5563;
+  --text-subtle: #6B7280;
+  
+  --border-card: #E5E7EB;
+  --border-gold: rgba(197, 154, 39, 0.35);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.08);
+  --shadow-gold: 0 8px 24px rgba(197, 154, 39, 0.25);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --radius-full: 9999px;
+  
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --tr-fast: 0.2s ease;
+  --tr-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── 2. BASE & RESET ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--tr-fast);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: var(--tr-fast);
+}
+
+input, select {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.gold-gradient {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-icon {
+  color: var(--gold-primary);
+}
+
+.gold-text {
+  color: var(--gold-primary) !important;
+}
+
+/* ─── 3. BUTTONS & PILLS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 30px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  position: relative;
+  transition: var(--tr-smooth);
+}
+
+.btn-lg {
+  padding: 18px 36px;
+  font-size: 1.15rem;
+}
+
+.btn-luxury {
+  background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-gold);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-luxury:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(197, 154, 39, 0.4);
+  color: #FFFFFF;
+}
+
+.btn-luxury:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background: #FFFFFF;
+  color: var(--text-main);
+  border: 1.5px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-dark);
+  transform: translateY(-2px);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.luxury-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-dark);
+  background: rgba(197, 154, 39, 0.12);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
+
+/* ─── 4. HEADER ─── */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-card);
+  transition: var(--tr-smooth);
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.brand-sub {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: var(--gold-dark);
+  margin-top: 3px;
+}
+
+.nav-links-wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: var(--tr-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--gold-dark);
+}
+
+.mobile-nav-icon {
+  display: none;
+}
+
+.mobile-nav-header, .mobile-nav-footer, .mobile-nav-overlay {
+  display: none;
+}
+
+.header-phone-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px;
+  background: var(--gold-bg-subtle);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-full);
+}
+
+.header-phone-btn:hover {
+  background: rgba(197, 154, 39, 0.16);
+}
+
+.phone-icon-pulse {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.phone-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.phone-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--bg-card-subtle);
+}
+
+.mobile-toggle span {
+  width: 20px;
+  height: 2px;
+  background: var(--text-main);
+  border-radius: 2px;
+}
+
+/* ─── 5. HERO SECTION ─── */
+.hero {
+  padding: 50px 0 60px;
+  background: var(--bg-hero);
+  border-bottom: 1px solid var(--border-card);
+}
+
+.hero-center-box {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-full);
+  margin-bottom: 18px;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.hero-badge-brand {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--gold-dark);
+}
+
+.hero-badge-sub {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.9rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--text-main);
+  margin-bottom: 18px;
+}
+
+.hero-desc {
+  font-size: 1.22rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+
+.hero-desc strong {
+  color: var(--text-main);
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-card);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #FFFFFF;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.trust-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(197, 154, 39, 0.12);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.trust-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.trust-meta strong {
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.trust-meta span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ─── 6. SEQUENTIAL PRODUCT CARDS ─── */
+.products-sequence-section {
+  padding: 70px 0;
+}
+
+.product-item-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  margin-bottom: 48px;
+  box-shadow: var(--shadow-md);
+  transition: var(--tr-smooth);
+}
+
+.product-item-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.featured-product-card {
+  border-color: var(--gold-primary);
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(197, 154, 39, 0.12);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF9 100%);
+}
+
+.product-item-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Visual Column */
+.product-visual-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 24px 16px 18px;
+  border: 1.5px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  background: #FFFFFF;
+  color: var(--text-muted);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+  z-index: 5;
+}
+
+.featured-badge-top {
+  background: var(--gold-gradient);
+  color: #FFFFFF;
+  border: none;
+}
+
+.gift-badge-top {
+  background: #111827;
+  color: var(--gold-light);
+  border: none;
+}
+
+/* Swipe Stage & Arrows */
+.product-stage {
+  width: 100%;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  position: relative;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.stage-img-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.product-main-pic {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.stage-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid var(--border-card);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  z-index: 10;
+  transition: var(--tr-fast);
+}
+
+.stage-nav-btn:hover {
+  background: var(--gold-primary);
+  color: #FFFFFF;
+  border-color: var(--gold-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.stage-nav-btn.prev {
+  left: 6px;
+}
+
+.stage-nav-btn.next {
+  right: 6px;
+}
+
+.swipe-hint-text {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-subtle);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.gift-box-quote {
+  font-size: 0.92rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Swatches Controls */
+.swatches-container {
+  width: 100%;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.swatches-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatches-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.swatch-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+  transition: var(--tr-fast);
+}
+
+.swatch-pill:hover {
+  background: #F3F4F6;
+  border-color: var(--gold-primary);
+}
+
+.swatch-pill.active {
+  border-color: var(--gold-primary);
+  background: rgba(197, 154, 39, 0.12);
+  color: var(--gold-dark);
+  box-shadow: 0 0 0 2px rgba(197, 154, 39, 0.2);
+}
+
+.swatch-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.swatch-gold { background: #D4AF37; }
+.swatch-silver { background: #C0C0C0; }
+.swatch-black { background: #1C1C1C; }
+
+.selected-color-caption {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.selected-color-caption strong {
+  color: var(--text-main);
+}
+
+/* Info Column */
+.product-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-model-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--gold-dark);
+  margin-bottom: 8px;
+}
+
+.product-title {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1.25;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.product-tagline {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+/* Price Highlight Box */
+.product-price-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F7F7FA;
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+}
+
+.featured-price-box {
+  background: rgba(197, 154, 39, 0.06);
+  border-color: var(--border-gold);
+}
+
+.price-cash-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.price-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.price-amount small {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.price-monthly-badge {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  text-align: right;
+  box-shadow: var(--shadow-sm);
+}
+
+.price-monthly-badge span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.price-monthly-badge strong {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.gold-bg-badge {
+  background: var(--gold-gradient);
+  border: none;
+}
+
+.gold-bg-badge span {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.gold-bg-badge strong {
+  color: #FFFFFF;
+}
+
+/* Specs List */
+.product-specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.spec-item {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.45;
+}
+
+.spec-item i {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.spec-item strong {
+  color: var(--text-main);
+}
+
+/* Gift Mini Devices */
+.gift-mini-devices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mini-device-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #F7F7FA;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-card);
+}
+
+.mini-device-item i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.mini-device-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-device-item strong {
+  font-size: 0.92rem;
+  color: var(--text-main);
+}
+
+.mini-device-item span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.full-mini-dev {
+  grid-column: span 2;
+}
+
+/* Nasiya Accordion */
+.nasiya-toggle-wrap {
+  margin-bottom: 24px;
+}
+
+.nasiya-accordion-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+  transition: var(--tr-fast);
+}
+
+.nasiya-accordion-btn:hover {
+  background: rgba(197, 154, 39, 0.08);
+}
+
+.nasiya-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+  color: var(--gold-dark);
+}
+
+.nasiya-accordion-btn.active .arrow-icon {
+  transform: rotate(180deg);
+}
+
+.nasiya-accordion-content {
+  display: none;
+  padding-top: 12px;
+}
+
+.nasiya-accordion-content.open {
+  display: block;
+}
+
+.nasiya-plans-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.nasiya-plan-cell {
+  background: #F7F7FA;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 12px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nasiya-plan-cell.plan-featured {
+  background: rgba(197, 154, 39, 0.1);
+  border-color: var(--gold-primary);
+}
+
+.plan-head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.plan-cost {
+  font-size: 1.12rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.plan-cost small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.plan-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Actions Group */
+.product-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ─── 7. FAQ SECTION ─── */
+.faq-section {
+  padding: 70px 0;
+  background: #F7F7FA;
+  border-top: 1px solid var(--border-card);
+  border-bottom: 1px solid var(--border-card);
+}
+
+.section-heading {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.faq-accordion-box {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--tr-fast);
+}
+
+.faq-card.active {
+  border-color: var(--gold-primary);
+}
+
+.faq-header-btn {
+  width: 100%;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+}
+
+.faq-q-text {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.faq-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-card-subtle);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.faq-card.active .faq-icon-wrap {
+  transform: rotate(180deg);
+  background: var(--gold-primary);
+  color: #FFFFFF;
+}
+
+.faq-body-content {
+  display: none;
+  padding: 0 22px 20px;
+}
+
+.faq-card.active .faq-body-content {
+  display: block;
+}
+
+.faq-body-content p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.faq-body-content strong {
+  color: var(--text-main);
+}
+
+/* ─── 8. CONTACT & LEAD FORM ─── */
+.contact-section {
+  padding: 80px 0;
+  background: #FFFFFF;
+}
+
+.lead-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.lead-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+.lead-text {
+  font-size: 1.12rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 30px;
+}
+
+.direct-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.direct-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #F7F7FA;
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-md);
+  transition: var(--tr-fast);
+}
+
+.direct-item:hover {
+  border-color: var(--gold-primary);
+  background: rgba(197, 154, 39, 0.06);
+  transform: translateX(4px);
+}
+
+.d-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(197, 154, 39, 0.15);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.d-icon.tg {
+  background: rgba(0, 136, 204, 0.12);
+  color: #0088CC;
+}
+
+.d-icon.insta {
+  background: rgba(225, 48, 108, 0.12);
+  color: #E1306C;
+}
+
+.d-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.d-info span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.d-info strong {
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+/* Lead Form */
+.lead-form-container {
+  background: #FFFFFF;
+  border: 2px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-lg);
+}
+
+.form-title {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-sub-note {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-field label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-field input, .input-field select {
+  width: 100%;
+  padding: 15px 18px;
+  background: #F7F7FA;
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: var(--tr-fast);
+}
+
+.input-field input:focus, .input-field select:focus {
+  border-color: var(--gold-primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(197, 154, 39, 0.15);
+}
+
+.btn-submit {
+  margin-top: 6px;
+}
+
+.form-privacy {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ─── 9. FOOTER ─── */
+.footer {
+  background: #111317;
+  color: #FFFFFF;
+  padding: 60px 0 24px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 36px;
+  margin-bottom: 40px;
+}
+
+.footer .brand-name {
+  color: #FFFFFF;
+}
+
+.footer-tagline {
+  font-size: 0.95rem;
+  color: #9CA3AF;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+
+.f-col-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.f-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.f-links a {
+  font-size: 0.92rem;
+  color: #9CA3AF;
+}
+
+.f-links a:hover {
+  color: var(--gold-light);
+}
+
+.f-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.f-contact-link {
+  font-size: 0.92rem;
+  color: #D1D5DB;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.f-contact-link:hover {
+  color: var(--gold-light);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+/* ─── 10. FLOATING ACTION BUTTONS ─── */
+.floating-actions-wrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+}
+
+.floating-action-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition: var(--tr-smooth);
+}
+
+.floating-action-btn.phone-btn {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+}
+
+.floating-action-btn.tg-btn {
+  background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
+  color: #FFFFFF;
+}
+
+.floating-action-btn:hover {
+  transform: scale(1.1);
+}
+
+.floating-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  animation: pulse-ring 2s infinite;
+  z-index: -1;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ─── 11. SUCCESS POPUP ─── */
+.lead-success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lead-success-popup.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.success-popup-card {
+  background: #FFFFFF;
+  border: 2px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 36px 28px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.success-popup-icon {
+  font-size: 3.5rem;
+  color: #10B981;
+  margin-bottom: 14px;
+}
+
+.success-popup-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.success-popup-card p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* ─── 12. RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZED) ─── */
+@media (max-width: 1024px) {
+  .product-item-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .lead-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-phone-btn {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 290px;
+    height: 100vh;
+    background: #FFFFFF;
+    border-left: 2px solid var(--border-gold);
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    z-index: 2000;
+    transition: right 0.35s ease;
+  }
+
+  .nav.open {
+    right: 0;
+  }
+
+  .mobile-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-card);
+  }
+
+  .mobile-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--bg-card-subtle);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .nav-links-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  .mobile-nav-icon {
+    display: inline-block;
+    color: var(--gold-dark);
+    width: 24px;
+  }
+
+  .mobile-nav-footer {
+    display: block;
+    width: 100%;
+  }
+
+  .mobile-nav-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .mobile-nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+  }
+
+  .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .product-item-card {
+    padding: 24px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .product-stage {
+    height: 280px;
+  }
+
+  .stage-nav-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .product-title {
+    font-size: 1.65rem;
+  }
+
+  .product-tagline {
+    font-size: 1rem;
+  }
+
+  .product-price-highlight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .price-monthly-badge {
+    width: 100%;
+    text-align: left;
+  }
+
+  .gift-mini-devices-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-device-item.full-mini-dev {
+    grid-column: span 1;
+  }
+
+  .product-actions-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .product-actions-group .btn {
+    width: 100%;
+  }
+
+  .lead-form-container {
+    padding: 24px 16px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .product-stage {
+    height: 240px;
+  }
+
+  .nasiya-plans-table {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
 </head>
 <body>
 
@@ -48,8 +1694,9 @@
         
         <div class="nav-links-wrap">
           <a href="#hero" class="nav-link active"><i class="fas fa-home mobile-nav-icon"></i> Asosiy</a>
-          <a href="#products" class="nav-link"><i class="fas fa-cubes mobile-nav-icon"></i> Modellar</a>
-          <a href="#gift-set-details" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> 5-tasi-1 To'plam</a>
+          <a href="#prod-3func" class="nav-link"><i class="fas fa-cubes mobile-nav-icon"></i> 3-Funksiyalik</a>
+          <a href="#prod-6func" class="nav-link"><i class="fas fa-gem mobile-nav-icon"></i> 6-Funksiyalik</a>
+          <a href="#prod-gift" class="nav-link"><i class="fas fa-gift mobile-nav-icon"></i> Hadiya To'plami</a>
           <a href="#faq" class="nav-link"><i class="fas fa-circle-question mobile-nav-icon"></i> Savol-Javob</a>
           <a href="#contact" class="nav-link"><i class="fas fa-phone mobile-nav-icon"></i> Buyurtma</a>
         </div>
@@ -82,33 +1729,31 @@
     </div>
   </header>
 
-  <!-- ═══════════════════ 2. HERO SHOWCASE STUDIO ═══════════════════ -->
-  <section class="hero-studio-section" id="hero">
-    <div class="container hero-studio-container">
-      
-      <!-- Hero Copy Column -->
-      <div class="hero-copy-col">
+  <!-- ═══════════════════ 2. HERO SECTION ═══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="container hero-container">
+      <div class="hero-center-box text-center">
         <div class="hero-brand-badge">
           <span class="badge-dot"></span>
           <span class="hero-badge-brand">DESCO.PREMIUM</span>
-          <span class="hero-badge-sub">• SALOMATLIK VA OROM</span>
+          <span class="hero-badge-sub">• RASMIY KAFOLAT</span>
         </div>
 
         <h1 class="hero-title">
-          Ota-onangiz va O'zingiz Uchun<br>
+          Ota-onangiz va Butun Oila Uchun<br>
           <span class="gold-gradient">Shifobaxsh Oyoq Massajerlari</span>
         </h1>
 
         <p class="hero-desc">
-          Har oqshom 15 daqiqada oyoq, boldir va tovon og'riqlaridan xalos bo'ling. Qon aylanishini yaxshilaydi, uyquni tiniqlashtiradi. <strong>Boshqarish o'ta sodda — 1 ta tugma bilan!</strong>
+          Har oqshom 15 daqiqada oyoq, boldir va tovon og'riqlarini qoldiradi, qon aylanishini yaxshilaydi. <strong>Boshqarish juda oddiy — bor-yo'g'i 1 ta tugma!</strong>
         </p>
 
         <div class="hero-cta-group">
-          <a href="#contact" class="btn btn-luxury btn-lg">
-            <i class="fas fa-shopping-bag"></i>
-            <span>Buyurtma Berish</span>
+          <a href="#prod-3func" class="btn btn-luxury hero-primary-btn">
+            <i class="fas fa-cubes"></i>
+            <span>Mahsulotlarni Ko'rish</span>
           </a>
-          <a href="tel:+998900038060" class="btn btn-outline btn-lg">
+          <a href="tel:+998900038060" class="btn btn-outline hero-secondary-btn">
             <i class="fas fa-phone-alt gold-icon"></i>
             <span>+998 (90) 003-80-60</span>
           </a>
@@ -138,341 +1783,357 @@
             </div>
           </div>
         </div>
+
       </div>
-
-      <!-- Hero Interactive Showcase Podium -->
-      <div class="hero-podium-col">
-        <div class="studio-card">
-          
-          <!-- Model Selector Tabs -->
-          <div class="model-nav-tabs">
-            <button class="model-tab-btn active" id="tabM6" onclick="selectStudioModel('m6')">
-              <i class="fas fa-crown"></i> 6-Funksiyalik (Katta)
-            </button>
-            <button class="model-tab-btn" id="tabM3" onclick="selectStudioModel('m3')">
-              <i class="fas fa-gem"></i> 3-Funksiyalik (Ixcham)
-            </button>
-            <button class="model-tab-btn" id="tabGift" onclick="selectStudioModel('gift')">
-              <i class="fas fa-gift"></i> 5-tasi-1 To'plam
-            </button>
-          </div>
-
-          <!-- Studio Viewport with Arrows & Touch Swipe -->
-          <div class="studio-viewport" id="studioViewport">
-            <button class="viewport-arrow prev" onclick="slideStudio(-1)" aria-label="Oldingi rang">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            
-            <div class="viewport-img-wrap">
-              <img src="img/model6-gold.jpg" alt="Desco Massajer" class="studio-main-pic" id="studioPic" loading="eager">
-            </div>
-
-            <button class="viewport-arrow next" onclick="slideStudio(1)" aria-label="Keyingi rang">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </div>
-
-          <div class="studio-swipe-hint">
-            <i class="fas fa-arrows-left-right"></i> Rangni almashtirish uchun o'ng/chapga suring
-          </div>
-
-          <!-- Color Swatches Bar -->
-          <div class="studio-swatches-box" id="studioSwatchesBox">
-            <div class="swatches-label"><i class="fas fa-palette gold-icon"></i> Mavjud ranglar:</div>
-            <div class="swatches-pills-row" id="studioSwatchesRow">
-              <!-- Dynamically rendered by JS -->
-            </div>
-            <div class="current-color-tag" id="studioColorCaption">Tanlangan rang: <strong>Tillo rang (Champagne Gold)</strong></div>
-          </div>
-
-          <!-- Studio Pricing & Nasiya Bar -->
-          <div class="studio-price-bar">
-            <div class="studio-price-left">
-              <span class="studio-price-sub">Bir martalik naqd narxi:</span>
-              <strong class="studio-price-main" id="studioCashPrice">1,800,000 <small>so'm</small></strong>
-            </div>
-            <div class="studio-price-right">
-              <span class="studio-nasiya-sub">12 oylik nasiya bilan:</span>
-              <strong class="studio-nasiya-main" id="studioMonthlyPrice">225,000 so'm/oy</strong>
-            </div>
-          </div>
-
-          <!-- Studio Action -->
-          <div class="studio-actions-row">
-            <button onclick="orderCurrentStudioModel()" class="btn btn-luxury btn-full">
-              <i class="fas fa-shopping-bag"></i>
-              <span id="studioOrderBtnText">Ushbu 6-Funksiyalikni Buyurtma Qilish</span>
-            </button>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ═══════════════════ 3. MODELLAR TANLOVI (3 TA KARTA) ═══════════════════ -->
-  <section class="products-section" id="products">
+  <!-- ═══════════════════ 3. KETMA-KET MAHSULOTLAR ═══════════════════ -->
+  <section class="products-sequence-section" id="products">
     <div class="container">
       
-      <div class="section-heading text-center">
-        <span class="luxury-pill">Modellar Tanlovi</span>
-        <h2 class="section-title">
-          Ehtiyojingizga Mos Keluvchi<br>
-          <span class="gold-gradient">Desco Massajer Modellari</span>
-        </h2>
-        <p class="section-subtitle">O'zingiz yoki yaqinlaringiz uchun eng qulay modelni tanlang</p>
-      </div>
-
-      <div class="models-grid">
-        
-        <!-- 1. 3-Funksiyalik (Ixcham Model) -->
-        <div class="model-card">
-          <div class="m-card-badge">Ixcham Model</div>
-          <div class="m-card-img-box">
-            <img src="img/model3-silver.jpg" alt="3-Funksiyalik Massajer" class="m-card-pic">
-          </div>
-          <div class="m-card-body">
-            <h3 class="m-card-title">3-Funksiyalik Massajer</h3>
-            <p class="m-card-desc">Har kungi charchoqni olish, yengil va ixcham model.</p>
+      <!-- ─── 1-MAHSULOT: 3-FUNKSIYALIK (IXCHAM MODEL) ─── -->
+      <div class="product-item-card" id="prod-3func">
+        <div class="product-item-grid">
+          
+          <!-- Visual Column with Swipe & Arrows -->
+          <div class="product-visual-col">
+            <div class="product-badge">Ixcham Model</div>
             
-            <div class="m-card-price-box">
-              <div class="m-cash-price">1,300,000 <small>so'm</small></div>
-              <div class="m-monthly-price">163,000 so'm/oy (12 oy)</div>
+            <div class="product-stage swipe-stage" id="stageM3">
+              <button class="stage-nav-btn prev" onclick="slideM3(-1)" aria-label="Oldingi rang">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              
+              <div class="stage-img-wrap">
+                <img src="img/model3-silver.jpg" alt="3-Funksiyalik Massajer" class="product-main-pic" id="picM3" loading="eager">
+              </div>
+              
+              <button class="stage-nav-btn next" onclick="slideM3(1)" aria-label="Keyingi rang">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            
+            <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
+            
+            <!-- Color Selector Bar (3 ta original rang) -->
+            <div class="swatches-container">
+              <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
+              <div class="swatches-row" id="swatchesRowM3">
+                <button class="swatch-pill active" onclick="changeColorM3(0)">
+                  <span class="swatch-dot swatch-silver"></span>
+                  <span>Seriy</span>
+                </button>
+                <button class="swatch-pill" onclick="changeColorM3(1)">
+                  <span class="swatch-dot swatch-black"></span>
+                  <span>Qora</span>
+                </button>
+                <button class="swatch-pill" onclick="changeColorM3(2)">
+                  <span class="swatch-dot swatch-gold"></span>
+                  <span>Tillo</span>
+                </button>
+              </div>
+              <div class="selected-color-caption" id="colorCapM3">Tanlangan rang: <strong>Seriy (Metallic Silver)</strong></div>
+            </div>
+          </div>
+
+          <!-- Product Info & Pricing & Nasiya -->
+          <div class="product-info-col">
+            <h2 class="product-title">3-Funksiyalik Oyoq Massajeri</h2>
+            <p class="product-tagline">Ixcham, qulay va har kungi charchoqni olish uchun a'lo tanlov.</p>
+            
+            <div class="product-price-highlight">
+              <div class="price-cash-wrap">
+                <span class="price-label">Bir martalik naqd narxi:</span>
+                <strong class="price-amount">1,300,000 <small>so'm</small></strong>
+              </div>
+              <div class="price-monthly-badge">
+                <span>12 oylik nasiya bilan:</span>
+                <strong>163,000 so'm/oy</strong>
+              </div>
             </div>
 
-            <ul class="m-card-specs">
-              <li><i class="fas fa-check gold-icon"></i> 3D Havo yostiqchalari (kaft va tovon)</li>
-              <li><i class="fas fa-check gold-icon"></i> Rolikli akupunktur massaji</li>
-              <li><i class="fas fa-check gold-icon"></i> Shifobaxsh isitish funksiyasi</li>
-              <li><i class="fas fa-check gold-icon"></i> 3 xil rang (Seriy, Qora, Tillo)</li>
-            </ul>
+            <!-- Quick Specs -->
+            <div class="product-specs-list">
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>3D Havo Yostiqchalari:</strong> Boldir va kaftni mayin siqib qon aylantiradi</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Rolikli Akupunktur:</strong> Tovon va kaft osti biologik nuqtalarini uvalaydi</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Shifobaxsh Isitish:</strong> Sovuq qotgan oyoqlarni ilitib, og'riqni qoldiradi</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>1 Tugmada Boshqaruv:</strong> Rozetkaga ulab, 1 ta tugma bilan ishga tushadi</div>
+            </div>
 
-            <!-- Nasiya Dropdown -->
+            <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxM3', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
+                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
+
               <div class="nasiya-accordion-content" id="nasiyaBoxM3">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">563,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">303,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head">12 Oyga</span>
+                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
                     <strong class="plan-cost gold-text">163,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-full">
-              <i class="fas fa-shopping-bag"></i> 3-Funksiyalikni Tanlash
-            </button>
-          </div>
-        </div>
-
-        <!-- 2. 6-Funksiyalik (Katta Model - Flagman) -->
-        <div class="model-card featured-model-card">
-          <div class="m-card-badge featured-badge"><i class="fas fa-crown"></i> Eng Ko'p Tanlanadigan</div>
-          <div class="m-card-img-box">
-            <img src="img/model6-gold.jpg" alt="6-Funksiyalik Katta Massajer" class="m-card-pic">
-          </div>
-          <div class="m-card-body">
-            <div class="featured-top-label"><i class="fas fa-star gold-icon"></i> Professional Flagman</div>
-            <h3 class="m-card-title">6-Funksiyalik (Katta Model)</h3>
-            <p class="m-card-desc">Boldirni to'liq qamrab oluvchi, chuqur akupunktur va kuchaytirilgan havo bosimi.</p>
-            
-            <div class="m-card-price-box gold-price-box">
-              <div class="m-cash-price gold-text">1,800,000 <small>so'm</small></div>
-              <div class="m-monthly-price">225,000 so'm/oy (12 oy)</div>
+            <!-- Action Buttons -->
+            <div class="product-actions-group">
+              <button onclick="scrollToContact('3ta-gold')" class="btn btn-luxury btn-lg">
+                <i class="fas fa-shopping-bag"></i>
+                <span>3-Funksiyalikni Buyurtma Qilish</span>
+              </button>
+              <a href="tel:+998900038060" class="btn btn-outline">
+                <i class="fas fa-phone-alt gold-icon"></i>
+                <span>Qo'ng'iroq Qilish</span>
+              </a>
             </div>
 
-            <ul class="m-card-specs">
-              <li><i class="fas fa-check gold-icon"></i> Boldirni yuqorigacha to'liq qamrab oladi</li>
-              <li><i class="fas fa-check gold-icon"></i> 6 xil avtomatik professional rejim</li>
-              <li><i class="fas fa-check gold-icon"></i> 60+ Akupunktur nuqtalariga chuqur ta'sir</li>
-              <li><i class="fas fa-check gold-icon"></i> 3 xil rang (Tillo, Qora, Seriy)</li>
-            </ul>
+          </div>
 
-            <!-- Nasiya Dropdown -->
+        </div>
+      </div>
+
+      <!-- ─── 2-MAHSULOT: 6-FUNKSIYALIK (KATTA MODEL - FLAGSHIP) ─── -->
+      <div class="product-item-card featured-product-card" id="prod-6func">
+        <div class="product-item-grid">
+          
+          <!-- Visual Column with Swipe & Arrows -->
+          <div class="product-visual-col">
+            <div class="product-badge featured-badge-top"><i class="fas fa-crown"></i> Katta Model — Eng Ko'p Tanlanadigan</div>
+            
+            <div class="product-stage swipe-stage" id="stageM6">
+              <button class="stage-nav-btn prev" onclick="slideM6(-1)" aria-label="Oldingi rang">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              
+              <div class="stage-img-wrap">
+                <img src="img/model6-gold.jpg" alt="6-Funksiyalik Katta Massajer" class="product-main-pic" id="picM6" loading="eager">
+              </div>
+              
+              <button class="stage-nav-btn next" onclick="slideM6(1)" aria-label="Keyingi rang">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            
+            <div class="swipe-hint-text"><i class="fas fa-arrows-left-right"></i> Rasmni o'ng/chapga suring</div>
+            
+            <!-- Color Selector Bar (3 ta original rang: Tillo, Qora, Seriy) -->
+            <div class="swatches-container">
+              <span class="swatches-label"><i class="fas fa-palette gold-icon"></i> Rangni tanlang:</span>
+              <div class="swatches-row" id="swatchesRowM6">
+                <button class="swatch-pill active" onclick="changeColorM6(0)">
+                  <span class="swatch-dot swatch-gold"></span>
+                  <span>Tillo</span>
+                </button>
+                <button class="swatch-pill" onclick="changeColorM6(1)">
+                  <span class="swatch-dot swatch-black"></span>
+                  <span>Qora</span>
+                </button>
+                <button class="swatch-pill" onclick="changeColorM6(2)">
+                  <span class="swatch-dot swatch-silver"></span>
+                  <span>Seriy</span>
+                </button>
+              </div>
+              <div class="selected-color-caption" id="colorCapM6">Tanlangan rang: <strong>Tillo rang (Champagne Gold)</strong></div>
+            </div>
+          </div>
+
+          <!-- Product Info & Pricing & Nasiya -->
+          <div class="product-info-col">
+            <div class="featured-model-tag"><i class="fas fa-star gold-icon"></i> Professional Flagman Model</div>
+            <h2 class="product-title">6-Funksiyalik Oyoq Massajeri (Katta Model)</h2>
+            <p class="product-tagline">Boldirni yuqorigacha to'liq qamrab oluvchi, chuqur akupunktur va kuchaytirilgan havo bosimi.</p>
+            
+            <div class="product-price-highlight featured-price-box">
+              <div class="price-cash-wrap">
+                <span class="price-label">Bir martalik naqd narxi:</span>
+                <strong class="price-amount gold-text">1,800,000 <small>so'm</small></strong>
+              </div>
+              <div class="price-monthly-badge gold-bg-badge">
+                <span>12 oylik nasiya bilan:</span>
+                <strong>225,000 so'm/oy</strong>
+              </div>
+            </div>
+
+            <!-- Quick Specs -->
+            <div class="product-specs-list">
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Katta Qamrov:</strong> Boldir mushaklarini yuqorigacha to'liq siqib, dimlanishni yo'qotadi</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>6 Xil Massaj Rejimi:</strong> Mayin uvalashdan tortib kuchli chuqur massajgacha</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>60+ Akupunktur Nuqtalari:</strong> Tungi uyquni yaxshilab, asabni tinchlantiradi</div>
+              <div class="spec-item"><i class="fas fa-check-circle gold-icon"></i> <strong>Qulay Sensor Panel:</strong> Katta yoshdagi insonlar uchun o'ta oson boshqaruv</div>
+            </div>
+
+            <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn active" onclick="toggleNasiyaAccordion('nasiyaBoxM6', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
+                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
+
               <div class="nasiya-accordion-content open" id="nasiyaBoxM6">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">780,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">420,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head">12 Oyga</span>
+                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
                     <strong class="plan-cost gold-text">225,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-full">
-              <i class="fas fa-shopping-bag"></i> 6-Funksiyalikni Tanlash
-            </button>
-          </div>
-        </div>
-
-        <!-- 3. 5-tasi-1 Desco.premium Hadiya To'plami -->
-        <div class="model-card">
-          <div class="m-card-badge gift-badge"><i class="fas fa-gift"></i> Butun Oila Uchun</div>
-          <div class="m-card-img-box">
-            <img src="img/gift-product-trans.png" alt="5-tasi-1 To'plam" class="m-card-pic">
-          </div>
-          <div class="m-card-body">
-            <h3 class="m-card-title">5-tasi-1 Hadiya To'plami</h3>
-            <p class="m-card-desc">1 ta qutida butun tana uchun 5 ta to'liq professional massajer.</p>
-            
-            <div class="m-card-price-box">
-              <div class="m-cash-price">3,500,000 <small>so'm</small></div>
-              <div class="m-monthly-price">437,000 so'm/oy (12 oy)</div>
+            <!-- Action Buttons -->
+            <div class="product-actions-group">
+              <button onclick="scrollToContact('6ta-silver')" class="btn btn-luxury btn-lg">
+                <i class="fas fa-shopping-bag"></i>
+                <span>6-Funksiyalikni Buyurtma Qilish</span>
+              </button>
+              <a href="tel:+998900038060" class="btn btn-outline">
+                <i class="fas fa-phone-alt gold-icon"></i>
+                <span>Qo'ng'iroq Qilish</span>
+              </a>
             </div>
 
-            <ul class="m-card-specs">
-              <li><i class="fas fa-check gold-icon"></i> 1. Tizza massajori</li>
-              <li><i class="fas fa-check gold-icon"></i> 2. Bo'yin massajeri (U-simon)</li>
-              <li><i class="fas fa-check gold-icon"></i> 3. Ko'z massajeri</li>
-              <li><i class="fas fa-check gold-icon"></i> 4. Bel va tana massajeri</li>
-              <li><i class="fas fa-check gold-icon"></i> 5. Bosh massajori</li>
-            </ul>
+          </div>
 
-            <!-- Nasiya Dropdown -->
+        </div>
+      </div>
+
+      <!-- ─── 3-MAHSULOT: 5-TASI-1 HADIYA TO'PLAMI ─── -->
+      <div class="product-item-card" id="prod-gift">
+        <div class="product-item-grid">
+          
+          <!-- Product Visual -->
+          <div class="product-visual-col">
+            <div class="product-badge gift-badge-top"><i class="fas fa-gift"></i> Butun Tana Uchun Majmua</div>
+            <div class="product-stage">
+              <div class="stage-img-wrap">
+                <img src="img/gift-product-trans.png" alt="Desco.premium Hadiya To'plami" class="product-main-pic" loading="eager">
+              </div>
+            </div>
+            <div class="gift-box-quote">"Ota-onangiz duosini oling — butun oila uchun sog'lik va orom tuhfasi!"</div>
+          </div>
+
+          <!-- Product Info & 5 Devices List -->
+          <div class="product-info-col">
+            <h2 class="product-title">5-tasi-1 Desco.premium Hadiya To'plami</h2>
+            <p class="product-tagline">1 ta qutida 5 ta to'liq professional massaj qurilmasi (Tizza, Bo'yin, Ko'z, Bel, Bosh).</p>
+            
+            <div class="product-price-highlight">
+              <div class="price-cash-wrap">
+                <span class="price-label">Bir martalik naqd narxi:</span>
+                <strong class="price-amount">3,500,000 <small>so'm</small></strong>
+              </div>
+              <div class="price-monthly-badge">
+                <span>12 oylik nasiya bilan:</span>
+                <strong>437,000 so'm/oy</strong>
+              </div>
+            </div>
+
+            <!-- 5 Included Devices -->
+            <div class="gift-mini-devices-grid">
+              <div class="mini-device-item">
+                <i class="fas fa-shoe-prints gold-icon"></i>
+                <div><strong>1. Tizza massajori</strong><span>Sensor panel va 3D havo massaji</span></div>
+              </div>
+              <div class="mini-device-item">
+                <i class="fas fa-head-side-couch gold-icon"></i>
+                <div><strong>2. Bo'yin Massajeri (U-simon)</strong><span>Bo'yin va yelka qotishini yozadi</span></div>
+              </div>
+              <div class="mini-device-item">
+                <i class="fas fa-eye gold-icon"></i>
+                <div><strong>3. Ko'z Massajeri</strong><span>Bosh og'rig'i va charchoqni oladi</span></div>
+              </div>
+              <div class="mini-device-item">
+                <i class="fas fa-user-shield gold-icon"></i>
+                <div><strong>4. Bel va Tana Massajeri</strong><span>Umurtqa va bel mushaklariga</span></div>
+              </div>
+              <div class="mini-device-item full-mini-dev">
+                <i class="fas fa-bullseye gold-icon"></i>
+                <div><strong>5. Bosh massajori</strong><span>Bosh og'rig'i va charchoqni oladi</span></div>
+              </div>
+            </div>
+
+            <!-- Nasiya Pricing Accordion Trigger -->
             <div class="nasiya-toggle-wrap">
               <button class="nasiya-accordion-btn" onclick="toggleNasiyaAccordion('nasiyaBoxGift', this)">
                 <div class="nasiya-btn-left">
                   <i class="fas fa-calculator gold-icon"></i>
-                  <span>Nasiya Rejalari (3, 6, 12 oy)</span>
+                  <span>Nasiya To'lov Rejalarini Ko'rish (3, 6, 12 oy va kelishilgan holda)</span>
                 </div>
                 <i class="fas fa-chevron-down arrow-icon"></i>
               </button>
+
               <div class="nasiya-accordion-content" id="nasiyaBoxGift">
                 <div class="nasiya-plans-table">
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">3 Oyga</span>
                     <strong class="plan-cost">1,516,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">Boshlang'ich to'lovsiz</span>
                   </div>
                   <div class="nasiya-plan-cell">
                     <span class="plan-head">6 Oyga</span>
                     <strong class="plan-cost">816,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                   <div class="nasiya-plan-cell plan-featured">
-                    <span class="plan-head">12 Oyga</span>
+                    <span class="plan-head"><i class="fas fa-star gold-icon"></i> 12 Oyga (Eng Qulay)</span>
                     <strong class="plan-cost gold-text">437,000 <small>so'm/oy</small></strong>
+                    <span class="plan-sub">0% Boshlang'ich to'lov</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-full">
-              <i class="fas fa-gift"></i> To'plamni Tanlash
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════════ 4. 5-TASI-1 HADIYA TO'PLAMI TAFSILOTLARI ═══════════════════ -->
-  <section class="gift-details-section" id="gift-set-details">
-    <div class="container">
-      <div class="gift-details-card">
-        <div class="gift-details-grid">
-          
-          <div class="gift-col-visual">
-            <span class="luxury-pill"><i class="fas fa-gift"></i> Premium Hadiya</span>
-            <h2 class="gift-title">5-tasi-1 Desco.premium Hadiya To'plami</h2>
-            <p class="gift-desc">Ota-onangiz duosini oling — 1 ta katta qutida butun oila salomatligi uchun to'liq majmua!</p>
-            <div class="gift-big-img-wrap">
-              <img src="img/gift-product-trans.png" alt="5 ta massajer to'plami" class="gift-big-pic">
-            </div>
-          </div>
-
-          <div class="gift-col-devices">
-            <div class="mini-devices-grid">
-              
-              <div class="device-card">
-                <div class="dev-icon"><i class="fas fa-shoe-prints"></i></div>
-                <div class="dev-info">
-                  <h4>1. Tizza Massajori</h4>
-                  <p>Sensor boshqaruv va 3D havo bosimi bilan tizza va boldirni uvalaydi.</p>
-                </div>
-              </div>
-
-              <div class="device-card">
-                <div class="dev-icon"><i class="fas fa-head-side-couch"></i></div>
-                <div class="dev-info">
-                  <h4>2. Bo'yin Massajeri (U-simon)</h4>
-                  <p>Bo'yin, yelka qotishini yozadi, bosh og'rig'ini yo'qotadi.</p>
-                </div>
-              </div>
-
-              <div class="device-card">
-                <div class="dev-icon"><i class="fas fa-eye"></i></div>
-                <div class="dev-info">
-                  <h4>3. Ko'z Massajeri</h4>
-                  <p>Ko'z toliqishi, qizarishi va peshona bosimini yumshatadi.</p>
-                </div>
-              </div>
-
-              <div class="device-card">
-                <div class="dev-icon"><i class="fas fa-user-shield"></i></div>
-                <div class="dev-info">
-                  <h4>4. Bel va Tana Massajeri</h4>
-                  <p>Umurtqa va bel mushaklaridagi og'riqlarni ilitib bosadi.</p>
-                </div>
-              </div>
-
-              <div class="device-card full-dev">
-                <div class="dev-icon"><i class="fas fa-bullseye"></i></div>
-                <div class="dev-info">
-                  <h4>5. Bosh Massajori</h4>
-                  <p>Bosh og'rig'i va asabiy charchoqni bir zumda yengillashtiradi.</p>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="gift-cta-wrap">
-              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg btn-full">
+            <!-- Action Buttons -->
+            <div class="product-actions-group">
+              <button onclick="scrollToContact('gift-set')" class="btn btn-luxury btn-lg">
                 <i class="fas fa-gift"></i>
-                <span>5-tasi-1 Hadiya To'plamini Buyurtma Qilish</span>
+                <span>To'plamni Buyurtma Qilish</span>
               </button>
+              <a href="tel:+998900038060" class="btn btn-outline">
+                <i class="fas fa-phone-alt gold-icon"></i>
+                <span>Qo'ng'iroq Qilish</span>
+              </a>
             </div>
 
           </div>
 
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ═══════════════════ 5. FAQ (SAVOL-JAVOB) ═══════════════════ -->
+  <!-- ═══════════════════ 4. FAQ (SAVOL-JAVOB) ═══════════════════ -->
   <section class="faq-section" id="faq">
     <div class="container">
       <div class="section-heading text-center">
@@ -529,7 +2190,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 6. BUYURTMA VA ALOQA ═══════════════════ -->
+  <!-- ═══════════════════ 5. SIMPLE QUICK ORDER & CONTACT ═══════════════════ -->
   <section class="contact-section" id="contact">
     <div class="container">
       <div class="lead-wrapper">
@@ -619,7 +2280,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ 7. FOOTER ═══════════════════ -->
+  <!-- ═══════════════════ 6. FOOTER ═══════════════════ -->
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand-col">
@@ -640,9 +2301,9 @@
       <div class="footer-col">
         <h4 class="f-col-title">Mahsulotlar</h4>
         <ul class="f-links">
-          <li><a href="#products">3-Funksiyalik Massajer</a></li>
-          <li><a href="#products">6-Funksiyalik Massajer</a></li>
-          <li><a href="#gift-set-details">5-tasi-1 Hadiya To'plami</a></li>
+          <li><a href="#prod-3func">3-Funksiyalik Massajer</a></li>
+          <li><a href="#prod-6func">6-Funksiyalik Massajer</a></li>
+          <li><a href="#prod-gift">5-tasi-1 Hadiya To'plami</a></li>
         </ul>
       </div>
 
